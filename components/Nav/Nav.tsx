@@ -21,7 +21,7 @@ const Nav = () => {
         </Link>
         <ul className="hidden md:flex gap-6">{navLinksElements}</ul>
         <BurgerMenu />
-        <p>iknoks</p>
+        <p>Konto</p>
       </div>
     </nav>
   );

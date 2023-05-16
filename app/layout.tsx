@@ -7,13 +7,19 @@ export const metadata = {
   description: "Zbiór zadań maturalnych z matematyki rozszerzonej!",
 };
 
-const layout = () => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body className="p-0 m-0 box-border bg-neutral-900">
-        <main>
+        <header>
           <Nav />
+        </header>
+        <main className="flex justify-center max-w-6xl mx-auto gap-10 my-10">
+          {children}
         </main>
+        <footer className="text-neutral-100">
+          This site is made by: Daniel Szczepaniak
+        </footer>
       </body>
     </html>
   );
