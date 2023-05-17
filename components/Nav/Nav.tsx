@@ -1,5 +1,4 @@
 import BurgerMenu from "./BurgerMenu";
-import styles from "./Nav.module.scss";
 import Link from "next/link";
 
 const Nav = () => {
