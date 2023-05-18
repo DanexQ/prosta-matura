@@ -4,6 +4,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import TaskTag from "./TaskTag";
 import { useState } from "react";
 import Image from "next/image";
+import { TaskType } from "@components/TaskTypes";
 
 export type TaskProps = {
   answer: string;
@@ -13,7 +14,7 @@ export type TaskProps = {
   formula: "Stara" | "Nowa";
   imageUrl?: string;
   points: number;
-  taskType: string;
+  taskType: TaskType;
 };
 
 const Task = (details: TaskProps) => {
