@@ -35,14 +35,14 @@ async function getFilters() {
 export default async function Page() {
   const tasks = await getTasks();
   return (
-    <>
+    <div className="flex gap-10">
       <section className="text-gray-100 flex-[3_1_0%] flex flex-col gap-5">
         {tasks.map((task) => (
           <Task key={task.id} {...task} />
         ))}
       </section>
 
-      <section className="text-gray-100 flex-1 border border-neutral-600 flex flex-col items-center gap-2 py-4">
+      <section className="flex flex-col items-center flex-1 gap-2 py-4 text-gray-100 border border-neutral-600">
         <header className="text-lg font-semibold tracking-wider ">
           Filtruj zadania
         </header>
@@ -59,6 +59,6 @@ export default async function Page() {
           </div>
         </form>
       </section>
-    </>
+    </div>
   );
 }
