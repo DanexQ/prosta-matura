@@ -33,7 +33,7 @@ const Task = (details: TaskProps) => {
   };
 
   return (
-    <div className="flex flex-col p-8 border border-neutral-600 ">
+    <div className="flex flex-col p-8 border border-neutral-600 text-neutral-200">
       <div className="flex gap-2 font-semibold tracking-wider items-center [&>div]:py-1 [&>div]:px-2 text-xs">
         <TaskTag tag={exam} />
         <TaskTag color={tagColor(details.formula)} tag={formula} />
@@ -60,10 +60,7 @@ const Task = (details: TaskProps) => {
           <MathJax>Odpowiedź: {details.answer}</MathJax>
         </p>
       </MathJaxContext>
-      <button
-        onClick={handleClick}
-        className="group self-start py-1 px-2 bg-cyan-500/50 text-cyan-200 relative z-0 hover:bg-cyan-400/50 hover:after:w-full after:-translate-x-1/2 after:content-[''] after:w-0 after:transition-all transition-all after:h-1 after:absolute after:group-hover:w-full after:bottom-0 after:left-1/2 after:z-10 after:bg-cyan-500 "
-      >
+      <button onClick={handleClick} className="self-start px-3 btn-primary">
         Odpowiedź
       </button>
     </div>

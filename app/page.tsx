@@ -35,7 +35,7 @@ async function getFilters() {
 export default async function Page() {
   const tasks = await getTasks();
   return (
-    <div className="flex gap-10">
+    <div className="flex max-w-6xl gap-10 mx-auto">
       <section className="text-gray-100 flex-[3_1_0%] flex flex-col gap-5">
         {tasks.map((task) => (
           <Task key={task.id} {...task} />

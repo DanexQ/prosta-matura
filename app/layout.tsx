@@ -14,7 +14,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         <header>
           <Nav />
         </header>
-        <main className="max-w-6xl mx-auto my-10">{children}</main>
+        <main className="mx-auto my-10">{children}</main>
         <footer className="text-neutral-100">
           This site is made by: Daniel Szczepaniak
         </footer>
