@@ -41,7 +41,7 @@ const Task = (details: TaskProps) => {
         <span className="ml-auto text-neutral-200">{points}</span>
       </div>
       <MathJaxContext config={config}>
-        <p className="my-5">
+        <p className="my-5 font-thin">
           <MathJax>{details.content}</MathJax>
           {/* {!!details.imageUrl && (
             <Image

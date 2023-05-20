@@ -1,6 +1,7 @@
 import React from "react";
 import "./global.css";
 import Nav from "@components/Nav/Nav";
+import Footer from "@components/Footer";
 
 export const metadata = {
   title: "Prosta Matura",
@@ -15,9 +16,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           <Nav />
         </header>
         <main className="mx-auto my-10">{children}</main>
-        <footer className="text-neutral-100">
-          This site is made by: Daniel Szczepaniak
-        </footer>
+        <Footer />
       </body>
     </html>
   );
