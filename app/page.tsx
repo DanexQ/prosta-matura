@@ -1,64 +1,58 @@
 import Task, { TaskProps } from "@components/Task/Task";
+import TaskFilter, { FilterType } from "@components/TaskFilter";
+import { TaskType } from "@components/TaskTypes";
+import Tasks from "@components/Tasks";
 import { db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
-import { GetServerSideProps } from "next";
 import React from "react";
 
-interface TaskList extends TaskProps {
+export interface TaskList extends TaskProps {
   id: string;
 }
-type TaskType = {
-  type: string;
-  quantity: number;
-};
 
-async function getTasks() {
-  const tasksRef = collection(db, "tasks");
-  const data = await getDocs(tasksRef);
-  const tasks: TaskList[] = [];
-  data.forEach((doc) =>
-    tasks.push({ id: doc.id, ...(doc.data() as TaskProps) })
-  );
-  return tasks;
-}
+// async function getTasks() {
+//   const tasksRef = collection(db, "tasks");
+//   const data = await getDocs(tasksRef);
+//   const tasks: TaskList[] = [];
+
+//   data.forEach((doc) =>
+//     tasks.push({ id: doc.id, ...(doc.data() as TaskProps) })
+//   );
+//   return tasks;
+// }
 
 async function getFilters() {
   const taskTypesRef = collection(db, "taskTypes");
   const data = await getDocs(taskTypesRef);
-  const types: TaskType[] = [];
+  const types: FilterType[] = [];
   data.forEach((doc) =>
-    types.push({ type: doc.id, quantity: doc.data().quantity })
+    types.push({
+      id: doc.id as TaskType,
+      quantity: doc.data().quantity,
+      type: doc.data().type,
+    })
   );
   return types;
 }
 
 export default async function Page() {
-  const tasks = await getTasks();
+  // const [tasks, filters] = await Promise.all([getTasks(), getFilters()]);
+  const filters = await getFilters();
+  // let tasks: TaskList[] = await getFilteredTasks();
+
+  async function getTasks(filter: string) {
+    "use server";
+    const res = await fetch(`http://localhost:3000/api${filter}`, {
+      method: "GET",
+    });
+    const results = await res.json();
+    console.log("REZULTAT", results);
+    return results.tasks;
+  }
+
   return (
     <div className="flex max-w-6xl gap-10 mx-auto">
-      <section className="text-gray-100 flex-[3_1_0%] flex flex-col gap-5">
-        {tasks.map((task) => (
-          <Task key={task.id} {...task} />
-        ))}
-      </section>
-
-      <section className="flex flex-col items-center flex-1 gap-2 py-4 text-gray-100 border border-neutral-600">
-        <header className="text-lg font-semibold tracking-wider ">
-          Filtruj zadania
-        </header>
-        <form className="flex flex-col gap-0.5">
-          <div className="flex gap-1">
-            <input type="checkbox" name="Równania trygonometryczne" />
-            <label htmlFor="Równania trygonometryczne">
-              Równania trygonometryczne
-            </label>
-          </div>
-          <div className="flex gap-1">
-            <input type="checkbox" name="Nierówności" />
-            <label htmlFor="Nierówności">Nierówności</label>
-          </div>
-        </form>
-      </section>
+      <Tasks getTasks={getTasks} filters={filters} />
     </div>
   );
 }

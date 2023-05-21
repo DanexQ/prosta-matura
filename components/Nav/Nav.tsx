@@ -6,19 +6,19 @@ const Nav = () => {
   const navLinksElements = navLinks.map((link) => (
     <Link
       key={link}
-      href="#"
-      className=" tracking-wide py-2 px-4 rounded-full hover:text-fuchsia-400"
+      href="/newTask"
+      className="px-4 py-2 tracking-wide rounded-full  hover:text-fuchsia-400"
     >
       {link}
     </Link>
   ));
   return (
-    <nav className="w-full h-16 px-8 bg-neutral-900/10 text-neutral-200 border-b border-neutral-600">
-      <div className="max-w-6xl h-full mx-auto flex justify-between items-center ">
-        <Link href="/" className="lg:text-xl font-bold uppercase">
+    <nav className="w-full h-16 px-8 border-b bg-neutral-900/10 text-neutral-200 border-neutral-600">
+      <div className="flex items-center justify-between h-full max-w-6xl mx-auto ">
+        <Link href="/" className="font-bold uppercase lg:text-xl">
           Prosta matura
         </Link>
-        <ul className="hidden md:flex gap-6">{navLinksElements}</ul>
+        <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
         <BurgerMenu />
         <p>Konto</p>
       </div>
