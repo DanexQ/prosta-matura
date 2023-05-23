@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { TaskType, taskTypes } from "./TaskTypes";
-import { redirect, useRouter } from "next/navigation";
+import { TaskType } from "./TaskTypes";
 import { useForm } from "react-hook-form";
 
 export type FilterType = {
@@ -14,15 +13,13 @@ type Filters = {
   [key: string]: boolean;
 };
 
-const TaskFilter = ({
-  filterTypes,
-  fetchFilteredData,
-}: {
+interface TaskFilterProps {
   filterTypes: FilterType[];
   fetchFilteredData: (query: string) => {};
-}) => {
-  const { register, handleSubmit } = useForm<Filters>();
+}
 
+const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
+  const { register, handleSubmit } = useForm<Filters>();
   const onSubmit = (data: Filters) => {
     const filters = Object.entries(data)
       .filter(([_, value]) => value == true)
@@ -44,6 +41,7 @@ const TaskFilter = ({
               type="checkbox"
               {...register(filterType.id)}
               id={filterType.id}
+              className="hidden"
             />
             <span className="hidden mr-1">&#10003;</span>
             <label

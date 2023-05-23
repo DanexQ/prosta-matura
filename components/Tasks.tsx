@@ -1,24 +1,22 @@
 "use client";
 import { TaskList } from "@app/page";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Task from "./Task/Task";
 import TaskFilter, { FilterType } from "./TaskFilter";
 
 const Tasks = ({
   getTasks,
   filters,
+  initialTasks,
 }: {
   getTasks: (string: string) => Promise<TaskList[]>;
   filters: FilterType[];
+  initialTasks: TaskList[];
 }) => {
-  const [tasks, setTasks] = useState<TaskList[]>([]);
-  useEffect(() => {
-    getTasks("").then((tasks) => setTasks(tasks));
-  }, [getTasks]);
+  const [tasks, setTasks] = useState<TaskList[]>(initialTasks);
 
   const fetchFilteredData = async (query: string) => {
     const data = await getTasks(query);
-    console.log(query);
     setTasks(data);
   };
 
