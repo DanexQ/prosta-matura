@@ -22,7 +22,7 @@ const Tasks = ({
 
   return (
     <>
-      <section className="text-gray-100 flex-[3_1_0%] flex flex-col gap-5">
+      <section className="flex flex-col gap-5 text-gray-100 flex-[3_2_0%]">
         {tasks.map((task) => (
           <Task key={task.id} {...task} />
         ))}
