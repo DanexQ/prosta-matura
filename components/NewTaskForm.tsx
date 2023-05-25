@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import Task, { TaskProps } from "./Task/Task";
-import { addTask } from "@firebase/addTask";
-import { taskTypes } from "./TaskTypes";
+import React from "react";
+import Task from "./Tasks/Task";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { TaskProps } from "./types";
+import { taskTypes } from "./Tasks/TaskTypes";
 
 const NewTaskForm = () => {
   const defaultTask: TaskProps = {

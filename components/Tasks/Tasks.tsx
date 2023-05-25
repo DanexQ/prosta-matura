@@ -1,19 +1,19 @@
 "use client";
-import { TaskList } from "@app/page";
 import React, { useState } from "react";
-import Task from "./Task/Task";
-import TaskFilter, { FilterType } from "./TaskFilter";
+import Task from "./Task";
+import TaskFilter from "./TaskFilter";
+import { FilterType, TaskList } from "@components/types";
 
 const Tasks = ({
   getTasks,
   filters,
   initialTasks,
 }: {
-  getTasks: (string: string) => Promise<TaskList[]>;
+  getTasks: (string: string) => Promise<TaskList>;
   filters: FilterType[];
-  initialTasks: TaskList[];
+  initialTasks: TaskList;
 }) => {
-  const [tasks, setTasks] = useState<TaskList[]>(initialTasks);
+  const [tasks, setTasks] = useState<TaskList>(initialTasks);
 
   const fetchFilteredData = async (query: string) => {
     const data = await getTasks(query);
@@ -24,7 +24,13 @@ const Tasks = ({
     <>
       <section className="flex flex-col gap-5 text-gray-100 flex-[3_2_0%]">
         {tasks.map((task) => (
-          <Task key={task.id} {...task} />
+          <Task
+            key={task.id}
+            {...task}
+            taskType={
+              filters.filter((filter) => filter.id == task.taskType)[0].type
+            }
+          />
         ))}
       </section>
       <TaskFilter filterTypes={filters} fetchFilteredData={fetchFilteredData} />

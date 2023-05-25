@@ -1,8 +1,7 @@
-import { TaskProps } from "@components/Task/Task";
+import { TaskList, TaskProps } from "@components/types";
 import { db } from "@firebase";
 import { collection, getDocs, or, query, where } from "firebase/firestore";
 import { NextResponse } from "next/server";
-import { TaskList } from "@app/page";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -15,7 +14,7 @@ export async function GET(req: Request) {
       ? query(collection(db, "tasks"), or(...conditions))
       : collection(db, "tasks");
   const data = await getDocs(q);
-  const tasks: TaskList[] = [];
+  const tasks: TaskList = [];
   data.forEach((doc) =>
     tasks.push({ id: doc.id, ...(doc.data() as TaskProps) })
   );

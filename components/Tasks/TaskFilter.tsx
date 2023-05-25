@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
-import { TaskType } from "./TaskTypes";
+import { FilterType } from "../types";
 import { useForm } from "react-hook-form";
-
-export type FilterType = {
-  id: string;
-  quantity: number;
-  type: TaskType;
-};
 
 type Filters = {
   [key: string]: boolean;

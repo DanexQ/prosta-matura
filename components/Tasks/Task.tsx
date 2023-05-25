@@ -1,24 +1,11 @@
-"use client";
 import tagColor from "@utils/tagColor";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import TaskTag from "./TaskTag";
-import { useState } from "react";
 import Image from "next/image";
-import { TaskType } from "@components/TaskTypes";
-
-export type TaskProps = {
-  answer: string;
-  content: string;
-  examType: "Oficjalna" | "Próbna" | "Dodatkowa";
-  examYear: number;
-  formula: "Stara" | "Nowa";
-  imageUrl?: string;
-  points: number;
-  taskType: TaskType;
-};
+import { TaskProps } from "../types";
+import TaskAnswer from "./TaskAnswer";
 
 const Task = (details: TaskProps) => {
-  const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const formula = `${details.formula} Formuła`;
   const exam = `Matura ${details.examType} ${details.examYear}`;
   const points = `Punkty: 0-${details.points} [${Math.floor(
@@ -26,10 +13,6 @@ const Task = (details: TaskProps) => {
   )}%]`;
   const config = {
     loader: { load: ["input/asciimath"] },
-  };
-
-  const handleClick = () => {
-    setShowAnswer((prevState) => !prevState);
   };
 
   return (
@@ -41,9 +24,11 @@ const Task = (details: TaskProps) => {
         <span className="ml-auto text-neutral-200">{points}</span>
       </div>
       <MathJaxContext config={config}>
-        <p className="my-5 font-thin">
-          <MathJax>{details.content}</MathJax>
-          {/* {!!details.imageUrl && (
+        <p className="my-5 font-thin whitespace-pre-line">
+          <MathJax>{details.content.replaceAll("/n", `\n`)}</MathJax>
+          {/*
+          TODO: MAKE ALL IMAGES IMAGES AND NOT SVG
+          {!!details.imageUrl && (
             <Image
               src={details.imageUrl}
               alt="TaskImage"
@@ -52,17 +37,8 @@ const Task = (details: TaskProps) => {
             />
           )} */}
         </p>
-        <p
-          className={`font-semibold transition-all overflow-hidden ${
-            showAnswer ? "max-h-96 mb-5" : "max-h-0 "
-          }`}
-        >
-          <MathJax>Odpowiedź: {details.answer}</MathJax>
-        </p>
+        <TaskAnswer answer={details.answer} />
       </MathJaxContext>
-      <button onClick={handleClick} className="self-start px-3 btn-primary">
-        Odpowiedź
-      </button>
     </div>
   );
 };

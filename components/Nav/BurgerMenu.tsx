@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import styles from "./BurgerMenu.module.scss";
 
 const BurgerMenu = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -11,7 +10,7 @@ const BurgerMenu = () => {
 
   return (
     <div
-      className="group w-6 h-full cursor-pointer flex justify-center items-center md:hidden"
+      className="flex items-center justify-center w-6 h-full cursor-pointer group md:hidden"
       onClick={handleClick}
     >
       <div

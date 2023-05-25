@@ -13,7 +13,7 @@ const Nav = () => {
     </Link>
   ));
   return (
-    <nav className="sticky top-0 z-50 w-full h-16 px-8 overflow-hidden border-b bg-neutral-900 text-neutral-200 border-neutral-600">
+    <nav className="sticky top-0 z-50 w-full h-16 overflow-hidden border-b bg-neutral-900 text-neutral-200 border-neutral-600">
       <div className="flex items-center justify-between h-full max-w-6xl mx-auto ">
         <Link href="/" className="font-bold uppercase lg:text-xl">
           Prosta matura
