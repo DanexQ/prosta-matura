@@ -1,4 +1,4 @@
-import { TaskProps } from "@components/Tasks/Task";
+import { TaskProps } from "@components/types";
 import { db, storage } from "@firebase";
 import {
   collection,
@@ -15,6 +15,7 @@ export const addTask = async (task: TaskProps, image?: File) => {
     !!image ? sendTaskWithImage(task, image) : sendTask(task);
     const typeRef = doc(db, "taskTypes", task.taskType);
     await updateDoc(typeRef, { quantity: increment(1) });
+    alert("Task uploaded successfully");
   } catch (err) {
     alert(err);
   }
@@ -24,6 +25,7 @@ async function sendTaskWithImage(task: TaskProps, image: File) {
   const taskImageRef = ref(storage, `taskImages/${v4()}`);
   const snapshot = await uploadBytes(taskImageRef, image);
   const imageUrl = await getDownloadURL(snapshot.ref);
+  console.log("task with image");
   sendTask({ ...task, imageUrl });
 }
 

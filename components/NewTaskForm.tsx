@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Task from "./Tasks/Task";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TaskProps } from "./types";
-import { taskTypes } from "./Tasks/TaskTypes";
+import { taskTypes } from "./Tasks/taskTypes";
+import { addTask } from "@firebase/addTask";
 
 const NewTaskForm = () => {
   const defaultTask: TaskProps = {
@@ -18,9 +19,13 @@ const NewTaskForm = () => {
   const { register, handleSubmit, watch } = useForm<TaskProps>({
     defaultValues: defaultTask,
   });
+  const [uploadedImage, setUploadedImage] = useState<File | undefined>(
+    undefined
+  );
   const watchAllFields = watch();
   const onSubmit: SubmitHandler<TaskProps> = (task) => {
     console.log(task);
+    addTask(task, uploadedImage);
   };
 
   return (
@@ -122,7 +127,10 @@ const NewTaskForm = () => {
             className="w-[100px] text-center border bg-neutral-800 border-neutral-600 p-1"
           />
         </div>
-        <input type="file" {...register("imageUrl")} />
+        <input
+          type="file"
+          onChange={(e) => setUploadedImage(e.target.files![0])}
+        />
         <button type="submit" className="self-center w-1/2 group btn-primary">
           Dodaj
         </button>

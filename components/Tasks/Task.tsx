@@ -18,9 +18,9 @@ const Task = (details: TaskProps) => {
   return (
     <div className="flex flex-col p-8 border border-neutral-600 text-neutral-200">
       <div className="flex gap-2 font-semibold tracking-wider items-center [&>div]:py-1 [&>div]:px-2 text-xs">
-        <TaskTag tag={exam} />
-        <TaskTag color={tagColor(details.formula)} tag={formula} />
-        <TaskTag color={tagColor(details.taskType)} tag={details.taskType} />
+        <TaskTag>{exam}</TaskTag>
+        <TaskTag color={tagColor(details.formula)}>{formula}</TaskTag>
+        <TaskTag color={tagColor(details.taskType)}>{details.taskType}</TaskTag>
         <span className="ml-auto text-neutral-200">{points}</span>
       </div>
       <MathJaxContext config={config}>
