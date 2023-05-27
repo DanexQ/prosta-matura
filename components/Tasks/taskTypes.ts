@@ -1,20 +1,17 @@
-import { TaskType } from "../types";
-// TODO: Make this to an array of objects with taskType.id and taskType.type not only taskType.type
-export const taskTypes: TaskType[] = [
-  "Stereometria",
-  "Optymalizacja",
-  "Granice",
-  "Trygonometria",
-  "Równania trygonometryczne",
-  "Wielomiany",
-  "Ciągi",
-  "Dowody algebraiczne",
-  "Dowody geometryczne",
-  "Nierówności",
-  "Równania z parametrem",
-  "Prawdopodobieństwo",
-  "Kombinatoryka",
-  "Wartości bezwzględne",
-  "Geometria analityczna",
-  "Planimetria",
-];
+export const taskTypeList = {
+  stereometria: "Stereometria",
+  optymalizacja: "Optymalizacja",
+  granice: "Granice",
+  trygonometria: "Trygonometria",
+  wielomiany: "Wielomiany",
+  ciagi: "Ciągi",
+  dalgebraiczne: "Dowody algebraiczne",
+  dgeometryczne: "Dowody geometryczne",
+  nierownosci: "Nierówności",
+  rzparametrem: "Równania z parametrem",
+  prawdopodobienstwo: "Prawdopodobieństwo",
+  kombinatoryka: "Kombinatoryka",
+  wbezwzgledne: "Wartości bezwzględne",
+  geoanalityczna: "Geometria analityczna",
+  planimetria: "Planimetria",
+};

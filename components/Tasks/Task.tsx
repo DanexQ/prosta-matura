@@ -4,6 +4,7 @@ import TaskTag from "./TaskTag";
 import Image from "next/image";
 import { TaskProps } from "../types";
 import TaskAnswer from "./TaskAnswer";
+import { taskTypeList } from "./taskTypes";
 
 const Task = (details: TaskProps) => {
   const formula = `${details.formula} Formuła`;
@@ -11,6 +12,8 @@ const Task = (details: TaskProps) => {
   const points = `Punkty: 0-${details.points} [${Math.floor(
     (details.points / 50) * 100
   )}%]`;
+  const taskType = taskTypeList[details.taskType];
+
   const config = {
     loader: { load: ["input/asciimath"] },
   };
@@ -20,7 +23,7 @@ const Task = (details: TaskProps) => {
       <div className="flex gap-2 font-semibold tracking-wider items-center [&>div]:py-1 [&>div]:px-2 text-xs">
         <TaskTag>{exam}</TaskTag>
         <TaskTag color={tagColor(details.formula)}>{formula}</TaskTag>
-        <TaskTag color={tagColor(details.taskType)}>{details.taskType}</TaskTag>
+        <TaskTag color={tagColor(taskType)}>{taskType}</TaskTag>
         <span className="ml-auto text-neutral-200">{points}</span>
       </div>
       <MathJaxContext config={config}>

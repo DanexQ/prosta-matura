@@ -1,20 +1,19 @@
 export type TaskType =
-  | "Stereometria"
-  | "Optymalizacja"
-  | "Granice"
-  | "Trygonometria"
-  | "Równania trygonometryczne"
-  | "Wielomiany"
-  | "Ciągi"
-  | "Dowody algebraiczne"
-  | "Dowody geometryczne"
-  | "Nierówności"
-  | "Równania z parametrem"
-  | "Prawdopodobieństwo"
-  | "Kombinatoryka"
-  | "Wartości bezwzględne"
-  | "Geometria analityczna"
-  | "Planimetria";
+  | "stereometria"
+  | "optymalizacja"
+  | "granice"
+  | "trygonometria"
+  | "wielomiany"
+  | "ciagi"
+  | "dalgebraiczne"
+  | "dgeometryczne"
+  | "nierownosci"
+  | "rzparametrem"
+  | "prawdopodobienstwo"
+  | "kombinatoryka"
+  | "wbezwzgledne"
+  | "geoanalityczna"
+  | "planimetria";
 
 export type FilterType = {
   id: string;

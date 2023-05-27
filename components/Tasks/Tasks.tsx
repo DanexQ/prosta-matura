@@ -24,13 +24,7 @@ const Tasks = ({
     <>
       <section className="flex flex-col gap-5 text-gray-100 flex-[3_2_0%]">
         {tasks.map((task) => (
-          <Task
-            key={task.id}
-            {...task}
-            taskType={
-              filters.filter((filter) => filter.id == task.taskType)[0].type
-            }
-          />
+          <Task key={task.id} {...task} />
         ))}
       </section>
       <TaskFilter filterTypes={filters} fetchFilteredData={fetchFilteredData} />
