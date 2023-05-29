@@ -15,7 +15,7 @@ const TaskAnswer = ({ answer }: { answer: string }) => {
           showAnswer ? "max-h-96 mb-5" : "max-h-0 "
         }`}
       >
-        <MathJax>Odpowiedź: {answer.replaceAll("/n", `\n`)}</MathJax>
+        <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
       </p>
       <button onClick={handleClick} className="self-start px-3 btn-primary">
         Odpowiedź

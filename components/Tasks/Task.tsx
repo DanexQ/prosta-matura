@@ -28,7 +28,7 @@ const Task = (details: TaskProps) => {
       </div>
       <MathJaxContext config={config}>
         <p className="my-5 font-thin whitespace-pre-line">
-          <MathJax>{details.content.replaceAll("/n", `\n`)}</MathJax>
+          <MathJax>{details.content.replaceAll("/n", "\n")}</MathJax>
           {/*
           TODO: MAKE ALL IMAGES IMAGES AND NOT SVG
           {!!details.imageUrl && (

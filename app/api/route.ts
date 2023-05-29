@@ -18,5 +18,7 @@ export async function GET(req: Request) {
   data.forEach((doc) =>
     tasks.push({ id: doc.id, ...(doc.data() as TaskProps) })
   );
-  return NextResponse.json({ tasks });
+  const tasksCopy = tasks.slice(0, 2);
+  console.log(tasksCopy);
+  return NextResponse.json({ tasks: tasksCopy });
 }
