@@ -28,8 +28,8 @@ const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
     const filters = Object.entries(data)
       .filter(([_, value]) => value == true)
       .map(([key, _]) => key);
-
-    fetchFilteredData(`?filters=${filters.join("%20")}`);
+    const query = filters.length > 0 ? `?filters=${filters.join("%20")}` : "";
+    fetchFilteredData(query);
   };
 
   return (

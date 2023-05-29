@@ -18,21 +18,8 @@ async function getFilters() {
   return types;
 }
 
-async function getTasksTest(filter: string = "") {
-  const res = await fetch(`http://localhost:3000/api${filter}`, {
-    method: "GET",
-  });
-  const { tasks } = await res.json();
-  console.log(tasks);
-  return tasks;
-}
-
 export default async function Page() {
-  // fetching is not working somehow
-  // const res = await fetch("http://localhost:3000/api", { method: "GET" });
-  // const { tasks } = await res.json();
-  const [tasks, filters] = await Promise.all([getTasksTest(""), getFilters()]);
-  // const filters = await getFilters();
+  const [tasks, filters] = await Promise.all([getTasks(""), getFilters()]);
 
   async function getTasks(filter: string = "") {
     "use server";

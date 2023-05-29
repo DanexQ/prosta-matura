@@ -1,12 +1,13 @@
 import tagColor from "@utils/tagColor";
+// @ts-ignore
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import TaskTag from "./TaskTag";
 import Image from "next/image";
-import { TaskProps } from "../types";
+import { TaskListItem } from "../types";
 import TaskAnswer from "./TaskAnswer";
 import { taskTypeList } from "./taskTypes";
 
-const Task = (details: TaskProps) => {
+const Task = (details: Omit<TaskListItem, "id">) => {
   const formula = `${details.formula} Formuła`;
   const exam = `Matura ${details.examType} ${details.examYear}`;
   const points = `Punkty: 0-${details.points} [${Math.floor(
