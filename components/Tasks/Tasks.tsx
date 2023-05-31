@@ -20,6 +20,7 @@ const Tasks = ({
 }: TasksProps) => {
   const [tasks, setTasks] = useState<TaskList>(initialTasks);
   const tasksElements = tasks.map((task) => <Task key={task.id} {...task} />);
+
   const fetchFilteredData = async (query: string) => {
     const data = await getTasks(query);
     setTasks(data);

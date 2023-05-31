@@ -20,6 +20,7 @@ async function getFilters(): Promise<FilterType[]> {
 
 export default async function Page() {
   const [tasks, filters] = await Promise.all([getTasks(""), getFilters()]);
+
   async function getTasks(filter: string = ""): Promise<TaskList> {
     "use server";
     const res = await fetch(`http://localhost:3000/api${filter}`, {
@@ -35,7 +36,7 @@ export default async function Page() {
         getTasks={getTasks}
         filters={filters}
         initialTasks={tasks}
-        pagesQuantity={5}
+        pagesQuantity={15}
       />
     </div>
   );
