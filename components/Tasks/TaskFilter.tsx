@@ -2,6 +2,7 @@
 import React from "react";
 import { FilterType } from "../types";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 type Filters = {
   [key: string]: boolean;
@@ -17,6 +18,7 @@ const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
     createDefaultState(filterTypes)
   );
   const watchAllFields = watch();
+  const router = useRouter();
 
   function createDefaultState(filters: FilterType[]) {
     let defaultState: Filters = {};
@@ -29,7 +31,9 @@ const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
       .filter(([_, value]) => value == true)
       .map(([key, _]) => key);
     const query = filters.length > 0 ? `?filters=${filters.join("%20")}` : "";
-    fetchFilteredData(query);
+    router.replace(query);
+    // fetchFilteredData(query);
+    
   };
 
   return (

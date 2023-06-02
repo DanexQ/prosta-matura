@@ -1,6 +1,6 @@
 "use client";
-import React, { ReactNode, useLayoutEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { ReactNode, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type PageNavDetails = {
   currentPage: number;
@@ -8,16 +8,21 @@ type PageNavDetails = {
 };
 
 const PageNav = ({ quantity }: { quantity: number }) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [details, setDetails] = useState<PageNavDetails>({
     currentPage: 1,
     builderIndex: 3,
   });
-  const navElements = createNavElements(
-    details.builderIndex - 2,
-    details.builderIndex + 2
-  );
-  const search = useSearchParams();
-  console.log(search.get("page"));
+  const navElements =
+    quantity <= 5
+      ? createNavElements(1, quantity)
+      : createNavElements(details.builderIndex - 2, details.builderIndex + 2);
+
+  useEffect(() => {
+    const currentPage = parseInt(searchParams.get("page") || "1");
+    setDetails((prev) => ({ ...prev, currentPage: currentPage }));
+  }, [searchParams.get("page")]);
 
   function createNavElements(
     startIndex: number,
@@ -41,23 +46,26 @@ const PageNav = ({ quantity }: { quantity: number }) => {
   }
 
   const handleClick = (clickedPage: number) => {
+    handleRoute(`/?page=${clickedPage}`);
     if (clickedPage <= 2 || clickedPage + 2 > quantity) {
       const builderIndex = clickedPage <= 3 ? 3 : quantity - 2;
       setDetails((prev) => ({
+        // currentPage: clickedPage,
         ...prev,
-        currentPage: clickedPage,
-        navBuilder: builderIndex,
+        builderIndex,
       }));
     } else
       setDetails((prev) => ({
         ...prev,
-        navBuilder: clickedPage,
-        currentPage: clickedPage,
+        builderIndex: clickedPage,
+        // currentPage: clickedPage,
       }));
   };
 
-  const handleRoute = (clickedPage: number) => {
-    // TODO: handle routing amongst tasks
+  const handleRoute = (url: string) => {
+    searchParams.get("filters")
+      ? router.push("?" + searchParams.toString() + url)
+      : router.push(url);
   };
 
   return (
