@@ -30,14 +30,5 @@ export default async function Page() {
     return tasks;
   }
 
-  return (
-    <div className="flex max-w-6xl gap-10 mx-auto">
-      <Tasks
-        getTasks={getTasks}
-        filters={filters}
-        initialTasks={tasks}
-        pagesQuantity={15}
-      />
-    </div>
-  );
+  return <Tasks getTasks={getTasks} filters={filters} initialTasks={tasks} />;
 }

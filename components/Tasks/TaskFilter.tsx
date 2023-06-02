@@ -10,10 +10,9 @@ type Filters = {
 
 interface TaskFilterProps {
   filterTypes: FilterType[];
-  fetchFilteredData: (query: string) => {};
 }
 
-const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
+const TaskFilter = ({ filterTypes }: TaskFilterProps) => {
   const { register, watch, handleSubmit, reset } = useForm<Filters>(
     createDefaultState(filterTypes)
   );
@@ -32,8 +31,6 @@ const TaskFilter = ({ filterTypes, fetchFilteredData }: TaskFilterProps) => {
       .map(([key, _]) => key);
     const query = filters.length > 0 ? `?filters=${filters.join("%20")}` : "";
     router.replace(query);
-    // fetchFilteredData(query);
-    
   };
 
   return (
