@@ -12,32 +12,13 @@ import {
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  // const { searchParams } = new URL(req.url);
-  // const conditions = searchParams
-  //   .get("filters")
-  //   ?.split(" ")
-  //   .map((filter) => where("taskType", "==", filter));
-  // const q = !!conditions
-  //   ? query(collection(db, "tasks"), or(...conditions))
-  //   : collection(db, "tasks");
-  // const data = await getDocs(q);
-  // const tasks: TaskList = [];
-  // const testTasks: TaskList = [];
-  // console.log(
-  //   data.docs.map((doc) => {
-  //     id: doc.id, doc.data();
-  //   })
-  // );
-  // data.forEach((doc) =>
-  //   tasks.push({ id: doc.id, ...(doc.data() as TaskProps) })
-  // );
-  // return NextResponse.json({ tasks });
   try {
+    const page = getPageFromUrl(req.url);  
     const filters = extractFiltersFromURL(req.url);
     const queryRef = createQueryRef(filters);
     const data = await getDocs(queryRef);
     const tasks = convertFetchedData(data);
-    return NextResponse.json({ tasks });
+    return NextResponse.json({ tasks: tasks.slice((page-1)*5, page*5), tasksQuantity: tasks.length });
   } catch (err) {}
 }
 
@@ -45,6 +26,13 @@ function extractFiltersFromURL(url: string): string[] {
   const { searchParams } = new URL(url);
   const filters = searchParams.get("filters");
   return filters ? filters.split(" ") : [];
+}
+
+function getPageFromUrl(url:string):number{
+  const {searchParams} = new URL(url);
+  const page = searchParams.get("page") || "1"; 
+  return parseInt(page);
+
 }
 
 function createQueryRef(filters: string[]) {
