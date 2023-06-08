@@ -13,13 +13,18 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const page = getPageFromUrl(req.url);  
+    const page = getPageFromUrl(req.url);
     const filters = extractFiltersFromURL(req.url);
     const queryRef = createQueryRef(filters);
     const data = await getDocs(queryRef);
     const tasks = convertFetchedData(data);
-    return NextResponse.json({ tasks: tasks.slice((page-1)*5, page*5), tasksQuantity: tasks.length });
-  } catch (err) {}
+    return NextResponse.json({
+      tasks: tasks.slice((page - 1) * 5, page * 5),
+      tasksQuantity: tasks.length,
+    });
+  } catch (err) {
+    return NextResponse.error();
+  }
 }
 
 function extractFiltersFromURL(url: string): string[] {
@@ -28,11 +33,10 @@ function extractFiltersFromURL(url: string): string[] {
   return filters ? filters.split(" ") : [];
 }
 
-function getPageFromUrl(url:string):number{
-  const {searchParams} = new URL(url);
-  const page = searchParams.get("page") || "1"; 
+function getPageFromUrl(url: string): number {
+  const { searchParams } = new URL(url);
+  const page = searchParams.get("page") || "1";
   return parseInt(page);
-
 }
 
 function createQueryRef(filters: string[]) {

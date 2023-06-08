@@ -5,7 +5,7 @@ import Footer from "@components/Footer";
 
 export const metadata = {
   title: "Prosta Matura",
-  description: "Zbiór zadań maturalnych z matematyki rozszerzonej!",
+  description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
 };
 
 const layout = ({ children }: { children: React.ReactNode }) => {

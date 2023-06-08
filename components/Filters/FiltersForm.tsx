@@ -1,8 +1,8 @@
 "use client";
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { FilterType } from "../types";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Filters = {
   [key: string]: boolean;
@@ -13,15 +13,19 @@ interface FiltersFormProps {
 }
 
 const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
-  const { register, watch, handleSubmit, reset } = useForm<Filters>(
-    createDefaultState(filterTypes)
-  );
+  const searchParams = useSearchParams();
+  const { register, watch, handleSubmit, reset } = useForm<Filters>({
+    defaultValues: createDefaultState(filterTypes),
+  });
   const watchAllFields = watch();
   const router = useRouter();
 
   function createDefaultState(filters: FilterType[]) {
     let defaultState: Filters = {};
-    filters.forEach((filter) => (defaultState[filter.id] = false));
+    const filtersInURL = searchParams.get("filters")?.split(" ") || [];
+    filters.forEach(
+      (filter) => (defaultState[filter.id] = filtersInURL.includes(filter.id))
+    );
     return defaultState;
   }
 

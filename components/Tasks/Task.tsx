@@ -1,3 +1,4 @@
+"use client";
 import tagColor from "@utils/tagColor";
 // @ts-ignore
 import { MathJax, MathJaxContext } from "better-react-mathjax";
