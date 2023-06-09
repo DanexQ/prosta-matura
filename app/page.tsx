@@ -41,6 +41,20 @@ const createQuery = ({ filters = "", page = 1 }: SearchParamsTypes): string => {
   return query;
 };
 
+export async function generateMetadata({
+  searchParams,
+}: SearchParams): Promise<Metadata> {
+  const filters = searchParams.filters?.split(" ");
+  const page = searchParams.page || 1;
+  const titleFilters = !!filters
+    ? "| " + filters.map((filter) => taskTypeList[filter as TaskType]).join(" ")
+    : "";
+  const title = `Prosta Matura ${titleFilters} ${"| " + page}`;
+  return {
+    title,
+  };
+}
+
 const getTasks = async (query: string): Promise<TasksDetailsType> => {
   const res = await fetch(`http://localhost:3000/api${query}`, {
     cache: "no-cache",

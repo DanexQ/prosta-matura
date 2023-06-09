@@ -1,5 +1,5 @@
 "use client";
-import React, { memo, useEffect } from "react";
+import React from "react";
 import { FilterType } from "../types";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -86,4 +86,4 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
   );
 };
 
-export default memo(FiltersForm);
+export default FiltersForm;

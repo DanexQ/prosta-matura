@@ -13,8 +13,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const page = getPageFromUrl(req.url);
-    const filters = extractFiltersFromURL(req.url);
+    const { filters, page } = extractArgumentsFromURL(req.url);
     const queryRef = createQueryRef(filters);
     const data = await getDocs(queryRef);
     const tasks = convertFetchedData(data);
@@ -27,16 +26,15 @@ export async function GET(req: Request) {
   }
 }
 
-function extractFiltersFromURL(url: string): string[] {
+function extractArgumentsFromURL(url: string): {
+  filters: string[];
+  page: number;
+} {
   const { searchParams } = new URL(url);
-  const filters = searchParams.get("filters");
-  return filters ? filters.split(" ") : [];
-}
+  const filters = searchParams.get("filters")?.split(" ") || [];
+  const page = parseInt(searchParams.get("page") || "1");
 
-function getPageFromUrl(url: string): number {
-  const { searchParams } = new URL(url);
-  const page = searchParams.get("page") || "1";
-  return parseInt(page);
+  return { filters, page };
 }
 
 function createQueryRef(filters: string[]) {
