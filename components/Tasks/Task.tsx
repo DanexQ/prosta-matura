@@ -21,7 +21,7 @@ const Task = (details: Omit<TaskListItem, "id">) => {
   };
 
   return (
-    <div className="flex flex-col p-8 border border-neutral-600 text-neutral-200">
+    <div className="flex flex-col p-4 border lg:p-8 border-neutral-600 text-neutral-200">
       <div className="flex gap-2 font-semibold tracking-wider items-center [&>div]:py-1 [&>div]:px-2 text-xs">
         <TaskTag>{exam}</TaskTag>
         <TaskTag color={tagColor(details.formula)}>{formula}</TaskTag>

@@ -12,15 +12,16 @@ const Nav = () => {
       {link}
     </Link>
   ));
+
   return (
-    <nav className="sticky top-0 z-50 w-full h-16 overflow-hidden border-b bg-neutral-900 text-neutral-200 border-neutral-600">
-      <div className="flex items-center justify-between h-full max-w-6xl mx-auto ">
-        <Link href="/" className="font-bold uppercase lg:text-xl">
+    <nav className="sticky top-0 z-50 flex justify-center w-full h-16 overflow-hidden border-b bg-neutral-900 text-neutral-200 border-neutral-600">
+      <div className="flex items-center justify-between flex-1 h-full max-w-6xl mx-5">
+        <Link href="/" className="text-lg font-bold uppercase">
           Prosta matura
         </Link>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
         <BurgerMenu />
-        <p>Konto</p>
+        <p className="hidden md:flex">Konto</p>
       </div>
     </nav>
   );

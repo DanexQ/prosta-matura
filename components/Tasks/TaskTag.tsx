@@ -8,7 +8,11 @@ const TaskTag = ({
   color?: string;
   children: React.ReactNode;
 }) => {
-  return <div className={color}>{children}</div>;
+  return (
+    <div className={`${color} text-center self-stretch flex items-center`}>
+      {children}
+    </div>
+  );
 };
 
 export default TaskTag;

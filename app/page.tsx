@@ -71,7 +71,7 @@ export default async function Page({ searchParams }: SearchParams) {
   ]);
 
   return (
-    <div className="flex max-w-6xl gap-10 mx-auto">
+    <div className="flex flex-col-reverse gap-5 md:flex-row">
       <Tasks {...tasksDetails} />
       <FiltersForm filterTypes={filters} />
     </div>

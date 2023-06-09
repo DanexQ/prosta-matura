@@ -11,9 +11,9 @@ export const metadata = {
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className="box-border px-4 py-0 m-0 bg-neutral-900">
+      <body className="box-border px-0 py-0 m-0 bg-neutral-900">
         <Nav />
-        <main className="mx-auto my-5">{children}</main>
+        <main className="max-w-6xl px-5 mx-auto my-5">{children}</main>
         <Footer />
       </body>
     </html>

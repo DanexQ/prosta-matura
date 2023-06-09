@@ -11,7 +11,6 @@ import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const addTask = async (task: TaskProps, image?: File) => {
-  "use server";
   try {
     !!image ? sendTaskWithImage(task, image) : sendTask(task);
     const typeRef = doc(db, "taskTypes", task.taskType);
