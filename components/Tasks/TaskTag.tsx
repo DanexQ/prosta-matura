@@ -9,7 +9,9 @@ const TaskTag = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className={`${color} text-center self-stretch flex items-center`}>
+    <div
+      className={`${color} w-[30px] h-[10px] text-[0px] md:w-auto md:h-auto md:text-xs overflow-hidden md:text-center md:self-stretch md:flex md:items-center`}
+    >
       {children}
     </div>
   );

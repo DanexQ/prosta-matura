@@ -6,7 +6,7 @@
 
 @layer components {
   .btn-primary {
-    @apply tracking-wider py-1 px-2 bg-neutral-500/20 text-neutral-200 relative z-0 hover:bg-neutral-400/30 hover:after:w-full after:-translate-x-1/2 after:content-[''] after:w-0 after:transition-all transition-all after:h-1 after:absolute after:group-hover:w-full after:bottom-0 after:left-1/2 after:z-10 after:bg-neutral-500;
+    @apply md:tracking-wider py-1 px-2 bg-neutral-500/20 text-neutral-200 relative z-0 hover:bg-neutral-400/30 hover:after:w-full after:-translate-x-1/2 after:content-[''] after:w-0 after:transition-all transition-all after:h-1 after:absolute after:group-hover:w-full after:bottom-0 after:left-1/2 after:z-10 after:bg-neutral-500;
   }
 }
 

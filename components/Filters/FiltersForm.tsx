@@ -36,6 +36,7 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
       .map(([key, _]) => key);
     const query = filters.length > 0 ? `?filters=${filters.join("%20")}` : "/";
     router.replace(query);
+    setIsEnabled(false);
   };
 
   const showContent = (enabled: string, disabled: string): string => {

@@ -22,14 +22,14 @@ const Task = (details: Omit<TaskListItem, "id">) => {
 
   return (
     <div className="flex flex-col p-4 border lg:p-8 border-neutral-600 text-neutral-200">
-      <div className="flex gap-2 font-semibold tracking-wider items-center [&>div]:py-1 [&>div]:px-2 text-xs">
+      <div className="flex gap-2 md:font-semibold md:tracking-wider items-center [&>div]:py-[0.5px] [&>div]:px-1 [&>div]:md:py-1 [&>div]:md:px-2 text-[10px]">
         <TaskTag>{exam}</TaskTag>
         <TaskTag color={tagColor(details.formula)}>{formula}</TaskTag>
         <TaskTag color={tagColor(taskType)}>{taskType}</TaskTag>
         <span className="ml-auto text-neutral-200">{points}</span>
       </div>
       <MathJaxContext config={config}>
-        <p className="my-5 font-thin whitespace-pre-line">
+        <p className="my-2 font-thin whitespace-pre-line md:my-5">
           <MathJax>{details.content.replaceAll("/n", "\n")}</MathJax>
           {/*
           TODO: MAKE ALL IMAGES IMAGES AND NOT SVG

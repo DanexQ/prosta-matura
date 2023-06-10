@@ -16,7 +16,10 @@ const TaskAnswer = ({ answer }: { answer: string }) => {
       >
         <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
       </p>
-      <button onClick={handleClick} className="self-start px-3 btn-primary">
+      <button
+        onClick={handleClick}
+        className="self-start text-sm md:text-base btn-primary"
+      >
         Odpowiedź
       </button>
     </>
