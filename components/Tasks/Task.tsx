@@ -26,7 +26,7 @@ const Task = (details: Omit<TaskListItem, "id">) => {
         <TaskTag>{exam}</TaskTag>
         <TaskTag color={tagColor(details.formula)}>{formula}</TaskTag>
         <TaskTag color={tagColor(taskType)}>{taskType}</TaskTag>
-        <span className="ml-auto text-neutral-200">{points}</span>
+        <span className="ml-auto text-neutral-200 md:text-xs">{points}</span>
       </div>
       <MathJaxContext config={config}>
         <p className="my-2 font-thin whitespace-pre-line md:my-5">

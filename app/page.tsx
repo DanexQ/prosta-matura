@@ -44,12 +44,12 @@ const createQuery = ({ filters = "", page = 1 }: SearchParamsTypes): string => {
 export async function generateMetadata({
   searchParams,
 }: SearchParams): Promise<Metadata> {
-  const filters = searchParams.filters?.split(" ");
-  const page = searchParams.page || 1;
-  const titleFilters = !!filters
-    ? "| " + filters.map((filter) => taskTypeList[filter as TaskType]).join(" ")
-    : "";
-  const title = `Prosta Matura ${titleFilters} ${"| " + page}`;
+  const filtersSP = searchParams.filters?.split(" ");
+  const res = await getDocs(collection(db, "taskTypes"));
+  const title = res.docs
+    .filter((doc) => filtersSP?.includes(doc.id))
+    .map((doc) => doc.data().type)
+    .join(" ");
   return {
     title,
   };
