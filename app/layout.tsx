@@ -8,7 +8,7 @@ export const metadata = {
   description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
 };
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="box-border px-0 py-0 m-0 bg-neutral-900">
@@ -18,6 +18,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       </body>
     </html>
   );
-};
-
-export default layout;
+}

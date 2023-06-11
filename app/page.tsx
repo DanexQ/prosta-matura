@@ -56,6 +56,7 @@ export async function generateMetadata({
 
 const getTasks = async (query: string): Promise<TasksDetailsType> => {
   const res = await fetch(`http://localhost:3000/api${query}`, {
+    method: "GET",
     cache: "no-cache",
   });
   const data = await res.json();

@@ -12,18 +12,14 @@ import {
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
-  try {
-    const { filters, page } = extractArgumentsFromURL(req.url);
-    const queryRef = createQueryRef(filters);
-    const data = await getDocs(queryRef);
-    const tasks = convertFetchedData(data);
-    return NextResponse.json({
-      tasks: tasks.slice((page - 1) * 5, page * 5),
-      tasksQuantity: tasks.length,
-    });
-  } catch (err) {
-    return NextResponse.error();
-  }
+  const { filters, page } = extractArgumentsFromURL(req.url);
+  const queryRef = createQueryRef(filters);
+  const data = await getDocs(queryRef);
+  const tasks = convertFetchedData(data);
+  return NextResponse.json({
+    tasks: tasks.slice((page - 1) * 5, page * 5),
+    tasksQuantity: tasks.length,
+  });
 }
 
 function extractArgumentsFromURL(url: string): {
