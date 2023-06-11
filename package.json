@@ -15,6 +15,7 @@
     "@types/uuid": "^9.0.1",
     "bcrypt": "^5.1.0",
     "better-react-mathjax": "^2.0.2",
+    "encoding": "^0.1.13",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "firebase": "^9.22.2",
