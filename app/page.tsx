@@ -5,7 +5,6 @@ import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters/FiltersForm";
 import { Metadata } from "next";
-import { taskTypeList } from "@components/Tasks/taskTypes";
 
 export type TasksDetailsType = {
   tasks: TaskList;
