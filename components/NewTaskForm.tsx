@@ -4,7 +4,7 @@ import Task from "./Tasks/Task";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TaskProps } from "./types";
 import { taskTypeList } from "./Tasks/taskTypes";
-import { addTask } from "@firebase/addTask";
+import { addTask } from "@utils/addTask";
 
 const defaultTask: TaskProps = {
   content: "",
