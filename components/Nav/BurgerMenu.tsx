@@ -1,17 +1,14 @@
 "use client";
-import { useState } from "react";
+import { MobileNavProps } from "./MobileNav";
 
-const BurgerMenu = () => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  const handleClick = () => {
-    setIsActive((prevState) => !prevState);
-  };
-
+const BurgerMenu = ({
+  isActive,
+  onClick,
+}: Omit<MobileNavProps, "children">) => {
   return (
     <div
       className="flex items-center justify-center w-6 h-full cursor-pointer group md:hidden"
-      onClick={handleClick}
+      onClick={onClick}
     >
       <div
         className={`w-6 h-1 rounded  relative transition-all after:transition-all before:transition-all after:content-[''] after:h-1 after:rounded after:bg-neutral-200 after:absolute before:group-hover:bg-fuchsia-500 before:content-[''] before:h-1 before:rounded before:bg-neutral-200 before:absolute after:group-hover:bg-fuchsia-500 ${
