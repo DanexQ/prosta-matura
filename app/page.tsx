@@ -5,10 +5,20 @@ import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters/FiltersForm";
 import { Metadata } from "next";
+import { getTasks } from "@utils/getTasks";
 
 export type TasksDetailsType = {
   tasks: TaskList;
   tasksQuantity: number;
+};
+
+type SearchParamsTypes = {
+  filters: string | undefined;
+  page: number | undefined;
+};
+
+type SearchParams = {
+  searchParams: SearchParamsTypes;
 };
 
 async function getFilters(): Promise<FilterType[]> {
@@ -24,15 +34,6 @@ async function getFilters(): Promise<FilterType[]> {
   );
   return types;
 }
-
-type SearchParamsTypes = {
-  filters: string | undefined;
-  page: number | undefined;
-};
-
-type SearchParams = {
-  searchParams: SearchParamsTypes;
-};
 
 const createQuery = ({ filters = "", page = 1 }: SearchParamsTypes): string => {
   const qFilters = filters?.replaceAll(" ", "%20");
@@ -53,15 +54,6 @@ export async function generateMetadata({
     title,
   };
 }
-
-const getTasks = async (query: string): Promise<TasksDetailsType> => {
-  const res = await fetch(`http://localhost:3000/api${query}`, {
-    method: "GET",
-    cache: "no-cache",
-  });
-  const data = await res.json();
-  return data;
-};
 
 export default async function Page({ searchParams }: SearchParams) {
   const query = createQuery(searchParams);

@@ -9,24 +9,23 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { NextResponse } from "next/server";
-// some issue with fetching data from api on vercel - locally is everything fine
-export async function GET(req: Request) {
-  const { filters, page } = extractArgumentsFromURL(req.url);
+
+export const getTasks = async (urlQuery: string) => {
+  const { filters, page } = extractArgumentsFromURL(urlQuery);
   const queryRef = createQueryRef(filters);
   const data = await getDocs(queryRef);
   const tasks = convertFetchedData(data);
-  return NextResponse.json({
+  return {
     tasks: tasks.slice((page - 1) * 5, page * 5),
     tasksQuantity: tasks.length,
-  });
-}
+  };
+};
 
 function extractArgumentsFromURL(url: string): {
   filters: string[];
   page: number;
 } {
-  const { searchParams } = new URL(url);
+  const { searchParams } = new URL("http://localhost:3000/" + url);
   const filters = searchParams.get("filters")?.split(" ") || [];
   const page = parseInt(searchParams.get("page") || "1");
 
