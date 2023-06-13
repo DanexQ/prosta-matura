@@ -5,16 +5,15 @@ export interface MobileNavProps {
 }
 
 const MobileNav = ({ isActive, children, onClick }: MobileNavProps) => {
-  const styling = isActive
-    ? "h-[calc(100vh-3rem)] sm:h-[calc(100vh-4rem)]"
-    : "h-0 transition-all";
+  const styling = isActive ? "w-full" : "w-0";
 
   return (
     <div
-      className={`absolute top-[3rem] sm:top-[4rem] right-[-200%] w-full z-40 md:hidden flex justify-end ${styling}`}
+      className={`absolute top-[3rem] sm:top-[4rem] right-0 md:hidden h-[calc(100vh-3rem)] sm:h-[calc(100vh-4rem)] overflow-hidden transition-all bg-neutral-900/80 flex justify-end ${styling} md:hidden`}
+      onClick={onClick}
     >
       <div
-        className={`flex flex-col items-center h-full justify-center w-3/4 gap-4 text-lg bg-neutral-900 transition-all shadow-[-50px_0px_200px_rgb(0,0,0,50)] overflow-hidden ${styling}`}
+        className={`flex flex-col items-center h-full justify-center w-3/4 gap-4 text-xl bg-neutral-900 transition-all border-l border-neutral-600 uppercase`}
       >
         {children}
       </div>

@@ -13,7 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className="box-border px-0 py-0 m-0 bg-neutral-900">
         <Nav />
-        <main className="max-w-6xl px-5 mx-auto my-5">{children}</main>
+        <main className="max-w-6xl px-2 mx-auto my-5 overflow-hidden sm:px-5">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
