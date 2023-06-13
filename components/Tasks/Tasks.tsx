@@ -7,7 +7,7 @@ const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {
   const pagesQuantity = Math.ceil(tasksQuantity / 5);
 
   return (
-    <section className="flex flex-col gap-3 md:gap-5 text-gray-100 flex-[3_2_0%]">
+    <section className="flex flex-col gap-3 md:gap-5 text-gray-200 flex-[3_2_0%]">
       {tasks.map((task) => (
         <Task key={task.id} {...task} />
       ))}
