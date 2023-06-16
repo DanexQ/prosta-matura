@@ -2,7 +2,7 @@
 import React from "react";
 import Form from "@components/Form/Form";
 import { LOGIN_FORM_DATA } from "./loginFormDetails";
-import { FieldValues } from "react-hook-form";
+import { logUserIn } from "@utils/logUserIn";
 
 export type loginStateType = {
   email: string;
@@ -14,14 +14,11 @@ const LoginForm = () => {
     email: "",
     password: "",
   };
-  const handleSubmit = (formData: FieldValues) => {
-    console.log(formData);
-  };
 
   return (
     <Form
       formData={LOGIN_FORM_DATA}
-      onSubmit={handleSubmit}
+      authFun={logUserIn}
       buttonLabel="Zaloguj się"
       defaultValues={defaultValues}
     />

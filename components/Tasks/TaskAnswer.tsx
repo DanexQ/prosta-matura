@@ -1,8 +1,12 @@
 import { MathJax } from "better-react-mathjax";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TaskAnswer = ({ answer }: { answer: string }) => {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
+
+  useEffect(() => {
+    setShowAnswer(false);
+  }, []);
   const handleClick = () => {
     setShowAnswer((prevState) => !prevState);
   };

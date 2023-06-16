@@ -1,7 +1,7 @@
 import React from "react";
 import Task from "./Task";
 import PageNav from "./PageNav";
-import { TasksDetailsType } from "@app/page";
+import { TasksDetailsType } from "@app/tasks/page";
 
 const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {
   const pagesQuantity = Math.ceil(tasksQuantity / 5);

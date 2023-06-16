@@ -2,12 +2,12 @@
 import { loginStateType } from "@components/LoginForm/LoginForm";
 import { registerStateType } from "@components/RegisterForm/RegisterForm";
 import React from "react";
-import { FieldValues, SubmitHandler, Validate, useForm } from "react-hook-form";
+import { FieldValues, Validate, useForm } from "react-hook-form";
 
 type FormProps = {
   formData: FormDataType[];
   buttonLabel: string;
-  onSubmit: SubmitHandler<FieldValues>;
+  authFun: (formData: FieldValues) => Promise<void>;
   defaultValues: registerStateType | loginStateType;
 };
 
@@ -19,7 +19,7 @@ export type FormDataType = {
   validate?: Validate<string, FieldValues>;
 };
 
-function Form({ formData, buttonLabel, onSubmit, defaultValues }: FormProps) {
+function Form({ formData, buttonLabel, authFun, defaultValues }: FormProps) {
   const { register, formState, handleSubmit } = useForm({
     defaultValues,
     mode: "all",
@@ -60,6 +60,10 @@ function Form({ formData, buttonLabel, onSubmit, defaultValues }: FormProps) {
       </div>
     );
   });
+
+  const onSubmit = async (formValues: FieldValues) => {
+    await authFun(formValues);
+  };
 
   return (
     <form

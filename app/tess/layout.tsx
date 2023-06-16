@@ -16,12 +16,12 @@ export default function Layout({
   modal: React.ReactNode;
 }) {
   return (
-    <div className="relative">
+    <div>
       <Nav />
-      <main className="max-w-6xl px-2 mx-auto my-2 overflow-hidden  md:my-5 sm:px-5">
+      <main className="relative max-w-6xl px-2 mx-auto my-2 overflow-hidden md:my-5 sm:px-5">
         {children}
+        {modal}
       </main>
-      {modal}
       <Footer />
     </div>
   );

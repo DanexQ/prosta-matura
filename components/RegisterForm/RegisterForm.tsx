@@ -3,6 +3,7 @@ import React from "react";
 import { REGISTER_FORM_DATA } from "./registerFormDetails";
 import Form from "@components/Form/Form";
 import { FieldValues } from "react-hook-form";
+import { logUserIn } from "@utils/logUserIn";
 
 export type registerStateType = {
   email: string;
@@ -25,7 +26,7 @@ const RegisterForm = () => {
   return (
     <Form
       formData={REGISTER_FORM_DATA}
-      onSubmit={handleSubmit}
+      authFun={logUserIn}
       buttonLabel="Załóż konto"
       defaultValues={defaultValues}
     />

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import LoginIcon from "@assets/LoginIcon.png";
 import LoginForm from "@components/LoginForm/LoginForm";
+import Link from "next/link";
 
 export default function page() {
   return (
@@ -9,6 +10,15 @@ export default function page() {
         <Image src={LoginIcon} height={50} width={50} alt="Register icon" />
         <h2 className="text-2xl font-bold uppercase">Logowanie</h2>
         <LoginForm />
+        <span className="text-xs">
+          Nie masz jeszcze konta?{" "}
+          <Link
+            href="/register"
+            className="font-semibold tracking-wider text-fuchsia-400"
+          >
+            Zarejestruj się
+          </Link>
+        </span>
       </div>
     </div>
   );
