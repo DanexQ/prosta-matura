@@ -1,4 +1,4 @@
-import { MathJax } from "better-react-mathjax";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React, { useEffect, useState } from "react";
 
 const TaskAnswer = ({ answer }: { answer: string }) => {
@@ -18,7 +18,9 @@ const TaskAnswer = ({ answer }: { answer: string }) => {
           showAnswer ? "max-h-96 mb-5" : "max-h-0 "
         }`}
       >
-        <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
+        <MathJaxContext>
+          <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
+        </MathJaxContext>
       </p>
       <button
         onClick={handleClick}

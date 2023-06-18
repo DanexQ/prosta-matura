@@ -28,8 +28,9 @@ const Task = (details: Omit<TaskListItem, "id">) => {
         <TaskTag color={tagColor(taskType)}>{taskType}</TaskTag>
         <span className="ml-auto text-xs">{points}</span>
       </div>
-      <MathJaxContext config={config}>
-        <p className="my-2 font-thin text-justify whitespace-pre-line md:my-5">
+
+      <p className="my-2 font-thin text-justify whitespace-pre-line md:my-5">
+        <MathJaxContext config={config}>
           <MathJax>{details.content.replaceAll("/n", "\n")}</MathJax>
           {/*
           TODO: MAKE ALL IMAGES IMAGES AND NOT SVG
@@ -41,9 +42,9 @@ const Task = (details: Omit<TaskListItem, "id">) => {
               height={300}
             />
           )} */}
-        </p>
-        <TaskAnswer answer={details.answer} />
-      </MathJaxContext>
+        </MathJaxContext>
+      </p>
+      <TaskAnswer answer={details.answer} />
     </div>
   );
 };
