@@ -11,7 +11,6 @@ const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {
       {tasks.map((task) => (
         <Task key={task.id} {...task} />
       ))}
-
       <PageNav quantity={pagesQuantity} />
     </section>
   );
