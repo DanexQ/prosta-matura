@@ -1,4 +1,4 @@
-import CloseModalButton from "@components/Button/CloseModalButton";
+import CloseModalButton from "@components/ButtonCloseModal";
 import React, { ReactNode } from "react";
 
 const Modal = ({ children }: { children: ReactNode }) => {

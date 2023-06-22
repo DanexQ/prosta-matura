@@ -1,5 +1,5 @@
 "use client";
-import { MobileNavProps } from "./MobileNav";
+import { MobileNavProps } from "../NavMobile";
 
 const BurgerMenu = ({
   isActive,

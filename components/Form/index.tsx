@@ -1,6 +1,6 @@
 "use client";
-import { loginStateType } from "@components/LoginForm/LoginForm";
-import { registerStateType } from "@components/RegisterForm/RegisterForm";
+import { loginStateType } from "@components/FormLogin";
+import { registerStateType } from "@components/FormRegister";
 import React from "react";
 import { FieldValues, Validate, useForm } from "react-hook-form";
 

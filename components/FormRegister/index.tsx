@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { REGISTER_FORM_DATA } from "./registerFormDetails";
-import Form from "@components/Form/Form";
+import Form from "@components/Form";
 import { FieldValues } from "react-hook-form";
 import { logUserIn } from "@utils/logUserIn";
 import Image from "next/image";
@@ -15,7 +15,7 @@ export type registerStateType = {
   confirmPassword: string;
 };
 
-const RegisterForm = () => {
+const FormRegister = () => {
   const defaultValues: registerStateType = {
     username: "",
     email: "",
@@ -51,4 +51,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default FormRegister;

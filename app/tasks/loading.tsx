@@ -1,12 +1,11 @@
-import LoadingTaks from "@components/Tasks/LoadingTaks";
+import FiltersLoader from "@components/FiltersLoader";
+import LoadingTasks from "@components/TasksLoader/TasksLoader";
 
 export default async function loading() {
-  const loadingElements = new Array(5)
-    .fill(0)
-    .map((n) => <LoadingTaks key={n} />);
   return (
-    <section className="flex flex-col gap-3 md:gap-5 text-gray-200 flex-[3_2_0%]">
-      {loadingElements}
+    <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base">
+      <LoadingTasks />
+      <FiltersLoader />
     </section>
   );
 }

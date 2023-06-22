@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-const CloseModalButton = () => {
+const ButtonCloseModal = () => {
   const router = useRouter();
   return (
     <button
@@ -13,4 +13,4 @@ const CloseModalButton = () => {
   );
 };
 
-export default CloseModalButton;
+export default ButtonCloseModal;

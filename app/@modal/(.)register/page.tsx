@@ -1,5 +1,5 @@
-import RegisterForm from "@components/RegisterForm/RegisterForm";
-import Modal from "@components/Modal/Modal";
+import RegisterForm from "@components/FormRegister";
+import Modal from "@components/Modal";
 
 export default async function page() {
   return (

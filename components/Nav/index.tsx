@@ -2,7 +2,7 @@
 import { useState } from "react";
 import BurgerMenu from "./BurgerMenu";
 import Link from "next/link";
-import MobileNav from "./MobileNav";
+import MobileNav from "../NavMobile";
 
 const Nav = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -30,14 +30,16 @@ const Nav = () => {
           Prosta matura
         </Link>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
-        <p className="hidden md:flex">Konto</p>
+        <Link href="/login" className="hidden md:flex">
+          Konto
+        </Link>
         <BurgerMenu isActive={isActive} onClick={handleClick} />
       </div>
       <MobileNav isActive={isActive} onClick={handleClick}>
         {[
           ...navLinksElements,
           <Link
-            href="#"
+            href="login"
             key="konto"
             className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
           >

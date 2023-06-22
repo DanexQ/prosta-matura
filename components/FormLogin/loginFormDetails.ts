@@ -1,5 +1,5 @@
-import { FormDataType } from "@components/Form/Form";
-import { loginStateType } from "./LoginForm";
+import { FormDataType } from "@components/Form";
+import { loginStateType } from ".";
 
 export const LOGIN_FORM_DATA: FormDataType[] = [
   {

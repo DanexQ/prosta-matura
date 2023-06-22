@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import Task from "./Tasks/Task";
+import Task from "../Tasks/Task";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { TaskProps } from "./types";
-import { taskTypeList } from "./Tasks/taskTypes";
+import { TaskProps } from "../types";
+import { taskTypeList } from "../Tasks/taskTypes";
 import { addTask } from "@utils/addTask";
 
 const defaultTask: TaskProps = {
@@ -16,7 +16,7 @@ const defaultTask: TaskProps = {
   points: 0,
 };
 
-const NewTaskForm = () => {
+const AddTaskForm = () => {
   const { register, handleSubmit, watch } = useForm<TaskProps>({
     defaultValues: defaultTask,
   });
@@ -150,4 +150,4 @@ const NewTaskForm = () => {
   );
 };
 
-export default NewTaskForm;
+export default AddTaskForm;

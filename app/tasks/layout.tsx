@@ -1,9 +1,9 @@
 import React from "react";
-import Nav from "@components/Nav/Nav";
+import Nav from "@components/Nav";
 import Footer from "@components/Footer";
 
 export const metadata = {
-  title: "Prosta Matura",
+  title: "Zadania | Prosta Matura",
   description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
 };
 

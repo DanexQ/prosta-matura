@@ -4,7 +4,7 @@ export interface MobileNavProps {
   children: React.ReactNode;
 }
 
-const MobileNav = ({ isActive, children, onClick }: MobileNavProps) => {
+const NavMobile = ({ isActive, children, onClick }: MobileNavProps) => {
   const styling = isActive ? "w-full" : "w-0";
 
   return (
@@ -21,4 +21,4 @@ const MobileNav = ({ isActive, children, onClick }: MobileNavProps) => {
   );
 };
 
-export default MobileNav;
+export default NavMobile;

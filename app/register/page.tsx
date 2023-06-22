@@ -1,5 +1,5 @@
-import RegisterForm from "../../components/RegisterForm/RegisterForm";
-import FormPage from "@components/FormPage/FormPage";
+import RegisterForm from "../../components/FormRegister";
+import FormPage from "@components/FormPage";
 
 export const metadata = {
   title: "Rejestracja konta | Prosta Matura",

@@ -1,5 +1,5 @@
-import LoginForm from "@components/LoginForm/LoginForm";
-import Modal from "@components/Modal/Modal";
+import LoginForm from "@components/FormLogin";
+import Modal from "@components/Modal";
 
 export default function page() {
   return (

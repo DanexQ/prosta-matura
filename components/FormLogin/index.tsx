@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Form from "@components/Form/Form";
+import Form from "@components/Form";
 import { LOGIN_FORM_DATA } from "./loginFormDetails";
 import { logUserIn } from "@utils/logUserIn";
 import Image from "next/image";
@@ -12,7 +12,7 @@ export type loginStateType = {
   password: string;
 };
 
-const LoginForm = () => {
+const FormLogin = () => {
   const defaultValues: loginStateType = {
     email: "",
     password: "",
@@ -42,4 +42,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default FormLogin;
