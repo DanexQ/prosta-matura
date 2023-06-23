@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Task from "../Tasks/Task";
+import Task from "../Task";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TaskProps } from "../types";
 import { taskTypeList } from "../Tasks/taskTypes";

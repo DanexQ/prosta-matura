@@ -6,7 +6,7 @@ import TaskTag from "./TaskTag";
 import Image from "next/image";
 import { TaskListItem } from "../types";
 import TaskAnswer from "./TaskAnswer";
-import { taskTypeList } from "./taskTypes";
+import { taskTypeList } from "../Tasks/taskTypes";
 
 const Task = (details: Omit<TaskListItem, "id">) => {
   const formula = `${details.formula} Formuła`;

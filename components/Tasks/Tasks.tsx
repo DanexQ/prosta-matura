@@ -1,6 +1,6 @@
 import React from "react";
-import Task from "./Task";
-import PageNav from "./PageNav";
+import Task from "../Task";
+import PageNav from "../TasksPageNav";
 import { TasksDetailsType } from "@app/tasks/page";
 
 const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {

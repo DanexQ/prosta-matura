@@ -3,6 +3,8 @@ import { useState } from "react";
 import BurgerMenu from "./BurgerMenu";
 import Link from "next/link";
 import MobileNav from "../NavMobile";
+import AccountIcon from "@assets/AccountIcon.png";
+import Image from "next/image";
 
 const Nav = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -31,7 +33,7 @@ const Nav = () => {
         </Link>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
         <Link href="/login" className="hidden md:flex">
-          Konto
+          <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
         </Link>
         <BurgerMenu isActive={isActive} onClick={handleClick} />
       </div>
@@ -43,7 +45,12 @@ const Nav = () => {
             key="konto"
             className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
           >
-            Konto
+            <Image
+              src={AccountIcon}
+              width={32}
+              height={32}
+              alt="Account icon"
+            />
           </Link>,
         ]}
       </MobileNav>
