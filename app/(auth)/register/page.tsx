@@ -1,4 +1,5 @@
-import RegisterForm from "../../components/FormRegister";
+import Link from "next/link";
+import RegisterForm from "../../../components/FormRegister";
 import FormPage from "@components/FormPage";
 
 export const metadata = {
@@ -8,6 +9,7 @@ export const metadata = {
 export default async function Page() {
   return (
     <FormPage>
+      <Link href="/verify">Test</Link>
       <RegisterForm />
     </FormPage>
   );

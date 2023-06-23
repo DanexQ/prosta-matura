@@ -1,5 +1,4 @@
 import { FormDataType } from "@components/Form";
-import { registerStateType } from ".";
 import { FieldValues } from "react-hook-form";
 
 export const REGISTER_FORM_DATA: FormDataType[] = [

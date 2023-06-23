@@ -7,7 +7,7 @@ import { FieldValues, Validate, useForm } from "react-hook-form";
 type FormProps = {
   formData: FormDataType[];
   buttonLabel: string;
-  authFun: (formData: FieldValues) => Promise<void>;
+  authFunction: (formData: FieldValues) => Promise<void>;
   defaultValues: registerStateType | loginStateType;
 };
 
@@ -19,7 +19,12 @@ export type FormDataType = {
   validate?: Validate<string, FieldValues>;
 };
 
-function Form({ formData, buttonLabel, authFun, defaultValues }: FormProps) {
+function Form({
+  formData,
+  buttonLabel,
+  authFunction,
+  defaultValues,
+}: FormProps) {
   const { register, formState, handleSubmit } = useForm({
     defaultValues,
     mode: "all",
@@ -62,7 +67,7 @@ function Form({ formData, buttonLabel, authFun, defaultValues }: FormProps) {
   });
 
   const onSubmit = async (formValues: FieldValues) => {
-    await authFun(formValues);
+    await authFunction(formValues);
   };
 
   return (

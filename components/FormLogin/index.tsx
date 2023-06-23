@@ -24,7 +24,7 @@ const FormLogin = () => {
       <h2 className="text-2xl font-bold uppercase">Logowanie</h2>
       <Form
         formData={LOGIN_FORM_DATA}
-        authFun={logUserIn}
+        authFunction={logUserIn}
         buttonLabel="Zaloguj się"
         defaultValues={defaultValues}
       />
