@@ -9,7 +9,6 @@ export const metadata = {
 export default async function Page() {
   return (
     <FormPage>
-      <Link href="/verify">Test</Link>
       <RegisterForm />
     </FormPage>
   );
