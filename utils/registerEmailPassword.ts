@@ -7,11 +7,7 @@ import { FieldValues } from "react-hook-form"
 
 export const registerEmailPassword = async (formData:FieldValues) => {
     const {username,email,password} = formData;
-    try{
-        const {user} = await createUserWithEmailAndPassword(auth, email, password)
-        await updateProfile(user, {displayName:username});
-        sendEmailVerification(user);
-    }catch(err){
-        console.log(err)
-    }
+    const {user} = await createUserWithEmailAndPassword(auth, email, password)
+    await updateProfile(user, {displayName:username});
+    sendEmailVerification(user);
 }

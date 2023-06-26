@@ -1,7 +1,8 @@
 "use client";
 
+import { FirebaseError } from "firebase/app";
 import React from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 type loginStateType = {
   email: string;
@@ -13,11 +14,7 @@ const defaultValues: loginStateType = {
   password: "",
 };
 
-type LoginFormProps = {
-  onSubmit: (formData: FieldValues) => void;
-};
-
-const RegisterForm = ({ onSubmit }: LoginFormProps) => {
+const LoginForm = () => {
   const { register, handleSubmit, formState } = useForm({
     defaultValues,
     mode: "all",
@@ -31,6 +28,15 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
     if (!isError && dirtyFields[id as keyof typeof dirtyFields])
       style = "border-green-500";
     return style;
+  };
+
+  const onSubmit: SubmitHandler<loginStateType> = async (formData) => {
+    try {
+      console.log(formData);
+    } catch (err) {
+      const error = err as FirebaseError;
+      console.log("ERRORROR", error.message);
+    }
   };
 
   return (
@@ -99,4 +105,4 @@ const RegisterForm = ({ onSubmit }: LoginFormProps) => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
