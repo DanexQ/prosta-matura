@@ -11,7 +11,6 @@ export const registerEmailPassword = async (formData:FieldValues) => {
         const {user} = await createUserWithEmailAndPassword(auth, email, password)
         await updateProfile(user, {displayName:username});
         sendEmailVerification(user);
-        redirect("/verify");
     }catch(err){
         console.log(err)
     }

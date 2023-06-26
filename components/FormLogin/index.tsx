@@ -1,33 +1,26 @@
 "use client";
 import React from "react";
-import Form from "@components/Form";
-import { LOGIN_FORM_DATA } from "./loginFormDetails";
-import { logUserIn } from "@utils/logUserIn";
 import Image from "next/image";
 import LoginIcon from "@assets/loginIcon.png";
 import Link from "next/link";
-
-export type loginStateType = {
-  email: string;
-  password: string;
-};
+import LoginForm from "./LoginForm";
+import { FieldValues } from "react-hook-form";
 
 const FormLogin = () => {
-  const defaultValues: loginStateType = {
-    email: "",
-    password: "",
+  const handleSubmit = async (formData: FieldValues) => {
+    "use server";
+    try {
+      console.log(formData);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
     <>
       <Image src={LoginIcon} height={50} width={50} alt="Login icon" />
       <h2 className="text-2xl font-bold uppercase">Logowanie</h2>
-      <Form
-        formData={LOGIN_FORM_DATA}
-        authFunction={logUserIn}
-        buttonLabel="Zaloguj się"
-        defaultValues={defaultValues}
-      />
+      <LoginForm onSubmit={handleSubmit} />
       <span className="text-xs">
         Nie masz jeszcze konta?{" "}
         <Link

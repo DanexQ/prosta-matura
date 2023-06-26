@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { registerStateType } from ".";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registerEmailPassword } from "@utils/registerEmailPassword";
 
 const defaultValues: registerStateType = {
   username: "",
@@ -11,17 +12,13 @@ const defaultValues: registerStateType = {
   confirmPassword: "",
 };
 
-type RegisterFormProps = {
-  onSubmit: (formData: FieldValues) => void;
-};
-
-const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
-  const { register, handleSubmit, formState } = useForm({
+const RegisterForm = () => {
+  const { register, handleSubmit, formState, getValues } = useForm({
     defaultValues,
     mode: "all",
   });
   const { errors, dirtyFields } = formState;
-
+  const [accCreated, setAccCreated] = useState(false);
   const validStyle = (id: string) => {
     let style = "border-neutral-500";
     const isError = !!errors[id as keyof typeof errors]?.message;
@@ -31,10 +28,20 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
     return style;
   };
 
-  return (
+  const onSubmit: SubmitHandler<registerStateType> = async (formData) => {
+    await registerEmailPassword(formData);
+    setAccCreated(true);
+  };
+
+  return accCreated ? (
+    <div className="border border-green-800 bg-green-600 p-5 text-justify">
+      Żeby zakończyć rejestrację pomyślnie, potwierdź swoje konto za pomocą
+      linku aktywacyjnego wysłanego na skrzynkę pocztową: {getValues("email")}.
+    </div>
+  ) : (
     <form
       className="flex flex-col w-full gap-2"
-      onSubmit={() => handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       {/* USERNAME */}
       <div className="flex flex-col">
