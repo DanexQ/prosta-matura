@@ -3,7 +3,6 @@
 import React from "react";
 import { registerStateType } from ".";
 import { FieldValues, useForm } from "react-hook-form";
-import { validStyling } from "@utils/validStyling";
 
 const defaultValues: registerStateType = {
   username: "",
@@ -21,8 +20,17 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
     defaultValues,
     mode: "all",
   });
-  const { errors } = formState;
-  // TODO: make validStyling a hook => it was throwing an error with rangeerror: maximum callstack...
+  const { errors, dirtyFields } = formState;
+
+  const validStyle = (id: string) => {
+    let style = "border-neutral-500";
+    const isError = !!errors[id as keyof typeof errors]?.message;
+    if (isError) style = "border-red-500";
+    if (!isError && dirtyFields[id as keyof typeof dirtyFields])
+      style = "border-green-500";
+    return style;
+  };
+
   return (
     <form
       className="flex flex-col w-full gap-2"
@@ -45,7 +53,9 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
               message: "Nazwa użytkownika jest wymagana!",
             },
           })}
-          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border `}
+          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border ${validStyle(
+            "username"
+          )}`}
         />
         <p className="text-xs font-semibold text-red-500">
           {errors?.username?.message}
@@ -54,10 +64,7 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 
       {/* E-MAIL */}
       <div className="flex flex-col">
-        <label
-          htmlFor="username"
-          className="text-sm font-semibold tracking-wider"
-        >
+        <label htmlFor="email" className="text-sm font-semibold tracking-wider">
           E-mail
         </label>
         <input
@@ -75,7 +82,9 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
               );
             },
           })}
-          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border `}
+          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border ${validStyle(
+            "email"
+          )}`}
         />
         <p className="text-xs font-semibold text-red-500">
           {errors?.email?.message}
@@ -106,7 +115,9 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
               );
             },
           })}
-          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border `}
+          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border ${validStyle(
+            "password"
+          )}`}
         />
         <p className="text-xs font-semibold text-red-500">
           {errors?.password?.message}
@@ -134,7 +145,9 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
               );
             },
           })}
-          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border `}
+          className={` p-2 mb-2 bg-neutral-800 focus:outline-none focus:bg-neutral-600/50 border ${validStyle(
+            "confirmPassword"
+          )}`}
         />
         <p className="text-xs font-semibold text-red-500">
           {errors?.confirmPassword?.message}
@@ -148,12 +161,3 @@ const RegisterForm = ({ onSubmit }: RegisterFormProps) => {
 };
 
 export default RegisterForm;
-
-{
-  /* <Form
-formData={REGISTER_FORM_DATA}
-authFunction={registerEmailPassword}
-buttonLabel="Załóż konto"
-defaultValues={defaultValues}
-/> */
-}
