@@ -19,7 +19,7 @@ const FormLogin = () => {
     <>
       <Image src={LoginIcon} height={50} width={50} alt="Login icon" />
       <h2 className="text-2xl font-bold uppercase">Logowanie</h2>
-      <LoginForm onSubmit={handleSubmit} />
+      <LoginForm />
       <span className="text-xs">
         Nie masz jeszcze konta?{" "}
         <Link

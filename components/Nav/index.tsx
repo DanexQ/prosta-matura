@@ -5,6 +5,9 @@ import Link from "next/link";
 import MobileNav from "../NavMobile";
 import AccountIcon from "@assets/AccountIcon.png";
 import Image from "next/image";
+import firebase_app, { auth } from "@firebase";
+import { getAuth, signOut } from "firebase/auth";
+import { getCurrentUser } from "@utils/getCurrentUser";
 
 const Nav = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -18,6 +21,14 @@ const Nav = () => {
       {link}
     </Link>
   ));
+  const currentUser = getCurrentUser();
+  const signInOrDashboard = currentUser ? (
+    <div onClick={() => signOut(auth)}>WYLOGUj</div>
+  ) : (
+    <Link href="/login" className="hidden md:flex">
+      <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
+    </Link>
+  );
 
   const handleClick = () => {
     setIsActive((prevState) => !prevState);
@@ -31,10 +42,9 @@ const Nav = () => {
         <Link href="/" className="text-lg font-bold uppercase">
           Prosta matura
         </Link>
+        <div onClick={() => signOut(auth)}>WYLOGUj</div>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
-        <Link href="/login" className="hidden md:flex">
-          <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
-        </Link>
+        {signInOrDashboard}
         <BurgerMenu isActive={isActive} onClick={handleClick} />
       </div>
       <MobileNav isActive={isActive} onClick={handleClick}>

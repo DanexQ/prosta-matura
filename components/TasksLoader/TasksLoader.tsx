@@ -3,7 +3,7 @@ import React from "react";
 const LoadingTasks = () => {
   const loadingElements = new Array(5).fill(0).map((i) => (
     <div
-      key={i}
+      key={Math.random()}
       className="flex flex-col p-4 border lg:p-8 border-neutral-600 text-inherit"
     >
       <div className="flex gap-2 font-semibold md:tracking-wider items-center [&>div]:py-[0.5px] [&>div]:px-1 [&>div]:md:py-1 [&>div]:md:px-2 text-[10px]">

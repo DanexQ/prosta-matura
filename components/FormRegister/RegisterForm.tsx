@@ -37,7 +37,7 @@ const RegisterForm = () => {
       setModal(
         <Modal>
           <ButtonCloseModal onClick={() => setModal(null)} />
-          <div className="border border-green-800 bg-green-600 p-5 text-justify">
+          <div className="p-5 text-justify bg-green-600 border border-green-800">
             Żeby zakończyć rejestrację pomyślnie, potwierdź swoje konto za
             pomocą linku aktywacyjnego wysłanego na skrzynkę pocztową:{" "}
             {getValues("email")}.
@@ -53,7 +53,7 @@ const RegisterForm = () => {
           <div className="p-5 bg-red-600">
             {error.message === "Firebase: Error (auth/email-already-in-use)."
               ? "Ten email jest już w użyciu"
-              : "Przepraszamy, coś poszło nie tak."}
+              : "Przepraszamy, coś poszło nie tak. Spóbuj ponownie później."}
           </div>
         </Modal>
       );

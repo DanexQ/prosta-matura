@@ -1,12 +1,16 @@
 import { FilterType, TaskList, TaskType } from "@components/types";
 import Tasks from "@components/Tasks/Tasks";
-import { db } from "@firebase";
+import firebase_app, { auth, db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
 import { getTasks } from "@utils/getTasks";
+<<<<<<< Updated upstream
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/authOptions";
+=======
+import { getAuth } from "firebase/auth";
+>>>>>>> Stashed changes
 
 export type TasksDetailsType = {
   tasks: TaskList;

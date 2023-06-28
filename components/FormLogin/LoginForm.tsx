@@ -1,10 +1,19 @@
 "use client";
 
+import { auth } from "@firebase";
+import { getCurrentUser } from "@utils/getCurrentUser";
+import { logUserIn } from "@utils/logUserIn";
 import { FirebaseError } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
+<<<<<<< Updated upstream
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+=======
+import { SubmitHandler, useForm } from "react-hook-form";
+>>>>>>> Stashed changes
 
 type loginStateType = {
   email: string;
@@ -35,6 +44,7 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<loginStateType> = async (formData, e) => {
     try {
+<<<<<<< Updated upstream
       const res = await signIn("credentials", {
         email: formData.email,
         password: formData.password,
@@ -45,6 +55,18 @@ const LoginForm = () => {
     } catch (err) {
       const error = err instanceof Error;
       console.log("ERRORROR", error);
+=======
+      const { user } = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      console.log("Log", user);
+    } catch (err) {
+      const error = err as FirebaseError;
+      console.log("Message", error.message);
+      console.log("Code", error.code);
+>>>>>>> Stashed changes
     }
   };
 
@@ -108,7 +130,7 @@ const LoginForm = () => {
       </div>
 
       <button className="py-3 mt-2 font-semibold uppercase btn-primary">
-        Zarejestruj się
+        Zaloguj się
       </button>
     </form>
   );

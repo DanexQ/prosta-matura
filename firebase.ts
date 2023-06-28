@@ -3,6 +3,8 @@ import { getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import { initFirestore } from "@auth/firebase-adapter";
+import { cert } from "firebase-admin/app";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,8 +21,17 @@ export const firebaseConfig = {
 // Initialize Firebase
 let firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const db = getFirestore();
+
+export const db = getFirestore(firebase_app);
 export const storage = getStorage();
 export const auth = getAuth(firebase_app);
+
+export const firestore = initFirestore({
+  credential: cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY,
+  }),
+});
 
 export default firebase_app;
