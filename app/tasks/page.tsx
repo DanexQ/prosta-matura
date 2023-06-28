@@ -5,6 +5,8 @@ import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
 import { getTasks } from "@utils/getTasks";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@lib/authOptions";
 
 export type TasksDetailsType = {
   tasks: TaskList;
