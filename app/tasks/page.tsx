@@ -5,12 +5,8 @@ import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
 import { getTasks } from "@utils/getTasks";
-<<<<<<< Updated upstream
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/authOptions";
-=======
-import { getAuth } from "firebase/auth";
->>>>>>> Stashed changes
 
 export type TasksDetailsType = {
   tasks: TaskList;
@@ -66,6 +62,7 @@ export default async function Page({ searchParams }: SearchParams) {
     getTasks(query),
     getFilters(),
   ]);
+  const session = await getServerSession(authOptions);
 
   return (
     <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base">

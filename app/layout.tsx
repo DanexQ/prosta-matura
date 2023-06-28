@@ -1,3 +1,4 @@
+import NextAuthSessionProvider from "@components/NextAuthSessionProvider";
 import "./global.css";
 
 export default function layout({
@@ -10,8 +11,10 @@ export default function layout({
   return (
     <html lang="en">
       <body className="relative h-full bg-neutral-900 text-neutral-200">
-        {children}
-        {modal}
+        <NextAuthSessionProvider>
+          {children}
+          {modal}
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

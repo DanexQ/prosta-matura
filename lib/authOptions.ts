@@ -1,13 +1,16 @@
 import { FirestoreAdapter, initFirestore } from "@auth/firebase-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { NextAuthOptions } from "next-auth";
-import app, { auth } from "@firebase";
-import { Adapter } from "next-auth/adapters";
+import app, { firebaseConfig } from "@firebase";
+import { initializeApp } from "firebase/app";
 
-const firestore = initFirestore(app);
+// const firestore = initFirestore(app);
 
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
       name: "Sign in",
@@ -17,10 +20,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email && !credentials?.password) return null;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const { user } = await signInWithEmailAndPassword(
           auth,
-          credentials?.email!,
-          credentials?.password!
+          credentials?.email as string,
+          credentials?.password as string
         );
         const { uid: id, ...currentUser } = user;
         if (user) return { id, ...currentUser };
@@ -28,5 +33,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
   //   adapter: FirestoreAdapter(firestore) as Adapter,
 };
