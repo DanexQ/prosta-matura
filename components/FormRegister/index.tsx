@@ -20,7 +20,7 @@ const FormRegister = () => {
       <span className="text-xs">
         Masz już konto?{" "}
         <Link
-          href="/login"
+          href="/auth/signin"
           replace={true}
           className="font-semibold tracking-wider text-fuchsia-400"
         >

@@ -3,27 +3,17 @@ import Image from "next/image";
 import LoginIcon from "@assets/loginIcon.png";
 import Link from "next/link";
 import LoginForm from "./LoginForm";
-import { FieldValues } from "react-hook-form";
 
-const FormLogin = () => {
-  const handleSubmit = async (formData: FieldValues) => {
-    "use server";
-    try {
-      console.log(formData);
-    } catch (err) {
-      alert(err);
-    }
-  };
-
+const FormLogin = ({ redirectTo }: { redirectTo?: string }) => {
   return (
     <>
       <Image src={LoginIcon} height={50} width={50} alt="Login icon" />
       <h2 className="text-2xl font-bold uppercase">Logowanie</h2>
-      <LoginForm />
+      <LoginForm redirectTo={redirectTo} />
       <span className="text-xs">
         Nie masz jeszcze konta?{" "}
         <Link
-          href="/register"
+          href="/auth/register"
           replace={true}
           className="font-semibold tracking-wider text-fuchsia-400"
         >

@@ -1,12 +1,12 @@
-import LoginForm from "@components/FormLogin";
+import FormLogin from "@components/FormLogin";
 import Modal from "@components/Modal";
 import ButtonCloseModal from "@components/ButtonCloseModal";
 
-export default function page() {
+export default async function page() {
   return (
     <Modal>
       <ButtonCloseModal />
-      <LoginForm />
+      <FormLogin redirectTo="/tasks" />
     </Modal>
   );
 }

@@ -4,6 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { NextAuthOptions } from "next-auth";
 import app, { firebaseConfig } from "@firebase";
 import { initializeApp } from "firebase/app";
+import { redirect } from "next/navigation";
 
 // const firestore = initFirestore(app);
 
@@ -27,14 +28,14 @@ export const authOptions: NextAuthOptions = {
           credentials?.email as string,
           credentials?.password as string
         );
-        const { uid: id, ...currentUser } = user;
-        if (user) return { id, ...currentUser };
+        const { uid: id, displayName: name, ...currentUser } = user;
+        if (user) return { id, name, ...currentUser };
         return null;
       },
     }),
   ],
   pages: {
-    signIn: "/login",
+    signIn: "/auth/signin",
   },
   //   adapter: FirestoreAdapter(firestore) as Adapter,
 };

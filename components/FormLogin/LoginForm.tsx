@@ -15,13 +15,38 @@ const defaultValues: loginStateType = {
   password: "",
 };
 
-const LoginForm = () => {
-  const { register, handleSubmit, formState } = useForm({
+const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, dirtyFields },
+  } = useForm({
     defaultValues,
     mode: "all",
   });
-  const { errors, dirtyFields } = formState;
   const router = useRouter();
+
+  const onSubmit: SubmitHandler<loginStateType> = async (
+    { email, password },
+    e
+  ) => {
+    e?.preventDefault();
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      // If it's modal go back, otherwise go to a certain page
+      if (res && !res.error)
+        !!redirectTo ? router.push(redirectTo) : router.back();
+      if (res?.error) console.log(res.error);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log("Error caused by sign in function:", err.message);
+      }
+    }
+  };
 
   const validStyle = (id: string) => {
     let style = "border-neutral-500";
@@ -32,25 +57,10 @@ const LoginForm = () => {
     return style;
   };
 
-  const onSubmit: SubmitHandler<loginStateType> = async (formData, e) => {
-    try {
-      const res = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      });
-      console.log(res);
-      if (res && !res?.error) router.replace("/tasks");
-    } catch (err) {
-      const error = err instanceof Error;
-      console.log("ERRORROR", error);
-    }
-  };
-
   return (
     <form
       className="flex flex-col w-full gap-2"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data, e) => onSubmit(data, e))}
     >
       {/* E-MAIL */}
       <div className="flex flex-col">

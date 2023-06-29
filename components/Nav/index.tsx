@@ -8,6 +8,8 @@ import Image from "next/image";
 import firebase_app, { auth } from "@firebase";
 import { getAuth, signOut } from "firebase/auth";
 import { getCurrentUser } from "@utils/getCurrentUser";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -21,11 +23,13 @@ const Nav = () => {
       {link}
     </Link>
   ));
-  const currentUser = getCurrentUser();
-  const signInOrDashboard = currentUser ? (
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  const signInOrDashboard = session?.user ? (
     <div onClick={() => signOut(auth)}>WYLOGUj</div>
   ) : (
-    <Link href="/login" className="hidden md:flex">
+    <Link href="/auth/signin" className="hidden md:flex">
       <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
     </Link>
   );
@@ -46,24 +50,24 @@ const Nav = () => {
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
         {signInOrDashboard}
         <BurgerMenu isActive={isActive} onClick={handleClick} />
+        <MobileNav isActive={isActive} onClick={handleClick}>
+          {[
+            ...navLinksElements,
+            <Link
+              href="login"
+              key="konto"
+              className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
+            >
+              <Image
+                src={AccountIcon}
+                width={32}
+                height={32}
+                alt="Account icon"
+              />
+            </Link>,
+          ]}
+        </MobileNav>
       </div>
-      <MobileNav isActive={isActive} onClick={handleClick}>
-        {[
-          ...navLinksElements,
-          <Link
-            href="login"
-            key="konto"
-            className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
-          >
-            <Image
-              src={AccountIcon}
-              width={32}
-              height={32}
-              alt="Account icon"
-            />
-          </Link>,
-        ]}
-      </MobileNav>
     </nav>
   );
 };

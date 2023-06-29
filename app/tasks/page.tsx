@@ -1,12 +1,13 @@
 import { FilterType, TaskList, TaskType } from "@components/types";
 import Tasks from "@components/Tasks/Tasks";
-import firebase_app, { auth, db } from "@firebase";
+import { db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
 import { getTasks } from "@utils/getTasks";
-import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
 import { authOptions } from "@lib/authOptions";
+import { getServerSession } from "next-auth/next";
 
 export type TasksDetailsType = {
   tasks: TaskList;
@@ -62,7 +63,6 @@ export default async function Page({ searchParams }: SearchParams) {
     getTasks(query),
     getFilters(),
   ]);
-  const session = await getServerSession(authOptions);
 
   return (
     <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base">
