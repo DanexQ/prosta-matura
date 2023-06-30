@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+
+const WRONG_PASSWORD = "Firebase: Error (auth/wrong-password).";
 
 type loginStateType = {
   email: string;
@@ -15,7 +17,7 @@ const defaultValues: loginStateType = {
   password: "",
 };
 
-const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
+const SignIn = ({ redirectTo }: { redirectTo?: string }) => {
   const {
     register,
     handleSubmit,
@@ -25,6 +27,10 @@ const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
     mode: "all",
   });
   const router = useRouter();
+  const [signInStatus, setSignInStatus] = useState({
+    error: "",
+    loading: false,
+  });
 
   const onSubmit: SubmitHandler<loginStateType> = async (
     { email, password },
@@ -32,18 +38,22 @@ const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
   ) => {
     e?.preventDefault();
     try {
+      setSignInStatus((prevState) => ({ ...prevState, loading: true }));
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
+
+      res?.error === WRONG_PASSWORD &&
+        setSignInStatus({ loading: false, error: "Błędne dane logowania!" });
+
       // If it's modal go back, otherwise go to a certain page
       if (res && !res.error)
         !!redirectTo ? router.push(redirectTo) : router.back();
-      if (res?.error) console.log(res.error);
     } catch (err) {
       if (err instanceof Error) {
-        console.log("Error caused by sign in function:", err.message);
+        console.log("Please try again soon. Error:", err.message);
       }
     }
   };
@@ -115,7 +125,9 @@ const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
           {errors?.password?.message}
         </p>
       </div>
-
+      {!!signInStatus.error && (
+        <div className="p-5 uppercase bg-red-500">{signInStatus.error}</div>
+      )}
       <button className="py-3 mt-2 font-semibold uppercase btn-primary">
         Zaloguj się
       </button>
@@ -123,4 +135,4 @@ const LoginForm = ({ redirectTo }: { redirectTo?: string }) => {
   );
 };
 
-export default LoginForm;
+export default SignIn;

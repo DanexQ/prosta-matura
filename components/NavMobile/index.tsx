@@ -1,23 +1,38 @@
-export interface MobileNavProps {
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}
+"use client";
+import React, { useState } from "react";
+import BurgerMenu from "./BurgerMenu";
+import Image from "next/image";
+import MobileMenu from "./MobileMenu";
+import AccountIcon from "@assets/AccountIcon.png";
+import Link from "next/link";
 
-const NavMobile = ({ isActive, children, onClick }: MobileNavProps) => {
-  const styling = isActive ? "w-full" : "w-0";
+const NavMobile = ({ navElements }: { navElements: React.ReactNode[] }) => {
+  const [isActive, setIsActive] = useState<boolean>(false);
 
+  const handleClick = () => {
+    return setIsActive((prevVal) => !prevVal);
+  };
   return (
-    <div
-      className={`absolute top-[3rem] sm:top-[4rem] right-0 md:hidden h-[calc(100vh-3rem)] sm:h-[calc(100vh-4rem)] overflow-hidden transition-all bg-neutral-900/80 flex justify-end ${styling} md:hidden`}
-      onClick={onClick}
-    >
-      <div
-        className={`flex flex-col items-center h-full justify-center w-3/4 gap-4 text-xl bg-neutral-900 transition-all border-l border-neutral-600 uppercase`}
-      >
-        {children}
-      </div>
-    </div>
+    <>
+      <BurgerMenu isActive={isActive} onClick={handleClick} />
+      <MobileMenu isActive={isActive} onClick={handleClick}>
+        {[
+          ...navElements,
+          <Link
+            href="/auth/signin"
+            key="konto"
+            className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
+          >
+            <Image
+              src={AccountIcon}
+              width={32}
+              height={32}
+              alt="Account icon"
+            />
+          </Link>,
+        ]}
+      </MobileMenu>
+    </>
   );
 };
 

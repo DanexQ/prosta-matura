@@ -37,5 +37,18 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
   },
-  //   adapter: FirestoreAdapter(firestore) as Adapter,
+  callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.userId = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // @ts-ignore
+      session.user.id = token.userId;
+      return session;
+    },
+  },
 };
+//   adapter: FirestoreAdapter(firestore) as Adapter,
