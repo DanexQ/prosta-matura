@@ -1,16 +1,11 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
+import { loginStateType } from ".";
 
 const WRONG_PASSWORD = "Firebase: Error (auth/wrong-password).";
-
-type loginStateType = {
-  email: string;
-  password: string;
-};
 
 const defaultValues: loginStateType = {
   email: "",

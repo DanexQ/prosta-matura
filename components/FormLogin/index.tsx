@@ -4,6 +4,11 @@ import LoginIcon from "@assets/loginIcon.png";
 import Link from "next/link";
 import LoginForm from "./LoginForm";
 
+export type loginStateType = {
+  email: string;
+  password: string;
+};
+
 const FormLogin = ({ redirectTo }: { redirectTo?: string }) => {
   return (
     <>
