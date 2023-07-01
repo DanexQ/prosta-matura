@@ -1,5 +1,4 @@
 "use client";
-
 import React, { ReactNode, useState } from "react";
 import { registerStateType } from ".";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -21,7 +20,9 @@ const RegisterForm = () => {
     mode: "all",
   });
   const { errors, dirtyFields } = formState;
-  const [modal, setModal] = useState<ReactNode | null>(null);
+  const [confirmationModal, setConfirmationModal] = useState<ReactNode | null>(
+    null
+  );
   const validStyle = (id: string) => {
     let style = "border-neutral-500";
     const isError = !!errors[id as keyof typeof errors]?.message;
@@ -34,9 +35,9 @@ const RegisterForm = () => {
   const onSubmit: SubmitHandler<registerStateType> = async (formData) => {
     try {
       await registerEmailPassword(formData);
-      setModal(
+      setConfirmationModal(
         <Modal>
-          <ButtonCloseModal onClick={() => setModal(null)} />
+          <ButtonCloseModal onClick={() => setConfirmationModal(null)} />
           <div className="p-5 text-justify bg-green-600 border border-green-800">
             Żeby zakończyć rejestrację pomyślnie, potwierdź swoje konto za
             pomocą linku aktywacyjnego wysłanego na skrzynkę pocztową:{" "}
@@ -47,9 +48,9 @@ const RegisterForm = () => {
     } catch (err) {
       const error = err as FirebaseError;
       console.log("ERRORROR", error.message);
-      setModal(
+      setConfirmationModal(
         <Modal>
-          <ButtonCloseModal onClick={() => setModal(null)} />
+          <ButtonCloseModal onClick={() => setConfirmationModal(null)} />
           <div className="p-5 bg-red-600">
             {error.message === "Firebase: Error (auth/email-already-in-use)."
               ? "Ten email jest już w użyciu"
@@ -62,7 +63,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      {modal}
+      {confirmationModal}
       <form
         className="flex flex-col w-full gap-2"
         onSubmit={handleSubmit(onSubmit)}

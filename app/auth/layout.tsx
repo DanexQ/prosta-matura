@@ -9,9 +9,5 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  return session?.user ? (
-    redirect("/tasks")
-  ) : (
-    <React.Fragment>{children}</React.Fragment>
-  );
+  return !!session?.user ? redirect("/tasks") : <>{children}</>;
 }

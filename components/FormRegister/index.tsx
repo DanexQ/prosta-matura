@@ -13,7 +13,7 @@ export type registerStateType = {
 
 const FormRegister = () => {
   return (
-    <React.Fragment>
+    <>
       <Image src={RegisterIcon} height={50} width={50} alt="Register icon" />
       <h2 className="text-2xl font-bold uppercase">Utwórz nowe konto</h2>
       <RegisterForm />
@@ -27,7 +27,7 @@ const FormRegister = () => {
           Zaloguj się
         </Link>
       </span>
-    </React.Fragment>
+    </>
   );
 };
 

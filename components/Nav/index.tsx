@@ -2,23 +2,25 @@ import Link from "next/link";
 import AccountIcon from "@assets/AccountIcon.png";
 import SignInIcon from "@assets/SignInIcon32.png";
 import Image from "next/image";
-import { auth } from "@firebase";
 import NavMobile from "@components/NavMobile";
-import { getServerSession } from "next-auth";
 
-const Nav = async () => {
-  const navLinks = ["Arkusze", "Zadania", "Losuj"];
-  const navLinksElements = navLinks.map((link) => (
+const NAV_LINKS = {
+  allExams: "Arkusze",
+  tasks: "Zadania",
+  randomTask: "Losuj",
+};
+
+const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+  const navLinksElements = ["Arkusze", "Zadania", "Losuj"].map((id) => (
     <Link
-      key={link}
+      key={id}
       href="/newTask"
       className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
     >
-      {link}
+      {id}
     </Link>
   ));
-  const session = await getServerSession();
-  const signInOrDashboard = !!session?.user ? (
+  const signInOrDashboard = isAuthenticated ? (
     <Link href="/dashboard">
       <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
     </Link>
@@ -27,6 +29,7 @@ const Nav = async () => {
       <Image src={SignInIcon} width={32} height={32} alt="Account icon" />
     </Link>
   );
+
   return (
     <nav
       className={`sticky top-0 z-50 flex justify-center w-full h-12 border-b sm:h-16 bg-neutral-900 text-neutral-200 border-neutral-600`}

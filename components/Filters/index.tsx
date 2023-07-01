@@ -46,13 +46,51 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
     return isEnabled ? enabled : disabled;
   };
 
+  const handleShowFilters = () => {
+    return setIsEnabled((prev) => !prev);
+  };
+
+  const handleResetFiltersForm = () => {
+    return reset(createDefaultState(filterTypes, true));
+  };
+
+  const createInputFilters = (filterType: FilterType) => {
+    return (
+      <div key={filterType.id} className="flex items-center lg:pl-3">
+        <input
+          type="checkbox"
+          {...register(filterType.id)}
+          id={filterType.id}
+          className="hidden"
+        />
+        <label
+          htmlFor={filterType.id}
+          className={`cursor-pointer  ${
+            watchAllFields[filterType.id]
+              ? "text-fuchsia-400 font-semibold tracking-wide"
+              : "hover:text-fuchsia-400"
+          }`}
+        >
+          <span className="mr-1">
+            {watchAllFields[filterType.id] ? <>&#10006;</> : <>&#x25cf;</>}
+          </span>
+
+          {filterType.type}
+          <span className="ml-1 text-xs font-bold text-neutral-400">
+            ({filterType.quantity})
+          </span>
+        </label>
+      </div>
+    );
+  };
+
   return (
     <section
       className={`flex flex-col self-start p-4 text-gray-100 border md:flex-[1_1_0%] border-neutral-600 w-full`}
     >
       <button
         className="tracking-wider text-gray-100 uppercase md:hidden"
-        onClick={() => setIsEnabled((prev) => !prev)}
+        onClick={handleShowFilters}
       >
         {showContent("Ukryj", "Pokaż")} filtry
       </button>
@@ -68,48 +106,16 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
           <h2>Filtry</h2>
           <button
             className="ml-auto text-xs font-semibold uppercase hover:text-fuchsia-400"
-            onClick={() => {
-              reset(createDefaultState(filterTypes, true));
-            }}
+            onClick={handleResetFiltersForm}
           >
             Wyczyść filtry
           </button>
         </header>
         <form
           className={`flex flex-col gap-2 font-thin md:flex`}
-          onSubmit={handleSubmit((data) => onSubmit(data))}
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {filterTypes.map((filterType) => (
-            <div key={filterType.id} className="flex items-center lg:pl-3">
-              <input
-                type="checkbox"
-                {...register(filterType.id)}
-                id={filterType.id}
-                className="hidden"
-              />
-              <label
-                htmlFor={filterType.id}
-                className={`cursor-pointer  ${
-                  watchAllFields[filterType.id]
-                    ? "text-fuchsia-400 font-semibold tracking-wide"
-                    : "hover:text-fuchsia-400"
-                }`}
-              >
-                <span className="mr-1">
-                  {watchAllFields[filterType.id] ? (
-                    <>&#10006;</>
-                  ) : (
-                    <>&#x25cf;</>
-                  )}
-                </span>
-
-                {filterType.type}
-                <span className="ml-1 text-xs font-bold text-neutral-400">
-                  ({filterType.quantity})
-                </span>
-              </label>
-            </div>
-          ))}
+          {filterTypes.map(createInputFilters)}
           <button className="btn-primary">Filtruj</button>
         </form>
       </div>
