@@ -6,7 +6,7 @@ export default async function page() {
   return (
     <Modal>
       <ButtonCloseModal />
-      <FormLogin redirectTo="/tasks" />
+      <FormLogin />
     </Modal>
   );
 }

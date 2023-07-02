@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { loginStateType } from ".";
+import { revalidatePath } from "next/cache";
 
 const WRONG_PASSWORD = "Firebase: Error (auth/wrong-password).";
 
@@ -44,11 +45,12 @@ const SignIn = ({ redirectTo }: { redirectTo?: string }) => {
         setSignInStatus({ loading: false, error: "Błędne dane logowania!" });
 
       // If it's modal go back, otherwise go to a certain page
-      if (res && !res.error)
+      if (res && !res.error) {
         !!redirectTo ? router.push(redirectTo) : router.back();
+      }
     } catch (err) {
       if (err instanceof Error) {
-        console.log("Please try again soon. Error:", err.message);
+        setSignInStatus({ loading: false, error: err.message });
       }
     }
   };

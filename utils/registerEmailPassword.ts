@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@firebase";
+import { FirebaseError } from "firebase-admin";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -9,8 +10,18 @@ import {
 import { FieldValues } from "react-hook-form";
 
 export const registerEmailPassword = async (formData: FieldValues) => {
-  const { username, email, password } = formData;
-  const { user } = await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(user, { displayName: username });
-  sendEmailVerification(user);
+  try {
+    const { username, email, password } = formData;
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    await updateProfile(user, { displayName: username });
+    sendEmailVerification(user);
+  } catch (err) {
+    const error = err as FirebaseError;
+    console.log({ error });
+    throw err;
+  }
 };

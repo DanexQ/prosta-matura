@@ -1,10 +1,8 @@
-import React from "react";
-import Nav from "@components/Nav";
 import Footer from "@components/Footer";
+import Nav from "@components/Nav";
 
 export const metadata = {
-  title: "Zadania | Prosta Matura",
-  description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
+  title: "Twój profil | Prosta Matura",
 };
 
 export default async function Layout({
@@ -15,7 +13,7 @@ export default async function Layout({
   return (
     <div className="relative">
       <Nav />
-      <main className="max-w-6xl px-2 mx-auto my-2 overflow-hidden md:my-5 sm:px-5">
+      <main className="flex flex-col max-w-6xl gap-5 px-2 mx-auto my-2 overflow-hidden md:my-5 sm:px-5">
         {children}
       </main>
       <Footer />

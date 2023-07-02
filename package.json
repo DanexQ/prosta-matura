@@ -25,9 +25,11 @@
     "next-auth": "^4.22.1",
     "nextjs": "^0.0.3",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
+    "sharp": "^0.32.1",
     "typescript": "5.0.4",
     "uuid": "^9.0.0"
   },

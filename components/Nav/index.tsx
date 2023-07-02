@@ -1,8 +1,6 @@
 import Link from "next/link";
-import AccountIcon from "@assets/AccountIcon.png";
-import SignInIcon from "@assets/SignInIcon32.png";
-import Image from "next/image";
 import NavMobile from "@components/NavMobile";
+import NavAccountIcon from "@components/NavAccountIcon";
 
 const NAV_LINKS = {
   allExams: "Arkusze",
@@ -10,7 +8,7 @@ const NAV_LINKS = {
   randomTask: "Losuj",
 };
 
-const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+const Nav = () => {
   const navLinksElements = ["Arkusze", "Zadania", "Losuj"].map((id) => (
     <Link
       key={id}
@@ -20,15 +18,6 @@ const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
       {id}
     </Link>
   ));
-  const signInOrDashboard = isAuthenticated ? (
-    <Link href="/dashboard">
-      <Image src={AccountIcon} width={32} height={32} alt="Account icon" />
-    </Link>
-  ) : (
-    <Link href="/auth/signin" className="hidden md:flex">
-      <Image src={SignInIcon} width={32} height={32} alt="Account icon" />
-    </Link>
-  );
 
   return (
     <nav
@@ -39,7 +28,7 @@ const Nav = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
           Prosta matura
         </Link>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
-        {signInOrDashboard}
+        <NavAccountIcon />
         <NavMobile navElements={navLinksElements} />
       </div>
     </nav>
