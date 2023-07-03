@@ -1,4 +1,3 @@
-"use client";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React from "react";
 

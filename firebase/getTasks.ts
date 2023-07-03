@@ -15,8 +15,15 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth";
 
-type CompletedTasksType = {
-  completedTasks: string[];
+type CompletedTaskItem = {
+  taskId: string;
+  taskType: string;
+};
+
+type CompletedTasksList = CompletedTaskItem[];
+
+type CompletedTasksDataType = {
+  completedTasks: CompletedTasksList;
 };
 
 export const getTasks = async (urlQuery: string) => {
@@ -24,12 +31,10 @@ export const getTasks = async (urlQuery: string) => {
   const queryRef = createQueryRef(filters);
   const data = await getDocs(queryRef);
   const session = await getServerSession(authOptions);
-  const usersCompletedTasks = await getDoc(
-    // @ts-ignore
-    doc(db, "completedTasks", session?.user?.id)
-  );
-  const completedTasksData = usersCompletedTasks.data() as CompletedTasksType;
-  const tasks = convertFetchedData(data, completedTasksData.completedTasks);
+  // @ts-ignore
+  const userId = session?.user?.id;
+  const completedTasks = !!userId ? await getUsersCompletedTasks(userId) : [];
+  const tasks = convertFetchedData(data, completedTasks);
   return {
     tasks: tasks.slice((page - 1) * 5, page * 5),
     tasksQuantity: tasks.length,
@@ -54,14 +59,26 @@ function createQueryRef(filters: string[]) {
   return query(collection(db, "tasks"), or(...conditions));
 }
 
+const isTaskCompleted = (id: string) => {
+  return function (x: CompletedTaskItem) {
+    return x.taskId === id;
+  };
+};
+
 function convertFetchedData(
   data: QuerySnapshot<DocumentData>,
-  completedTasks: string[]
+  completedTasks: CompletedTasksList
 ): TaskList {
   const tasks: TaskList = data.docs.map((doc) => ({
-    id: doc.id,
-    isCompleted: !!completedTasks ? completedTasks.includes(doc.id) : false,
+    isCompleted: !!completedTasks.filter(isTaskCompleted(doc.id)).length,
     ...(doc.data() as TaskProps),
   }));
   return tasks;
+}
+
+async function getUsersCompletedTasks(userId: string) {
+  const usersCompletedTasks = await getDoc(doc(db, "completedTasks", userId));
+  const { completedTasks } =
+    usersCompletedTasks.data() as CompletedTasksDataType;
+  return completedTasks;
 }

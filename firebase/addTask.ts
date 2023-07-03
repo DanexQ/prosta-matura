@@ -31,5 +31,5 @@ async function sendTaskWithImage(task: TaskProps, image: File) {
 
 async function sendTask(task: TaskProps) {
   const newTaskRef = doc(collection(db, "tasks"));
-  await setDoc(newTaskRef, task);
+  await setDoc(newTaskRef, { ...task, taskId: newTaskRef.id });
 }

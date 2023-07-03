@@ -22,6 +22,7 @@ export type FilterType = {
 };
 
 export type TaskProps = {
+  taskId: string;
   answer: string;
   content: string;
   examType: "Oficjalna" | "Próbna" | "Dodatkowa";
@@ -33,7 +34,6 @@ export type TaskProps = {
 };
 
 export interface TaskListItem extends TaskProps {
-  id: string;
   isCompleted: boolean;
 }
 

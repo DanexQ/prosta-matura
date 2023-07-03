@@ -4,18 +4,19 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 export const markTaskAsDone = async (
   userId: string,
-  taskId: string,
-  isTaskCompleted: boolean
+  isTaskCompleted: boolean,
+  completedTask: {
+    taskId: string;
+    taskType: string;
+  }
 ) => {
   try {
     const completedTaskRef = doc(db, "completedTasks", userId);
-    isTaskCompleted
-      ? await updateDoc(completedTaskRef, {
-          completedTasks: arrayRemove(taskId),
-        })
-      : await updateDoc(completedTaskRef, {
-          completedTasks: arrayUnion(taskId),
-        });
+    await updateDoc(completedTaskRef, {
+      completedTasks: isTaskCompleted
+        ? arrayRemove(completedTask)
+        : arrayUnion(completedTask),
+    });
   } catch (err) {
     console.log(err);
   }

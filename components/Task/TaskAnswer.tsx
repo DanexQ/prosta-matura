@@ -1,7 +1,6 @@
 "use client";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React, { useEffect, useState } from "react";
-import TaskDoneButton from "./TaskDoneButton";
 
 const TaskAnswer = ({
   answer,
@@ -12,9 +11,6 @@ const TaskAnswer = ({
 }) => {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
-  useEffect(() => {
-    setShowAnswer(false);
-  }, []);
   const handleClick = () => {
     return setShowAnswer((prevState) => !prevState);
   };

@@ -12,7 +12,7 @@ const Nav = () => {
   const navLinksElements = ["Arkusze", "Zadania", "Losuj"].map((id) => (
     <Link
       key={id}
-      href="/newTask"
+      href="tasks/add-task"
       className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
     >
       {id}

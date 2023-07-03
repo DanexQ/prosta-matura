@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import Task from "../Task";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { TaskProps } from "../types";
 import { taskTypeList } from "../Tasks/taskTypes";
-import { addTask } from "@utils/addTask";
+import { addTask } from "@firebase/addTask";
+import { TaskListItem } from "@components/types";
 
-const defaultTask: TaskProps = {
+const defaultTask: TaskListItem = {
+  taskId: "",
   content: "",
   answer: "",
   taskType: "stereometria",
@@ -14,10 +15,11 @@ const defaultTask: TaskProps = {
   examType: "Oficjalna",
   examYear: 2023,
   points: 0,
+  isCompleted: false,
 };
 
 const AddTaskForm = () => {
-  const { register, handleSubmit, watch } = useForm<TaskProps>({
+  const { register, handleSubmit, watch } = useForm<TaskListItem>({
     defaultValues: defaultTask,
   });
   const [uploadedImage, setUploadedImage] = useState<File | undefined>(
@@ -25,17 +27,16 @@ const AddTaskForm = () => {
   );
   const watchAllFields = watch();
 
-  const onSubmit: SubmitHandler<TaskProps> = (task) => {
+  const onSubmit: SubmitHandler<TaskListItem> = (task) => {
     addTask(task, uploadedImage);
   };
-
   return (
-    <div className="grid grid-cols-[3fr_2fr] items-stretch gap-10">
+    <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
       <Task {...watchAllFields} />
 
       <form
-        onSubmit={handleSubmit((data) => onSubmit(data))}
-        className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 "
+        onSubmit={handleSubmit(onSubmit)}
+        className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
       >
         <h2 className="col-span-3 py-5 text-3xl font-bold text-center uppercase text-neutral-200">
           Dodaj Zadanie
