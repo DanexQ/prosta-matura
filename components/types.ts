@@ -34,6 +34,7 @@ export type TaskProps = {
 
 export interface TaskListItem extends TaskProps {
   id: string;
+  isCompleted: boolean;
 }
 
 export type TaskList = TaskListItem[];

@@ -2,7 +2,7 @@
 import React, { ReactNode, useState } from "react";
 import { registerStateType } from ".";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { registerEmailPassword } from "@utils/registerEmailPassword";
+import { registerEmailPassword } from "@firebase/registerEmailPassword";
 import Modal from "@components/Modal";
 import ButtonCloseModal from "@components/ButtonCloseModal";
 import { FirebaseError } from "firebase/app";

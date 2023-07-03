@@ -1,12 +1,13 @@
 "use server";
 
-import { auth } from "@firebase";
+import { auth, db } from "@firebase";
 import { FirebaseError } from "firebase-admin";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { FieldValues } from "react-hook-form";
 
 export const registerEmailPassword = async (formData: FieldValues) => {
@@ -18,6 +19,7 @@ export const registerEmailPassword = async (formData: FieldValues) => {
       password
     );
     await updateProfile(user, { displayName: username });
+    await setDoc(doc(db, "completedTasks", user.uid), { completedTasks: [] });
     sendEmailVerification(user);
   } catch (err) {
     const error = err as FirebaseError;

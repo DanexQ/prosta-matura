@@ -1,14 +1,22 @@
+"use client";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React, { useEffect, useState } from "react";
+import TaskDoneButton from "./TaskDoneButton";
 
-const TaskAnswer = ({ answer }: { answer: string }) => {
+const TaskAnswer = ({
+  answer,
+  children,
+}: {
+  answer: string;
+  children: React.ReactNode;
+}) => {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
   useEffect(() => {
     setShowAnswer(false);
   }, []);
   const handleClick = () => {
-    setShowAnswer((prevState) => !prevState);
+    return setShowAnswer((prevState) => !prevState);
   };
 
   return (
@@ -22,12 +30,15 @@ const TaskAnswer = ({ answer }: { answer: string }) => {
           <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
         </MathJaxContext>
       </p>
-      <button
-        onClick={handleClick}
-        className="self-start text-sm md:text-base btn-primary"
-      >
-        Odpowiedź
-      </button>
+      <div className="flex justify-between w-full">
+        <button
+          onClick={handleClick}
+          className="flex self-start text-sm md:text-base btn-primary"
+        >
+          Odpowiedź
+        </button>
+        {children}
+      </div>
     </>
   );
 };

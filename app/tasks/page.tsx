@@ -4,7 +4,7 @@ import { db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
-import { getTasks } from "@utils/getTasks";
+import { getTasks } from "@firebase/getTasks";
 import { getSession } from "next-auth/react";
 import { authOptions } from "@lib/authOptions";
 import { getServerSession } from "next-auth/next";
@@ -42,20 +42,6 @@ const createQuery = ({ filters = "", page = 1 }: SearchParamsTypes): string => {
   const query = `?${!!filters ? `filters=${qFilters}&` : ""}page=${page}`;
   return query;
 };
-
-// export async function generateMetadata({
-//   searchParams,
-// }: SearchParams): Promise<Metadata> {
-//   const filtersSP = searchParams.filters?.split(" ");
-//   const res = await getDocs(collection(db, "taskTypes"));
-//   const title = res.docs
-//     .filter((doc) => filtersSP?.includes(doc.id))
-//     .map((doc) => doc.data().type)
-//     .join(" ");
-//   return {
-//     title,
-//   };
-// }
 
 export default async function Page({ searchParams }: SearchParams) {
   const query = createQuery(searchParams);
