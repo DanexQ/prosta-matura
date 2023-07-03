@@ -1,9 +1,21 @@
 import TaskChart from "@components/TaskChart";
+import { getFilters } from "@firebase/getFilters";
+import { getUsersCompletedTasks } from "@firebase/getUsersCompletedTasks";
 import { authOptions } from "@lib/authOptions";
+import { createChartsData } from "@utils/createChartsData";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
+  if (!!!userId) return redirect("/tasks");
+
+  const [completedTasks, types] = await Promise.all([
+    getUsersCompletedTasks(userId),
+    getFilters(),
+  ]);
+  const chartsData = createChartsData(completedTasks, types);
   return (
     <>
       <section className="flex items-center justify-between w-full p-8">
@@ -14,25 +26,13 @@ export default async function Page() {
           Wyloguj się
         </button>
       </section>
-      <section className="grid justify-between grid-cols-5 gap-3 p-8 border border-neutral-600 ">
-        <span className="col-span-5 text-lg font-semibold tracking-wider uppercase">
+      <section className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <span className="col-span-1 text-lg font-semibold tracking-wider uppercase sm:col-span-2 md:col-span-3 lg:col-span-4">
           Twoje dotychczasowe postępy!
         </span>
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
-        <TaskChart />
+        {chartsData.map((data) => (
+          <TaskChart key={data.id} {...data} />
+        ))}
       </section>
     </>
   );

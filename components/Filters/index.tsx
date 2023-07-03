@@ -8,7 +8,7 @@ type Filters = {
   [key: string]: boolean;
 };
 
-interface FiltersFormProps {
+export interface FiltersFormProps {
   filterTypes: FilterType[];
 }
 

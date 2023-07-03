@@ -15,14 +15,14 @@ import {
 } from "firebase/firestore";
 import { getServerSession } from "next-auth";
 
-type CompletedTaskItem = {
+export type CompletedTaskItem = {
   taskId: string;
   taskType: string;
 };
 
-type CompletedTasksList = CompletedTaskItem[];
+export type CompletedTasksList = CompletedTaskItem[];
 
-type CompletedTasksDataType = {
+export type CompletedTasksDataType = {
   completedTasks: CompletedTasksList;
 };
 
@@ -31,7 +31,6 @@ export const getTasks = async (urlQuery: string) => {
   const queryRef = createQueryRef(filters);
   const data = await getDocs(queryRef);
   const session = await getServerSession(authOptions);
-  // @ts-ignore
   const userId = session?.user?.id;
   const completedTasks = !!userId ? await getUsersCompletedTasks(userId) : [];
   const tasks = convertFetchedData(data, completedTasks);
