@@ -42,7 +42,7 @@ function createQueryRef(filters: string[]) {
 
 function convertFetchedData(data: QuerySnapshot<DocumentData>): TaskList {
   const tasks: TaskList = data.docs.map((doc) => ({
-    id: doc.id,
+    isCompleted: false,
     ...(doc.data() as TaskProps),
   }));
   return tasks;
