@@ -4,7 +4,7 @@ import { db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
-import { getTasks } from "@firebase/getTasks";
+import { createFilterQueryRef, getTasks } from "@firebase/getTasks";
 import { getFilters } from "@firebase/getFilters";
 
 export type TasksDetailsType = {
@@ -12,25 +12,18 @@ export type TasksDetailsType = {
   tasksQuantity: number;
 };
 
-type SearchParamsTypes = {
+export type SearchParamsTypes = {
   filters: string | undefined;
   page: number | undefined;
 };
 
-type SearchParams = {
+export type SearchParams = {
   searchParams: SearchParamsTypes;
 };
 
-const createQuery = ({ filters = "", page = 1 }: SearchParamsTypes): string => {
-  const qFilters = filters?.replaceAll(" ", "%20");
-  const query = `?${!!filters ? `filters=${qFilters}&` : ""}page=${page}`;
-  return query;
-};
-
 export default async function Page({ searchParams }: SearchParams) {
-  const query = createQuery(searchParams);
   const [tasksDetails, filters] = await Promise.all([
-    getTasks(query),
+    getTasks(createFilterQueryRef({ searchParams }), searchParams.page),
     getFilters(),
   ]);
 
