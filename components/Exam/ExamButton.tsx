@@ -18,7 +18,7 @@ const ExamButton = ({
   };
 
   return (
-    <button className="btn-primary" onClick={handleClick()}>
+    <button className="px-4 py-2 btn-primary" onClick={handleClick()}>
       {children}
     </button>
   );

@@ -5,10 +5,10 @@ export default async function Page() {
 
   return (
     <section className="flex flex-col w-full gap-5 p-4 my-3 border border-neutral-600 ">
-      <h2 className="self-center text-2xl uppercase">
+      <h2 className="self-center text-2xl font-semibold uppercase">
         Arkusze matur z ubiegłych lat
       </h2>
-      <ul className="flex flex-col w-full gap-5">
+      <ul className="flex flex-col w-full text-lg gap-7">
         {examYears.map((year) => (
           <Exam key={year} examYear={year} />
         ))}

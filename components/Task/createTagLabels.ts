@@ -1,5 +1,4 @@
-import { taskTypeList } from "@components/Tasks/taskTypes";
-import { TaskProps } from "@components/types";
+import { TaskProps, taskTypeList } from "@customTypes/taskTypes";
 
 export const createTagLabels = ({
   formula,

@@ -1,4 +1,4 @@
-import { TaskList, TaskProps } from "@components/types";
+import { TaskList, TaskProps } from "@customTypes/taskTypes";
 import { db } from "@firebase";
 import {
   DocumentData,
@@ -12,17 +12,10 @@ import {
 } from "firebase/firestore";
 import { getUsersCompletedTasks } from "./getUsersCompletedTasks";
 import { SearchParams } from "@app/tasks/page";
-
-export type CompletedTaskItem = {
-  taskId: string;
-  taskType: string;
-};
-
-export type CompletedTasksList = CompletedTaskItem[];
-
-export type CompletedTasksDataType = {
-  completedTasks: CompletedTasksList;
-};
+import {
+  CompletedTaskItem,
+  CompletedTasksList,
+} from "@customTypes/completedTasksTypes";
 
 export const getTasks = async (
   query: Query<DocumentData>,

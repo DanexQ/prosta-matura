@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { FilterType } from "../types";
+import { FilterType } from "@customTypes/filterTypes";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 

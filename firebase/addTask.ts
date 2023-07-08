@@ -1,4 +1,4 @@
-import { TaskProps } from "@components/types";
+import { TaskProps } from "@customTypes/taskTypes";
 import { db, storage } from "@firebase";
 import {
   collection,

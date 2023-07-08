@@ -1,4 +1,3 @@
-import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import ExamButton from "./ExamButton";
 
@@ -15,7 +14,7 @@ const Exam = ({ examYear }: { examYear: number }) => {
       {examTypes.map((examType) => (
         <ExamButton
           key={examType.url}
-          url={"exams/" + examYear + "/" + examType.url}
+          url={"exams/" + examYear + "?examType=" + examType.url}
         >
           {examType.label}
         </ExamButton>

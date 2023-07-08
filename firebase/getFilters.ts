@@ -1,4 +1,5 @@
-import { FilterType, TaskType } from "@components/types";
+import { TaskType } from "@customTypes/taskTypes";
+import { FilterType } from "@customTypes/filterTypes";
 import { db } from "@firebase";
 import { collection, getDocs } from "firebase/firestore";
 

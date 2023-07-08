@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const TaskDoneButton = ({
+const TaskCompletedButton = ({
   isCompleted,
   handleClick,
 }: {
@@ -22,4 +22,4 @@ const TaskDoneButton = ({
   );
 };
 
-export default TaskDoneButton;
+export default TaskCompletedButton;

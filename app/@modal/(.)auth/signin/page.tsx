@@ -2,7 +2,7 @@ import FormLogin from "@components/FormLogin";
 import Modal from "@components/Modal";
 import ButtonCloseModal from "@components/ButtonCloseModal";
 
-export default async function page() {
+export default function page() {
   return (
     <Modal>
       <ButtonCloseModal />

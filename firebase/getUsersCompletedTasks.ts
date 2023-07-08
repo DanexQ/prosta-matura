@@ -1,6 +1,9 @@
 import { db } from "@firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { CompletedTasksDataType, CompletedTasksList } from "./getTasks";
+import {
+  CompletedTasksDataType,
+  CompletedTasksList,
+} from "@customTypes/completedTasksTypes";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/authOptions";
 

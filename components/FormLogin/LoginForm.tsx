@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { loginStateType } from ".";
-import { revalidatePath } from "next/cache";
 
 const WRONG_PASSWORD = "Firebase: Error (auth/wrong-password).";
 

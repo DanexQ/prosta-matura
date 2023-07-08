@@ -9,7 +9,7 @@ const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {
   return (
     <section className="flex flex-col gap-3 md:gap-5 text-gray-200 flex-[3_2_0%]">
       {tasks.map((task) => (
-        <Task key={task.id} {...task} />
+        <Task key={task.taskId} {...task} />
       ))}
       <PageNav quantity={pagesQuantity} />
     </section>

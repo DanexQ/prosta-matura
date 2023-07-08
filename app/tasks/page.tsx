@@ -1,7 +1,5 @@
-import { FilterType, TaskList, TaskType } from "@components/types";
+import { TaskList } from "@customTypes/taskTypes";
 import Tasks from "@components/Tasks/Tasks";
-import { db } from "@firebase";
-import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import FiltersForm from "@components/Filters";
 import { createFilterQueryRef, getTasks } from "@firebase/getTasks";

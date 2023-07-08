@@ -2,9 +2,8 @@
 import React, { useState } from "react";
 import Task from "../Task";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { taskTypeList } from "../Tasks/taskTypes";
 import { addTask } from "@firebase/addTask";
-import { TaskListItem } from "@components/types";
+import { TaskListItem, taskTypeList } from "@customTypes/taskTypes";
 
 const defaultTask: TaskListItem = {
   taskId: "",

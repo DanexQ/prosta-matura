@@ -1,7 +1,6 @@
 import { FiltersFormProps } from "@components/Filters";
 import { FilterType } from "@components/types";
 import { CompletedTasksList } from "@firebase/getTasks";
-import { type } from "os";
 
 export type TaskChartData = {
   id: string;

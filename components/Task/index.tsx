@@ -1,14 +1,14 @@
 "use client";
-import { TaskListItem } from "../types";
+import { TaskListItem } from "@customTypes/taskTypes";
 import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
 import { useState } from "react";
 import { markTaskAsDone } from "@firebase/markTaskAsDone";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import TaskDoneButton from "./TaskDoneButton";
 import { createTagLabels } from "./createTagLabels";
 import TaskTags from "./TaskTags";
+import TaskCompletedButton from "./TaskCompletedButton";
 
 const Task = (details: TaskListItem) => {
   const [isCompleted, setIsCompleted] = useState(details.isCompleted);
@@ -17,13 +17,14 @@ const Task = (details: TaskListItem) => {
   const borderStyling = isCompleted ? "border-green-600" : "border-neutral-600";
 
   const handleChangeTaskCompletition = async () => {
-    // @ts-ignore
     const userId = session?.user?.id;
     try {
       if (!!userId) {
         await markTaskAsDone(userId, isCompleted, {
           taskId: details.taskId,
           taskType: details.taskType,
+          examType: details.examType,
+          examYear: details.examYear,
         });
         setIsCompleted((prev) => !prev);
       } else {
@@ -41,7 +42,7 @@ const Task = (details: TaskListItem) => {
       <TaskTags labels={createTagLabels(details)} />
       <TaskContent content={details.content} />
       <TaskAnswer answer={details.answer}>
-        <TaskDoneButton
+        <TaskCompletedButton
           isCompleted={isCompleted}
           handleClick={handleChangeTaskCompletition}
         />
