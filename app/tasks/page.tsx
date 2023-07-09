@@ -5,6 +5,11 @@ import FiltersForm from "@components/Filters";
 import { createFilterQueryRef, getTasks } from "@firebase/getTasks";
 import { getFilters } from "@firebase/getFilters";
 
+export const metadata = {
+  title: "Zadania | Prosta Matura",
+  description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
+};
+
 export type TasksDetailsType = {
   tasks: TaskList;
   tasksQuantity: number;

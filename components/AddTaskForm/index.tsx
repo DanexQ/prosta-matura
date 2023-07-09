@@ -14,6 +14,7 @@ const defaultTask: TaskListItem = {
   examType: "Oficjalna",
   examYear: 2023,
   points: 0,
+  taskNumber: 1,
   isCompleted: false,
 };
 
@@ -57,8 +58,10 @@ const AddTaskForm = () => {
           className="col-span-3 p-2 mb-3 border bg-neutral-800 border-neutral-600"
         />
 
-        <div className="grid items-center grid-cols-2 col-span-3 grid-rows-2 row-span-2 px-2 mb-3 justify-items-center ">
-          <label htmlFor="taskType text-sm">Typ zadania</label>
+        <div className="grid items-center grid-cols-[2fr_1fr_1fr] col-span-3 grid-rows-2 row-span-2 px-2 mb-3 justify-items-center ">
+          <label htmlFor="taskType " className="text-sm">
+            Typ zadania
+          </label>
           <select
             {...register("taskType")}
             className="row-start-2 col-end-2 text-center border bg-neutral-800 border-neutral-600 max-w-[max-content] p-1"
@@ -74,6 +77,17 @@ const AddTaskForm = () => {
           </label>
           <input
             {...register("points", { max: 7, min: 1 })}
+            type="number"
+            className="text-center border bg-neutral-800 border-neutral-600 max-w-[50px] p-1"
+          />
+          <label
+            htmlFor="taskNumber"
+            className="col-start-3 row-start-1 text-sm"
+          >
+            Numer
+          </label>
+          <input
+            {...register("taskNumber", { max: 15, min: 1 })}
             type="number"
             className="text-center border bg-neutral-800 border-neutral-600 max-w-[50px] p-1"
           />

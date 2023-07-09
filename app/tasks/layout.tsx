@@ -2,11 +2,6 @@ import React from "react";
 import Nav from "@components/Nav";
 import Footer from "@components/Footer";
 
-export const metadata = {
-  title: "Zadania | Prosta Matura",
-  description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
-};
-
 export default async function Layout({
   children,
 }: {

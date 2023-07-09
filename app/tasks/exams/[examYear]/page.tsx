@@ -2,6 +2,7 @@ import ExamTasksCounter from "@components/ExamTasksCounter";
 import Tasks from "@components/Tasks/Tasks";
 import { getExamTasks } from "@firebase/getExamTasks";
 import { capitalizeWord } from "@utils/capitalizeWord";
+import { Metadata } from "next";
 import Link from "next/link";
 
 type ExamPageProps = {
@@ -12,7 +13,7 @@ type ExamPageProps = {
 export async function generateMetadata({
   params,
   searchParams,
-}: ExamPageProps) {
+}: ExamPageProps): Promise<Metadata> {
   const { examYear } = params;
   const { examType } = searchParams;
   const title = `Matura ${examType} ${examYear} | Prosta Matura`;
@@ -28,6 +29,7 @@ export default async function Page({ params, searchParams }: ExamPageProps) {
       <div className="grid items-center content-center justify-between w-full grid-cols-3 p-5 border border-neutral-600">
         <Link
           href="/tasks/exams"
+          replace
           className="flex items-center justify-start gap-2 text-sm"
         >
           <span>&#8592; </span> <span>Powrót</span>

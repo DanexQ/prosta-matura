@@ -13,7 +13,7 @@ const ExamButton = ({
 
   const handleClick = () => {
     return function () {
-      router.push(url);
+      router.replace(url);
     };
   };
 

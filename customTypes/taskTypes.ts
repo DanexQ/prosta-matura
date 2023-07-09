@@ -14,6 +14,7 @@ export type TaskProps = {
   imageUrl?: string;
   points: number;
   taskType: TaskType;
+  taskNumber: number;
 };
 
 export type TaskType =

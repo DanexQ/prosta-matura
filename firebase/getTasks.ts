@@ -19,13 +19,14 @@ import {
 
 export const getTasks = async (
   query: Query<DocumentData>,
-  page: number = 1
+  page: number = 1,
+  allTasks?: true
 ) => {
   const data = await getDocs(query);
   const completedTasks = await getUsersCompletedTasks();
   const tasks = convertFetchedData(data, completedTasks);
   return {
-    tasks: tasks.slice((page - 1) * 5, page * 5),
+    tasks: allTasks ? tasks : tasks.slice((page - 1) * 5, page * 5),
     tasksQuantity: tasks.length,
   };
 };
