@@ -1,4 +1,4 @@
-import { CompletedTasksList } from "@firebase/getTasks";
+import { CompletedTasksList } from "@customTypes/completedTasksTypes";
 
 export const sumCompletedTasks = (
   completedTasks: CompletedTasksList

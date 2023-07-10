@@ -15,7 +15,7 @@ const TaskContent = ({
 }) => {
   return (
     <MathJaxContext config={config}>
-      <p className="my-2 font-thin text-justify whitespace-pre-line md:my-5">
+      <p className="my-2 font-thin whitespace-pre-line md:my-5">
         <MathJax>{content.replaceAll("/n", "\n")}</MathJax>
       </p>
 

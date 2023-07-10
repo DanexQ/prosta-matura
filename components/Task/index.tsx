@@ -15,7 +15,7 @@ const Task = (details: TaskListItem) => {
   const { data: session } = useSession();
   const router = useRouter();
   const borderStyling = isCompleted ? "border-green-600" : "border-neutral-600";
-  console.log(details.taskId, details.isCompleted);
+
   const handleChangeTaskCompletition = async () => {
     const userId = session?.user?.id;
     try {

@@ -1,4 +1,4 @@
-import { TaskList, TaskProps } from "@components/types";
+import { TaskList, TaskProps } from "@customTypes/taskTypes";
 import { db } from "@firebase";
 import {
   DocumentData,
@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { NextResponse } from "next/server";
+
 // some issue with fetching data from api on vercel - locally is everything fine
 export async function GET(req: Request) {
   const { filters, page } = extractArgumentsFromURL(req.url);

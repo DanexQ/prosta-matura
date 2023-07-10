@@ -1,6 +1,6 @@
 "use client";
 import { db } from "@firebase";
-import { CompletedTasksDataType } from "@firebase/getTasks";
+import { CompletedTasksDataType } from "@customTypes/completedTasksTypes";
 import { capitalizeWord } from "@utils/capitalizeWord";
 import { sumCompletedTasks } from "@utils/sumCompletedTasks";
 import { doc, onSnapshot } from "firebase/firestore";
