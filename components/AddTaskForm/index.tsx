@@ -35,9 +35,13 @@ const AddTaskForm = () => {
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
         <Task {...watchAllFields} />
-
+        {/* 
         <form
           onSubmit={handleSubmit(onSubmit)}
+          className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
+        > */}
+        <form
+          // onSubmit={handleSubmit(onSubmit)}
           className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
         >
           <h2 className="col-span-3 py-5 text-3xl font-bold text-center uppercase text-neutral-200">
@@ -158,7 +162,12 @@ const AddTaskForm = () => {
             type="file"
             onChange={(e) => setUploadedImage(e.target.files![0])}
           />
-          <button type="submit" className="self-center w-1/2 group btn-primary">
+          {/* disabled for prod */}
+          <button
+            type="submit"
+            className="self-center w-1/2 group btn-primary"
+            disabled
+          >
             Dodaj
           </button>
         </form>

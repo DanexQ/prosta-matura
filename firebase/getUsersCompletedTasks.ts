@@ -15,6 +15,6 @@ export const getUsersCompletedTasks = async () => {
     const data = completedTasksResponse.data() as CompletedTasksDataType;
     return data.completedTasks;
   } catch (err) {
-    console.log("getUsersCompletedTasks() Error", err);
+    throw new Error("getUsersCompletedTasks() Error");
   }
 };
