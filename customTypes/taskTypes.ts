@@ -26,7 +26,7 @@ export type TaskType =
   | "ciagi"
   | "dalgebraiczne"
   | "dgeometryczne"
-  | "nierownosci"
+  | "rownoscinierownosci"
   | "rzparametrem"
   | "prawdopodobienstwo"
   | "kombinatoryka"
@@ -43,7 +43,7 @@ export const taskTypeList = {
   ciagi: "Ciągi",
   dalgebraiczne: "Dowody algebraiczne",
   dgeometryczne: "Dowody geometryczne",
-  nierownosci: "Nierówności",
+  rownoscinierownosci: "Równości i nierówności",
   rzparametrem: "Równania z parametrem",
   prawdopodobienstwo: "Prawdopodobieństwo",
   kombinatoryka: "Kombinatoryka",

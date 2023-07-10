@@ -22,7 +22,7 @@ const tagColor = (tag: string) => {
       return "bg-indigo-500/50 text-indigo-200";
     case "Dowody geometryczne":
       return "bg-violet-500/50 text-violet-200";
-    case "Nierówności":
+    case "Równości i nierówności":
       return "bg-purple-500/50 text-purple-200";
     case "Równania z parametrem":
       return "bg-pink-500/50 text-pink-200";

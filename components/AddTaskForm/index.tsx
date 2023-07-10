@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { addTask } from "@firebase/addTask";
 import { TaskListItem, TaskProps, taskTypeList } from "@customTypes/taskTypes";
 
-const defaultTask: TaskListItem = {
+const defaultTask: Omit<TaskListItem, "isCompleted"> = {
   taskId: "",
   content: "",
   answer: "",
@@ -15,7 +15,6 @@ const defaultTask: TaskListItem = {
   examYear: 2023,
   points: 0,
   taskNumber: 1,
-  isCompleted: false,
 };
 
 const AddTaskForm = () => {
