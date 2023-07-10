@@ -15,7 +15,7 @@ export default async function Page() {
     getUsersCompletedTasks(),
     getFilters(),
   ]);
-  const chartsData = createChartsData(completedTasks, types);
+  const chartsData = createChartsData(completedTasks ?? [], types);
   return (
     <>
       <section className="flex items-center justify-between w-full p-8">

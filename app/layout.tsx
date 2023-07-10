@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <head>
-        <link rel="shortcut icon" href="" />
+        <link rel="shortcut icon" href="#" />
       </head>
       <body className="relative h-full bg-neutral-900 text-neutral-200">
         <NextAuthSessionProvider>
