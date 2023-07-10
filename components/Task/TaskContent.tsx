@@ -1,27 +1,34 @@
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React from "react";
+import Image from "next/image";
 
 const config = {
   loader: { load: ["input/asciimath"] },
 };
 
-const TaskContent = ({ content }: { content: string }) => {
+const TaskContent = ({
+  content,
+  imageUrl,
+}: {
+  content: string;
+  imageUrl?: string;
+}) => {
   return (
-    <p className="my-2 font-thin text-justify whitespace-pre-line md:my-5">
-      <MathJaxContext config={config}>
+    <MathJaxContext config={config}>
+      <p className="my-2 font-thin text-justify whitespace-pre-line md:my-5">
         <MathJax>{content.replaceAll("/n", "\n")}</MathJax>
-        {/*
-          TODO: MAKE ALL IMAGES IMAGES AND NOT SVG
-          {!!details.imageUrl && (
-            <Image
-              src={details.imageUrl}
-              alt="TaskImage"
-              width={300}
-              height={300}
-            />
-          )} */}
-      </MathJaxContext>
-    </p>
+      </p>
+
+      {!!imageUrl && (
+        <Image
+          src={imageUrl}
+          alt="TaskImage"
+          width={250}
+          height={250}
+          className="self-center invert"
+        />
+      )}
+    </MathJaxContext>
   );
 };
 

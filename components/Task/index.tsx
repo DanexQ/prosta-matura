@@ -40,7 +40,7 @@ const Task = (details: TaskListItem) => {
       className={`flex flex-col p-4 border lg:p-8 ${borderStyling} text-inherit`}
     >
       <TaskTags labels={createTagLabels(details)} />
-      <TaskContent content={details.content} />
+      <TaskContent content={details.content} imageUrl={details.imageUrl} />
       <TaskAnswer answer={details.answer}>
         <TaskCompletedButton
           isCompleted={isCompleted}
