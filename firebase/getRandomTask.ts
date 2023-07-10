@@ -10,7 +10,6 @@ export const getRandomTask = async (): Promise<TaskListItem> => {
     true
   );
   const counter = Math.floor(Math.random() * tasksQuantity);
-  console.log(counter, tasksQuantity);
 
   const randomTask = tasks[counter];
   return randomTask;
