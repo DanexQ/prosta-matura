@@ -12,7 +12,7 @@ export default async function Page() {
   if (!!!userId) return redirect("/tasks");
 
   const [completedTasks, types] = await Promise.all([
-    getUsersCompletedTasks(),
+    getUsersCompletedTasks(userId),
     getFilters(),
   ]);
   const chartsData = createChartsData(completedTasks, types);
