@@ -16,10 +16,11 @@ import {
   CompletedTaskItem,
   CompletedTasksList,
 } from "@customTypes/completedTasksTypes";
+import { UserId } from "@customTypes/userIdType";
 
-type TGetTasks = {
+type GetTasksType = {
   query: Query<DocumentData>;
-  userId: string | undefined;
+  userId: UserId;
   page?: number;
   allTasks?: true;
 };
@@ -29,7 +30,7 @@ export const getTasks = async ({
   userId,
   page = 1,
   allTasks,
-}: TGetTasks) => {
+}: GetTasksType) => {
   const data = await getDocs(query);
   const completedTasks = await getUsersCompletedTasks(userId);
   const tasks = convertFetchedData(data, completedTasks);

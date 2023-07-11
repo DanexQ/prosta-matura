@@ -17,7 +17,7 @@ export const useExamTasksCounter = ({
   const [tasksCounter, setTasksCounter] = useState(0);
   const { data: session } = useSession();
   useEffect(() => {
-    const id = session?.user.id as string;
+    const id = session?.user.id;
     if (!id) return;
     const unsub = onSnapshot(doc(db, "completedTasks", id), (doc) => {
       const { completedTasks } = doc.data() as CompletedTasksDataType;
