@@ -1,8 +1,10 @@
 import ExamTasksCounter from "@components/ExamTasksCounter";
 import Tasks from "@components/Tasks/Tasks";
 import { getExamTasks } from "@firebase/getExamTasks";
+import { authOptions } from "@lib/authOptions";
 import { capitalizeWord } from "@utils/capitalizeWord";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 type ExamPageProps = {
@@ -23,7 +25,9 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params, searchParams }: ExamPageProps) {
-  const tasks = await getExamTasks({ ...params, ...searchParams });
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
+  const tasks = await getExamTasks({ ...params, ...searchParams, userId });
   return (
     <section className="flex flex-col gap-2 md:text-base">
       <div className="grid items-center content-center justify-between w-full grid-cols-3 p-5 border border-neutral-600">

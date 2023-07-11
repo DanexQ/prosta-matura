@@ -6,7 +6,7 @@ import type { ChartData } from "chart.js";
 import Link from "next/link";
 import { TaskChartData } from "@utils/createChartsData";
 
-const index = ({ type, chartData }: Omit<TaskChartData, "id">) => {
+const index = ({ type, chartData, id }: TaskChartData) => {
   const data: ChartData<"pie"> = {
     datasets: [
       {
@@ -23,7 +23,7 @@ const index = ({ type, chartData }: Omit<TaskChartData, "id">) => {
       <span className="mb-auto font-bold uppercase hyphens-manual">{type}</span>
       <Pie data={data} updateMode="none" redraw={false} />
       <p>{`${chartData[1]}/${chartData[0] + chartData[1]}`}</p>
-      <Link href="#">Sprawdź zadania</Link>
+      <Link href={`/tasks?filters=${id}`}>Sprawdź zadania</Link>
     </div>
   );
 };

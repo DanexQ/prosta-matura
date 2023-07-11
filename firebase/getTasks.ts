@@ -17,13 +17,21 @@ import {
   CompletedTasksList,
 } from "@customTypes/completedTasksTypes";
 
-export const getTasks = async (
-  query: Query<DocumentData>,
-  page: number = 1,
-  allTasks?: true
-) => {
+type TGetTasks = {
+  query: Query<DocumentData>;
+  userId: string | undefined;
+  page?: number;
+  allTasks?: true;
+};
+
+export const getTasks = async ({
+  query,
+  userId,
+  page = 1,
+  allTasks,
+}: TGetTasks) => {
   const data = await getDocs(query);
-  const completedTasks = await getUsersCompletedTasks();
+  const completedTasks = await getUsersCompletedTasks(userId);
   const tasks = convertFetchedData(data, completedTasks);
   return {
     tasks: allTasks ? tasks : tasks.slice((page - 1) * 5, page * 5),

@@ -4,6 +4,8 @@ import React from "react";
 import FiltersForm from "@components/Filters";
 import { createFilterQueryRef, getTasks } from "@firebase/getTasks";
 import { getFilters } from "@firebase/getFilters";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@lib/authOptions";
 
 export const metadata = {
   title: "Zadania | Prosta Matura",
@@ -25,8 +27,14 @@ export type SearchParams = {
 };
 
 export default async function Page({ searchParams }: SearchParams) {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
   const [tasksDetails, filters] = await Promise.all([
-    getTasks(createFilterQueryRef({ searchParams }), searchParams.page),
+    getTasks({
+      query: createFilterQueryRef({ searchParams }),
+      userId,
+      page: searchParams.page,
+    }),
     getFilters(),
   ]);
 
