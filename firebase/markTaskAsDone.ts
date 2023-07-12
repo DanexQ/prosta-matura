@@ -1,12 +1,12 @@
 "use server";
 import { db } from "@firebase";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { CompletedTaskItem } from "@customTypes/completedTasksTypes";
+import { CompletedTask } from "@customTypes/completedTasksTypes";
 
 export const markTaskAsDone = async (
   userId: string,
   isTaskCompleted: boolean,
-  completedTask: CompletedTaskItem
+  completedTask: CompletedTask
 ) => {
   try {
     const completedTaskRef = doc(db, "completedTasks", userId);
@@ -16,6 +16,7 @@ export const markTaskAsDone = async (
         : arrayUnion(completedTask),
     });
   } catch (err) {
-    console.log(err);
+    const error = err as Error;
+    throw new Error(`markTaskAsDone Error - ${(error.message, error.name)}`);
   }
 };

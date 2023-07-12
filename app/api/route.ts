@@ -1,5 +1,5 @@
-import { TaskList, TaskProps } from "@customTypes/taskTypes";
 import { db } from "@firebase";
+import { TaskList, Task } from "@customTypes/taskTypes";
 import {
   DocumentData,
   QuerySnapshot,
@@ -42,9 +42,12 @@ function createQueryRef(filters: string[]) {
 }
 
 function convertFetchedData(data: QuerySnapshot<DocumentData>): TaskList {
-  const tasks: TaskList = data.docs.map((doc) => ({
-    isCompleted: false,
-    ...(doc.data() as TaskProps),
-  }));
+  const tasks: TaskList = data.docs.map(
+    (doc) =>
+      ({
+        isCompleted: false,
+        ...doc.data(),
+      } as Task)
+  );
   return tasks;
 }

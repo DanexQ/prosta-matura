@@ -1,11 +1,14 @@
 import Exam from "@components/Exam";
+import { ExamYear } from "@customTypes/examTypes";
 
 export const metadata = {
   title: "Arkusze | Prosta Matura",
 };
 
 export default async function Page() {
-  const examYears = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+  const examYears: ExamYear[] = [
+    2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+  ];
 
   return (
     <section className="flex flex-col w-full gap-5 p-4 my-3 border border-neutral-600 ">

@@ -1,12 +1,15 @@
-export type CompletedTaskItem = {
+import { ExamType, ExamYear } from "./examTypes";
+import { TaskType } from "./taskTypes";
+
+export type CompletedTask = {
   taskId: string;
-  taskType: string;
-  examYear: number;
-  examType: string;
+  taskType: TaskType;
+  examYear: ExamYear;
+  examType: ExamType;
 };
 
-export type CompletedTasksList = CompletedTaskItem[];
+export type CompletedTasksList = CompletedTask[];
 
-export type CompletedTasksDataType = {
+export type CompletedTasksData = {
   completedTasks: CompletedTasksList;
 };

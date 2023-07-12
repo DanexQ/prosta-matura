@@ -1,4 +1,4 @@
-import { TaskList } from "@customTypes/taskTypes";
+import { TaskType } from "@customTypes/taskTypes";
 import Tasks from "@components/Tasks/Tasks";
 import React from "react";
 import FiltersForm from "@components/Filters";
@@ -10,11 +10,6 @@ import { authOptions } from "@lib/authOptions";
 export const metadata = {
   title: "Zadania | Prosta Matura",
   description: "Zbiór zadań maturalnych z matematyki rozszerzonej",
-};
-
-export type TasksDetailsType = {
-  tasks: TaskList;
-  tasksQuantity: number;
 };
 
 export type SearchParamsTypes = {

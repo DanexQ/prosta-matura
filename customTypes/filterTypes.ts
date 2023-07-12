@@ -1,6 +1,6 @@
 import { TaskType } from "./taskTypes";
 
-export type FilterType = {
+export type Filter = {
   id: string;
   quantity: number;
   type: TaskType;

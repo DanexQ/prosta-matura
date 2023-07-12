@@ -1,6 +1,6 @@
 import { db } from "@firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { CompletedTasksDataType } from "@customTypes/completedTasksTypes";
+import { CompletedTasksData } from "@customTypes/completedTasksTypes";
 import { UserId } from "@customTypes/userIdType";
 
 export const getUsersCompletedTasks = async (userId: UserId) => {
@@ -9,9 +9,12 @@ export const getUsersCompletedTasks = async (userId: UserId) => {
 
     const completedTasksRef = doc(db, "completedTasks", userId);
     const completedTasksResponse = await getDoc(completedTasksRef);
-    const data = completedTasksResponse.data() as CompletedTasksDataType;
+    const data = completedTasksResponse.data() as CompletedTasksData;
     return data.completedTasks;
   } catch (err) {
-    throw new Error("getUsersCompletedTasks() Error");
+    const error = err as Error;
+    throw new Error(
+      `getUsersCompletedTasks() Error ${(error.message, error.name)}`
+    );
   }
 };

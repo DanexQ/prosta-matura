@@ -1,12 +1,8 @@
-import { FirestoreAdapter, initFirestore } from "@auth/firebase-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { NextAuthOptions } from "next-auth";
-import app, { firebaseConfig } from "@firebase";
+import { firebaseConfig } from "@firebase";
 import { initializeApp } from "firebase/app";
-import { redirect } from "next/navigation";
-
-// const firestore = initFirestore(app);
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -51,4 +47,3 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
-//   adapter: FirestoreAdapter(firestore) as Adapter,

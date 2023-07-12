@@ -1,4 +1,4 @@
-import { TaskList, TaskProps } from "@customTypes/taskTypes";
+import { TaskItem, TaskList, TasksDetails } from "@customTypes/taskTypes";
 import { db } from "@firebase";
 import {
   DocumentData,
@@ -13,12 +13,12 @@ import {
 import { getUsersCompletedTasks } from "./getUsersCompletedTasks";
 import { SearchParams } from "@app/tasks/page";
 import {
-  CompletedTaskItem,
+  CompletedTask,
   CompletedTasksList,
 } from "@customTypes/completedTasksTypes";
 import { UserId } from "@customTypes/userIdType";
 
-type GetTasksType = {
+type GetTasks = {
   query: Query<DocumentData>;
   userId: UserId;
   page?: number;
@@ -30,7 +30,7 @@ export const getTasks = async ({
   userId,
   page = 1,
   allTasks,
-}: GetTasksType) => {
+}: GetTasks): Promise<TasksDetails> => {
   const data = await getDocs(query);
   const completedTasks = await getUsersCompletedTasks(userId);
   const tasks = convertFetchedData(data, completedTasks);
@@ -40,7 +40,9 @@ export const getTasks = async ({
   };
 };
 
-export function createFilterQueryRef({ searchParams }: SearchParams) {
+export function createFilterQueryRef({
+  searchParams,
+}: SearchParams): Query<DocumentData> {
   const { filters } = searchParams;
   const filtersArr = filters?.split(" ") ?? [];
   if (filtersArr.length === 0) return collection(db, "tasks");
@@ -52,7 +54,7 @@ export function createFilterQueryRef({ searchParams }: SearchParams) {
 }
 
 const isTaskCompleted = (id: string) => {
-  return function (x: CompletedTaskItem) {
+  return function (x: CompletedTask) {
     return x.taskId === id;
   };
 };
@@ -61,9 +63,12 @@ function convertFetchedData(
   data: QuerySnapshot<DocumentData>,
   completedTasks: CompletedTasksList
 ): TaskList {
-  const tasks: TaskList = data.docs.map((doc) => ({
-    isCompleted: !!completedTasks.filter(isTaskCompleted(doc.id)).length,
-    ...(doc.data() as TaskProps),
-  }));
+  const tasks: TaskList = data.docs.map(
+    (doc) =>
+      ({
+        isCompleted: !!completedTasks.filter(isTaskCompleted(doc.id)).length,
+        ...doc.data(),
+      } as TaskItem)
+  );
   return tasks;
 }

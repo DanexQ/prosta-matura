@@ -1,21 +1,27 @@
-export interface TaskListItem extends TaskProps {
-  isCompleted: boolean;
-}
+import { ExamFormula, ExamType, ExamYear } from "./examTypes";
 
-export type TaskList = TaskListItem[];
-
-export type TaskProps = {
+export type Task = {
   taskId: string;
   answer: string;
   content: string;
-  examType: "Oficjalna" | "Próbna" | "Dodatkowa";
-  examYear: number;
-  formula: "Stara" | "Nowa";
+  examType: ExamType;
+  examYear: ExamYear;
+  formula: ExamFormula;
   imageUrl?: string;
   points: number;
   taskType: TaskType;
   taskNumber: number;
 };
+
+export interface TaskItem extends Task {
+  isCompleted: boolean;
+}
+export type TasksDetails = {
+  tasks: TaskList;
+  tasksQuantity: number;
+};
+
+export type TaskList = TaskItem[];
 
 export type TaskType =
   | "stereometria"
@@ -34,7 +40,7 @@ export type TaskType =
   | "geoanalityczna"
   | "planimetria";
 
-export const taskTypeList = {
+export const taskTypeData = {
   stereometria: "Stereometria",
   optymalizacja: "Optymalizacja",
   granice: "Granice",

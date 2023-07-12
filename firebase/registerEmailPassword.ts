@@ -23,7 +23,6 @@ export const registerEmailPassword = async (formData: FieldValues) => {
     sendEmailVerification(user);
   } catch (err) {
     const error = err as FirebaseError;
-    console.log({ error });
-    throw err;
+    throw new Error(`Register Error - ${(error.code, error.message)}`);
   }
 };

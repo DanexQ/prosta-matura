@@ -3,34 +3,42 @@ import React, { useState } from "react";
 import Task from "../Task";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { addTask } from "@firebase/addTask";
-import { TaskListItem, TaskProps, taskTypeList } from "@customTypes/taskTypes";
+import { Task as TaskT, taskTypeData } from "@customTypes/taskTypes";
 
-const defaultTask: Omit<TaskListItem, "isCompleted"> = {
+const defaultTask: TaskT = {
   taskId: "",
   content: "",
   answer: "",
   taskType: "stereometria",
-  formula: "Nowa",
-  examType: "Oficjalna",
+  formula: "nowa",
+  examType: "oficjalna",
   examYear: 2023,
   points: 0,
   taskNumber: 1,
 };
 
 const AddTaskForm = () => {
-  const { register, handleSubmit, watch } = useForm<TaskListItem>({
+  const { register, handleSubmit, watch } = useForm<TaskT>({
     defaultValues: defaultTask,
   });
   const [uploadedImage, setUploadedImage] = useState<File | undefined>(
     undefined
   );
   const watchAllFields = watch();
-  const [sentTask, setSentTask] = useState<TaskProps>();
+  const [sentTask, setSentTask] = useState<TaskT>();
 
-  const onSubmit: SubmitHandler<TaskListItem> = async (task) => {
-    const sTask = await addTask(task, uploadedImage);
-    setSentTask(sTask);
+  const onSubmit: SubmitHandler<TaskT> = async (task) => {
+    try {
+      const sTask = await addTask(task, uploadedImage);
+      setSentTask(sTask);
+    } catch (err) {
+      const error = err as Error;
+      throw new Error(
+        `AddTaskForm > onSubmit Error - ${error.message}, ${error.name}`
+      );
+    }
   };
+
   return (
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
@@ -72,7 +80,7 @@ const AddTaskForm = () => {
               {...register("taskType")}
               className="row-start-2 col-end-2 text-center border bg-neutral-800 border-neutral-600 max-w-[max-content] p-1"
             >
-              {Object.entries(taskTypeList).map(([id, type]) => (
+              {Object.entries(taskTypeData).map(([id, type]) => (
                 <option key={id} value={id}>
                   {type}
                 </option>
@@ -116,7 +124,7 @@ const AddTaskForm = () => {
               <label
                 htmlFor="Stara"
                 className={`px-2 py-1 border border-neutral-600 cursor-pointer ${
-                  watchAllFields.formula === "Stara"
+                  watchAllFields.formula === "stara"
                     ? "bg-neutral-600"
                     : "bg-neutral-800"
                 }`}
@@ -133,7 +141,7 @@ const AddTaskForm = () => {
               <label
                 htmlFor="Nowa"
                 className={`px-2 py-1 border border-neutral-600 cursor-pointer  ${
-                  watchAllFields.formula === "Nowa"
+                  watchAllFields.formula === "nowa"
                     ? "bg-neutral-600"
                     : "bg-neutral-800"
                 }`}
