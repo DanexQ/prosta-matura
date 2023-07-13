@@ -1,5 +1,5 @@
 import TaskLoader from "@components/TaskLoader";
 
-export default async function loading() {
+export default function loading() {
   return <TaskLoader />;
 }

@@ -5,7 +5,7 @@ export const metadata = {
   title: "Rejestracja konta | Prosta Matura",
 };
 
-export default async function Page() {
+export default function Page() {
   return (
     <FormPage>
       <RegisterForm />

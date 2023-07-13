@@ -5,7 +5,7 @@ export const metadata = {
   title: "Logowanie | Prosta Matura",
 };
 
-export default async function page() {
+export default function page() {
   return (
     <FormPage>
       <LoginForm redirectTo="/tasks" />
