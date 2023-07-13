@@ -32,7 +32,7 @@ export const getTasks = async ({
   allTasks = false,
 }: GetTasks): Promise<TasksDetails> => {
   const data = await getDocs(query);
-  const completedTasks = await getUsersCompletedTasks(userId);
+  const completedTasks = userId ? await getUsersCompletedTasks(userId) : [];
   const tasks = convertFetchedData(data, completedTasks);
   return {
     tasks: allTasks ? tasks : tasks.slice((page - 1) * 5, page * 5),
