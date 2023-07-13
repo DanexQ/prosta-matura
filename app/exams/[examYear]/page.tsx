@@ -25,17 +25,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params, searchParams }: ExamPageProps) {
+export default async function Page({
+  params: { examYear },
+  searchParams: { examType },
+}: ExamPageProps) {
   const session = await getServerSession(authOptions);
   const userId = session?.user.id;
-  const { examYear } = params;
-  const { examType } = searchParams;
   const tasks = await getExamTasks({ examYear, examType, userId });
+
   return (
     <section className="flex flex-col gap-2 md:text-base">
       <div className="grid items-center content-center justify-between w-full grid-cols-3 p-5 border border-neutral-600">
         <Link
-          href="/tasks/exams"
+          href="/exams"
           replace
           className="flex items-center justify-start gap-2 text-sm"
         >

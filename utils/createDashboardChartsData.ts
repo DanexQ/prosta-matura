@@ -1,14 +1,10 @@
-import { FiltersFormProps } from "@components/Filters";
 import { Filter } from "@customTypes/filterTypes";
-import {
-  CompletedTask,
-  CompletedTasksList,
-} from "@customTypes/completedTasksTypes";
+import { CompletedTasksList } from "@customTypes/completedTasksTypes";
 import { TaskType, taskTypeData } from "@customTypes/taskTypes";
 
-export type TaskChartData = {
-  id: string;
-  type: string;
+export type ChartData = {
+  id: TaskType;
+  label: string;
   chartData: number[];
 };
 
@@ -32,12 +28,12 @@ export const createDashboardChartsData = (
     }),
     createDefaultState()
   );
-  const chartsData = types.map((type) => {
-    const completedQuantity = summedCompletedTasks[type.id as TaskType];
-    const notCompletedQuantity = type.quantity - completedQuantity;
+  const chartsData: ChartData[] = types.map(({ quantity, id, label }) => {
+    const completedQuantity = summedCompletedTasks[id as TaskType];
+    const notCompletedQuantity = quantity - completedQuantity;
     return {
-      id: type.id,
-      type: type.type,
+      id,
+      label,
       chartData: [notCompletedQuantity, completedQuantity],
     };
   });

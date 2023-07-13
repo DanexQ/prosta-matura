@@ -4,7 +4,7 @@ import NavAccountIcon from "@components/NavAccountIcon";
 
 const NAV_LINKS = [
   { url: "/exams", label: "Arkusze" },
-  { url: "", label: "Zadania" },
+  { url: "/tasks", label: "Zadania" },
   { url: "/random", label: "Losuj zadanie" },
 ];
 
@@ -12,7 +12,7 @@ const Nav = () => {
   const navLinksElements = NAV_LINKS.map(({ url, label }) => (
     <Link
       key={url}
-      href={`/tasks${url}`}
+      href={`${url}`}
       className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
     >
       {label}

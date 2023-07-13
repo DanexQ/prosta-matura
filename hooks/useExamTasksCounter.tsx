@@ -1,20 +1,14 @@
 "use client";
 import { db } from "@firebase";
-import { CompletedTasksList } from "@customTypes/completedTasksTypes";
+import { CompletedTasksData } from "@customTypes/completedTasksTypes";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { ExamType, ExamYear } from "@customTypes/examTypes";
-
-type ExamTasksCounterHook = {
-  examType: ExamType;
-  examYear: ExamYear;
-};
-
-export const useExamTasksCounter = ({
-  examType,
-  examYear,
-}: ExamTasksCounterHook) => {
+import { Exam } from "@customTypes/examTypes";
+/**
+ * Returns number of completed tasks from particular Exam in [examYear]>page
+ */
+export const useExamTasksCounter = ({ examType, examYear }: Exam) => {
   const [tasksCounter, setTasksCounter] = useState<number>(0);
   const { data: session } = useSession();
 
@@ -22,9 +16,7 @@ export const useExamTasksCounter = ({
     const id = session?.user.id;
     if (!id) return;
     const unsub = onSnapshot(doc(db, "completedTasks", id), (doc) => {
-      const { completedTasks } = doc.data() as {
-        completedTasks: CompletedTasksList;
-      };
+      const { completedTasks } = doc.data() as CompletedTasksData;
       const completedTasksCounter = completedTasks.filter(
         (completedTask) =>
           completedTask.examYear === examYear &&
@@ -32,6 +24,7 @@ export const useExamTasksCounter = ({
       ).length;
       setTasksCounter(completedTasksCounter);
     });
+
     return () => {
       unsub();
     };

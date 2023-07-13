@@ -1,5 +1,8 @@
 import { CompletedTasksList } from "@customTypes/completedTasksTypes";
 
+/**
+ * Return a sum object of the user's completed tasks.
+ */
 export const sumCompletedTasks = (
   completedTasks: CompletedTasksList
 ): number => {

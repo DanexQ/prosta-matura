@@ -1,5 +1,5 @@
 import { db } from "@firebase";
-import { TaskList, Task } from "@customTypes/taskTypes";
+import { TaskList, TaskItem } from "@customTypes/taskTypes";
 import {
   DocumentData,
   QuerySnapshot,
@@ -47,7 +47,7 @@ function convertFetchedData(data: QuerySnapshot<DocumentData>): TaskList {
       ({
         isCompleted: false,
         ...doc.data(),
-      } as Task)
+      } as TaskItem)
   );
   return tasks;
 }

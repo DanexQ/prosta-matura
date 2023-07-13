@@ -10,12 +10,12 @@ const Exam = ({ examYear }: { examYear: ExamYear }) => {
   ];
 
   return (
-    <li className="flex items-center justify-around ">
+    <li className="flex items-center justify-around">
       <h2>Matura {examYear}</h2>
       {examTypes.map((examType) => (
         <ExamButton
           key={examType.url}
-          url={"exams/" + examYear + "?examType=" + examType.url}
+          url={"/exams/" + examYear + "?examType=" + examType.url}
         >
           {examType.label}
         </ExamButton>

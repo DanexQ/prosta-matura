@@ -42,7 +42,7 @@ const AddTaskForm = () => {
   return (
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
-        <Task {...watchAllFields} />
+        <Task {...watchAllFields} isCompleted={false} />
         {/* 
         <form
           onSubmit={handleSubmit(onSubmit)}

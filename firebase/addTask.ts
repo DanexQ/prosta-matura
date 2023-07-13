@@ -18,7 +18,7 @@ export const addTask = async (task: Task, image?: File) => {
     alert("Task uploaded successfully");
     return jsonTask;
   } catch (err) {
-    alert(err);
+    throw new Error(`addTask - Error`);
   }
 };
 

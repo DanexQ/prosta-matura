@@ -1,14 +1,9 @@
 "use client";
-import { ExamType, ExamYear } from "@customTypes/examTypes";
+import { Exam } from "@customTypes/examTypes";
 import { useExamTasksCounter } from "@hooks/useExamTasksCounter";
 import React from "react";
 
-type ExamTasksCounterProps = {
-  examType: ExamType;
-  examYear: ExamYear;
-};
-
-const ExamTasksCounter = ({ examType, examYear }: ExamTasksCounterProps) => {
+const ExamTasksCounter = ({ examType, examYear }: Exam) => {
   const { tasksCounter } = useExamTasksCounter({ examType, examYear });
   return (
     <span className="text-sm text-end">

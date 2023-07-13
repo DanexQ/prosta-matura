@@ -1,13 +1,14 @@
 import { db } from "@firebase";
-import { collection, query, where } from "firebase/firestore";
+import { collection, orderBy, query, where } from "firebase/firestore";
 import { getTasks } from "./getTasks";
-import { capitalizeWord } from "@utils/capitalizeWord";
-import { TaskList, TasksDetails } from "@customTypes/taskTypes";
+import { TasksDetails } from "@customTypes/taskTypes";
+import { ExamType, ExamYear } from "@customTypes/examTypes";
+import { UserId } from "@customTypes/userIdType";
 
 interface ExamTasks {
-  examYear: number;
-  examType: string;
-  userId: string | undefined;
+  examYear: ExamYear;
+  examType: ExamType;
+  userId: UserId;
 }
 
 export const getExamTasks = async ({
@@ -19,11 +20,16 @@ export const getExamTasks = async ({
   const queryRef = query(
     tasksRef,
     where("examYear", "==", examYear),
-    where("examType", "==", `${capitalizeWord(examType)}`)
+    where("examType", "==", examType)
   );
   try {
-    const tasks = await getTasks({ query: queryRef, userId: userId });
-    return tasks;
+    const tasksDetails = await getTasks({
+      query: queryRef,
+      userId: userId,
+      allTasks: true,
+    });
+    tasksDetails.tasks.sort((a, b) => a.taskNumber - b.taskNumber);
+    return tasksDetails;
   } catch (err) {
     throw new Error("getExamTasks Error");
   }

@@ -1,7 +1,7 @@
 import { TaskType } from "./taskTypes";
 
 export type Filter = {
-  id: string;
+  id: TaskType;
   quantity: number;
-  type: TaskType;
+  label: string;
 };

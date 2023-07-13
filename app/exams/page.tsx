@@ -1,11 +1,11 @@
-import Exam from "@components/Exam";
+import ExamCard from "@components/ExamCard";
 import { ExamYear } from "@customTypes/examTypes";
 
 export const metadata = {
   title: "Arkusze | Prosta Matura",
 };
 
-export default async function Page() {
+export default function Page() {
   const examYears: ExamYear[] = [
     2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
   ];
@@ -17,7 +17,7 @@ export default async function Page() {
       </h2>
       <ul className="flex flex-col w-full text-lg gap-7">
         {examYears.map((year) => (
-          <Exam key={year} examYear={year} />
+          <ExamCard key={year} examYear={year} />
         ))}
       </ul>
     </section>

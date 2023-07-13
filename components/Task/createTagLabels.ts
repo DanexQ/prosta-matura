@@ -1,4 +1,4 @@
-import { TaskProps, taskTypeList } from "@customTypes/taskTypes";
+import { Task, taskTypeData } from "@customTypes/taskTypes";
 
 export const createTagLabels = ({
   formula,
@@ -6,13 +6,13 @@ export const createTagLabels = ({
   examYear,
   examType,
   taskType,
-}: TaskProps) => {
+}: Task) => {
   const formulaLabel = `${formula} Formuła`;
   const examLabel = `Matura ${examType} ${examYear}`;
   const pointsLabel = `Punkty: 0-${points} [${Math.floor(
     (points / 50) * 100
   )}%]`;
-  const typeLabel = taskTypeList[taskType];
+  const typeLabel = taskTypeData[taskType];
   return {
     formulaLabel,
     examLabel,

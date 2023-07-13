@@ -1,8 +1,8 @@
 "use client";
-import { TaskListItem } from "@customTypes/taskTypes";
+import { TaskItem } from "@customTypes/taskTypes";
 import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { markTaskAsDone } from "@firebase/markTaskAsDone";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ import { createTagLabels } from "./createTagLabels";
 import TaskTags from "./TaskTags";
 import TaskCompletedButton from "./TaskCompletedButton";
 
-const Task = (details: TaskListItem) => {
+const Task = (details: TaskItem) => {
   const [isCompleted, setIsCompleted] = useState(details.isCompleted);
   const { data: session } = useSession();
   const router = useRouter();
@@ -18,20 +18,17 @@ const Task = (details: TaskListItem) => {
 
   const handleChangeTaskCompletition = async () => {
     const userId = session?.user?.id;
+    if (userId === undefined) router.push("/auth/signin");
     try {
-      if (!!userId) {
-        await markTaskAsDone(userId, isCompleted, {
-          taskId: details.taskId,
-          taskType: details.taskType,
-          examType: details.examType,
-          examYear: details.examYear,
-        });
-        setIsCompleted((prev) => !prev);
-      } else {
-        router.push("/auth/signin");
-      }
+      await markTaskAsDone(userId, isCompleted, {
+        taskId: details.taskId,
+        taskType: details.taskType,
+        examType: details.examType,
+        examYear: details.examYear,
+      });
+      setIsCompleted((prev) => !prev);
     } catch (err) {
-      alert(err);
+      throw new Error(`handleChangeTaskCompletition() Error`);
     }
   };
 

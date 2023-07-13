@@ -12,13 +12,11 @@ const ExamButton = ({
   const router = useRouter();
 
   const handleClick = () => {
-    return function () {
-      router.replace(url);
-    };
+    router.replace(url);
   };
 
   return (
-    <button className="px-4 py-2 btn-primary" onClick={handleClick()}>
+    <button className="px-4 py-2 btn-primary" onClick={handleClick}>
       {children}
     </button>
   );

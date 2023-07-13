@@ -1,29 +1,30 @@
 "use client";
 import React, { useState } from "react";
-import { FilterType } from "@customTypes/filterTypes";
+import { Filter } from "@customTypes/filterTypes";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
+import { TaskType } from "@customTypes/taskTypes";
 
 type Filters = {
-  [key: string]: boolean;
+  [key in TaskType]: boolean;
 };
 
-export interface FiltersFormProps {
-  filterTypes: FilterType[];
+interface FiltersFormProps {
+  filters: Filter[];
 }
 
-const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
+const Filters = ({ filters }: FiltersFormProps) => {
   const searchParams = useSearchParams();
   const { register, watch, handleSubmit, reset } = useForm<Filters>({
-    defaultValues: createDefaultState(filterTypes, false),
+    defaultValues: createDefaultState(filters),
   });
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const watchAllFields = watch();
   const router = useRouter();
 
-  function createDefaultState(filters: FilterType[], clear: boolean) {
-    let defaultState: Filters = {};
+  function createDefaultState(filters: Filter[], clear?: true) {
     const filtersInURL = searchParams.get("filters")?.split(" ") || [];
+    let defaultState: { [x: string]: boolean } = {};
     filters.forEach(
       (filter) =>
         (defaultState[filter.id] = clear
@@ -51,33 +52,33 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
   };
 
   const handleResetFiltersForm = () => {
-    return reset(createDefaultState(filterTypes, true));
+    return reset(createDefaultState(filters, true));
   };
 
-  const createInputFilters = (filterType: FilterType) => {
+  const createInputFilter = (filter: Filter) => {
     return (
-      <div key={filterType.id} className="flex items-center lg:pl-3">
+      <div key={filter.id} className="flex items-center lg:pl-3">
         <input
           type="checkbox"
-          {...register(filterType.id)}
-          id={filterType.id}
+          {...register(filter.id)}
+          id={filter.id}
           className="hidden"
         />
         <label
-          htmlFor={filterType.id}
+          htmlFor={filter.id}
           className={`cursor-pointer  ${
-            watchAllFields[filterType.id]
+            watchAllFields[filter.id]
               ? "text-fuchsia-400 font-semibold tracking-wide"
               : "hover:text-fuchsia-400"
           }`}
         >
           <span className="mr-1">
-            {watchAllFields[filterType.id] ? <>&#10006;</> : <>&#x25cf;</>}
+            {watchAllFields[filter.id] ? <>&#10006;</> : <>&#x25cf;</>}
           </span>
 
-          {filterType.type}
+          {filter.label}
           <span className="ml-1 text-xs font-bold text-neutral-400">
-            ({filterType.quantity})
+            ({filter.quantity})
           </span>
         </label>
       </div>
@@ -115,7 +116,7 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
           className={`flex flex-col gap-2 font-thin md:flex`}
           onSubmit={handleSubmit(onSubmit)}
         >
-          {filterTypes.map(createInputFilters)}
+          {filters.map(createInputFilter)}
           <button className="btn-primary">Filtruj</button>
         </form>
       </div>
@@ -123,4 +124,4 @@ const FiltersForm = ({ filterTypes }: FiltersFormProps) => {
   );
 };
 
-export default FiltersForm;
+export default Filters;

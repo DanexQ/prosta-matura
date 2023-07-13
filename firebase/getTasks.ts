@@ -22,14 +22,14 @@ type GetTasks = {
   query: Query<DocumentData>;
   userId: UserId;
   page?: number;
-  allTasks?: true;
+  allTasks?: boolean;
 };
 
 export const getTasks = async ({
   query,
   userId,
   page = 1,
-  allTasks,
+  allTasks = false,
 }: GetTasks): Promise<TasksDetails> => {
   const data = await getDocs(query);
   const completedTasks = await getUsersCompletedTasks(userId);

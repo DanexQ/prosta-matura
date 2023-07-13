@@ -2,10 +2,6 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import React from "react";
 import Image from "next/image";
 
-const config = {
-  loader: { load: ["input/asciimath"] },
-};
-
 const TaskContent = ({
   content,
   imageUrl,
@@ -14,7 +10,7 @@ const TaskContent = ({
   imageUrl?: string;
 }) => {
   return (
-    <MathJaxContext config={config}>
+    <>
       <p className="my-2 font-thin whitespace-pre-line md:my-5">
         <MathJax>{content.replaceAll("/n", "\n")}</MathJax>
       </p>
@@ -28,7 +24,7 @@ const TaskContent = ({
           className="self-center invert"
         />
       )}
-    </MathJaxContext>
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ export const getUsersCompletedTasks = async (userId: UserId) => {
   } catch (err) {
     const error = err as Error;
     throw new Error(
-      `getUsersCompletedTasks() Error ${(error.message, error.name)}`
+      `getUsersCompletedTasks() - Error ${(error.message, error.name)}`
     );
   }
 };

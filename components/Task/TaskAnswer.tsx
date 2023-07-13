@@ -12,7 +12,7 @@ const TaskAnswer = ({
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
 
   const handleClick = () => {
-    return setShowAnswer((prevState) => !prevState);
+    setShowAnswer((prevState) => !prevState);
   };
 
   return (
@@ -22,9 +22,7 @@ const TaskAnswer = ({
           showAnswer ? "max-h-96 mb-5" : "max-h-0 "
         }`}
       >
-        <MathJaxContext>
-          <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
-        </MathJaxContext>
+        <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
       </p>
       <div className="flex justify-between w-full">
         <button

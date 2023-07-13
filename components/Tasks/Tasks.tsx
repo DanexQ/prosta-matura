@@ -1,16 +1,25 @@
+"use client";
 import React from "react";
 import Task from "../Task";
 import PageNav from "../TasksPageNav";
-import { TasksDetailsType } from "@app/tasks/page";
+import { TasksDetails } from "@customTypes/taskTypes";
+import { MathJaxContext } from "better-react-mathjax";
 
-const Tasks = ({ tasks, tasksQuantity }: TasksDetailsType) => {
+const config = {
+  loader: { load: ["input/asciimath"] },
+};
+
+const Tasks = ({ tasks, tasksQuantity }: TasksDetails) => {
   const pagesQuantity = Math.ceil(tasksQuantity / 5);
 
   return (
     <section className="flex flex-col gap-3 md:gap-5 text-gray-200 flex-[3_2_0%]">
-      {tasks.map((task) => (
-        <Task key={task.taskId} {...task} />
-      ))}
+      <MathJaxContext config={config}>
+        {tasks.map((task) => (
+          <Task key={task.taskId} {...task} />
+        ))}
+      </MathJaxContext>
+
       <PageNav quantity={pagesQuantity} />
     </section>
   );

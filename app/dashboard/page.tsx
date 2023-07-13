@@ -1,8 +1,8 @@
-import TaskChart from "@components/TaskChart";
+import TaskChart from "@components/TaskTypeChart";
 import { getFilters } from "@firebase/getFilters";
 import { getUsersCompletedTasks } from "@firebase/getUsersCompletedTasks";
 import { authOptions } from "@lib/authOptions";
-import { createChartsData } from "@utils/createChartsData";
+import { createDashboardChartsData } from "@utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -15,7 +15,7 @@ export default async function Page() {
     getUsersCompletedTasks(userId),
     getFilters(),
   ]);
-  const chartsData = createChartsData(completedTasks, types);
+  const chartsData = createDashboardChartsData(completedTasks, types);
   return (
     <>
       <section className="flex items-center justify-between w-full p-8">

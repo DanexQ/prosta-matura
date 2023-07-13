@@ -1,6 +1,12 @@
 export type ExamType = "oficjalna" | "dodatkowa" | "probna";
 export type ExamTypeLabel = "Oficjalna" | "Dodatkowa" | "Próbna";
 export type ExamFormula = "stara" | "nowa";
+
+export type Exam = {
+  examYear: ExamYear;
+  examType: ExamType;
+};
+
 export const examTypeData = {
   oficjalna: "Oficjalna",
   dodatkowa: "Dodatkowa",

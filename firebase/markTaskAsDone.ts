@@ -2,12 +2,14 @@
 import { db } from "@firebase";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { CompletedTask } from "@customTypes/completedTasksTypes";
+import { UserId } from "@customTypes/userIdType";
 
 export const markTaskAsDone = async (
-  userId: string,
+  userId: UserId,
   isTaskCompleted: boolean,
   completedTask: CompletedTask
 ) => {
+  if (userId === undefined) return;
   try {
     const completedTaskRef = doc(db, "completedTasks", userId);
     await updateDoc(completedTaskRef, {
