@@ -1,45 +1,52 @@
-import React, { Suspense } from "react";
+import React, { cache } from "react";
 import FiltersForm from "@components/Filters";
-import { createFilterQueryRef, getTasks } from "@firebase/getTasks";
-import { getFilters } from "@firebase/getFilters";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@lib/authOptions";
 import dynamic from "next/dynamic";
-import Loading from "./loading";
-import FiltersLoader from "@components/FiltersLoader";
+import { getFilteredTasks } from "@lib/getTasks";
+import { Prisma } from "@prisma/client";
+import { getTaskTypes } from "@lib/getTaskTypes";
 
 export const metadata = {
   title: "Zadania | Prosta Matura",
 };
 
-type SearchParamsTypes = {
-  filters: string | undefined;
+export type SearchParams = {
+  taskTypes?: string | undefined;
   page: number | undefined;
 };
 
-export type SearchParams = {
-  searchParams: SearchParamsTypes;
-};
+const getTasks = cache(
+  async (taskTypes: string | undefined, page: number = 1) => {
+    try {
+      const filters = taskTypes?.split(" ").map((taskType) => ({ taskType }));
+      const tasks = await getFilteredTasks({ OR: filters });
+      return {
+        tasks: tasks.slice((page - 1) * 5, page * 5),
+        tasksQuantity: tasks.length,
+      };
+    } catch (e) {
+      const err = e as Prisma.PrismaClientKnownRequestError;
+      throw new Error(err.message);
+    }
+  }
+);
 
-export default async function Page({ searchParams }: SearchParams) {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
-  const [tasksDetails, filters, Tasks] = await Promise.all([
-    getTasks({
-      query: createFilterQueryRef({ searchParams }),
-      userId,
-      page: searchParams.page,
-    }),
-    getFilters(),
-    dynamic(() =>
-      import("../../components/Tasks/Tasks").then((T) => T.default)
-    ),
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const Tasks = cache(
+    dynamic(() => import("../../components/Tasks/Tasks").then((T) => T.default))
+  );
+  const [tasksDetails, taskTypes] = await Promise.all([
+    getTasks(searchParams.taskTypes, searchParams.page),
+    getTaskTypes(),
   ]);
 
   return (
     <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base">
       <Tasks {...tasksDetails} />
-      <FiltersForm filters={filters} />
+      <FiltersForm filters={taskTypes} />
     </section>
   );
 }

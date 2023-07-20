@@ -1,29 +1,10 @@
-import { ExamFormula, ExamType, ExamYear } from "./examTypes";
-
-export type Task = {
-  taskId: string;
-  answer: string;
-  content: string;
-  examType: ExamType;
-  examYear: ExamYear;
-  formula: ExamFormula;
-  imageUrl?: string;
-  points: number;
-  taskType: TaskType;
-  taskNumber: number;
-};
+import { Task } from "@prisma/client";
 
 export interface TaskItem extends Task {
   isCompleted: boolean;
 }
-export type TasksDetails = {
-  tasks: TaskList;
-  tasksQuantity: number;
-};
 
-export type TaskList = TaskItem[];
-
-export type TaskType =
+export type TaskTypes =
   | "stereometria"
   | "optymalizacja"
   | "granice"

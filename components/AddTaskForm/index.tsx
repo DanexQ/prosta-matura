@@ -2,37 +2,41 @@
 import React, { useState } from "react";
 import Task from "../Task";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { addTask } from "@firebase/addTask";
-import { Task as TaskT, taskTypeData } from "@customTypes/taskTypes";
+import { taskTypeData } from "@customTypes/taskTypes";
+import { Prisma, Task as PrismaTask } from "@prisma/client";
+import { addTask } from "@serverActions/addTask";
+import { MathJaxContext } from "better-react-mathjax";
 
-const defaultTask: TaskT = {
-  taskId: "",
+const defaultTask: Omit<PrismaTask, "id"> = {
   content: "",
   answer: "",
   taskType: "stereometria",
   formula: "nowa",
   examType: "oficjalna",
   examYear: 2023,
+  imageUrl: null,
   points: 0,
   taskNumber: 1,
 };
 
 const AddTaskForm = () => {
-  const { register, handleSubmit, watch } = useForm<TaskT>({
+  const { register, handleSubmit, watch } = useForm<PrismaTask>({
     defaultValues: defaultTask,
   });
   const [uploadedImage, setUploadedImage] = useState<File | undefined>(
     undefined
   );
   const watchAllFields = watch();
-  const [sentTask, setSentTask] = useState<TaskT>();
+  const [sentTask, setSentTask] = useState<PrismaTask>();
 
-  const onSubmit: SubmitHandler<TaskT> = async (task) => {
+  const onSubmit: SubmitHandler<PrismaTask> = async (task) => {
     try {
-      const sTask = await addTask(task, uploadedImage);
-      setSentTask(sTask);
+      const uploadedTask = await addTask(task);
+
+      setSentTask(uploadedTask);
+      alert("Task uploaded successfully");
     } catch (err) {
-      const error = err as Error;
+      const error = err as Prisma.PrismaClientKnownRequestError;
       throw new Error(
         `AddTaskForm > onSubmit Error - ${error.message}, ${error.name}`
       );
@@ -42,16 +46,18 @@ const AddTaskForm = () => {
   return (
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
-        <Task {...watchAllFields} isCompleted={false} />
-        {/* 
+        <MathJaxContext>
+          <Task {...watchAllFields} isCompleted={false} />
+        </MathJaxContext>
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
-        > */}
-        <form
+        >
+          {/* <form
           // onSubmit={handleSubmit(onSubmit)}
           className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
-        >
+        > */}
           <h2 className="col-span-3 py-5 text-3xl font-bold text-center uppercase text-neutral-200">
             Dodaj Zadanie
           </h2>
@@ -115,9 +121,9 @@ const AddTaskForm = () => {
               {...register("examType")}
               className="col-start-1 col-end-2 row-start-2 p-1 text-center border bg-neutral-800 border-neutral-600"
             >
-              <option value="Oficjalna">Oficjalna</option>
-              <option value="Dodatkowa">Dodatkowa</option>
-              <option value="Próbna">Próbna</option>
+              <option value="oficjalna">Oficjalna</option>
+              <option value="dodatkowa">Dodatkowa</option>
+              <option value="probna">Próbna</option>
             </select>
             <label className="text-sm">Formuła</label>
             <div className="[&>label]:text-neutral-200 flex gap-2 col-start-2 row-start-2">
@@ -132,7 +138,7 @@ const AddTaskForm = () => {
                 <input
                   type="radio"
                   {...register("formula")}
-                  value="Stara"
+                  value="stara"
                   id="Stara"
                   className="hidden"
                 />
@@ -149,7 +155,7 @@ const AddTaskForm = () => {
                 <input
                   type="radio"
                   {...register("formula")}
-                  value="Nowa"
+                  value="nowa"
                   id="Nowa"
                   className="hidden"
                 />
@@ -171,17 +177,13 @@ const AddTaskForm = () => {
             onChange={(e) => setUploadedImage(e.target.files![0])}
           />
           {/* disabled for prod */}
-          <button
-            type="submit"
-            className="self-center w-1/2 group btn-primary"
-            disabled
-          >
+          <button type="submit" className="self-center w-1/2 group btn-primary">
             Dodaj
           </button>
         </form>
       </div>
       <p>
-        {[sentTask?.taskId as string] + ":" + JSON.stringify(sentTask, null, 2)}
+        {[sentTask?.id as string] + ":" + JSON.stringify(sentTask, null, 2)}
       </p>
     </>
   );

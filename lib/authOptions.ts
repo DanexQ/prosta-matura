@@ -1,35 +1,24 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import GoogleProvider from "next-auth/providers/google";
+
 import { NextAuthOptions } from "next-auth";
-import { firebaseConfig } from "@firebase";
-import { initializeApp } from "firebase/app";
+import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { Adapter } from "next-auth/adapters";
+
+export const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: "jwt",
   },
   providers: [
-    CredentialsProvider({
-      name: "Sign in",
-      credentials: {
-        email: { label: "E-mail", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email && !credentials?.password) return null;
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const { user } = await signInWithEmailAndPassword(
-          auth,
-          credentials?.email as string,
-          credentials?.password as string
-        );
-        const { uid: id, displayName: name, ...currentUser } = user;
-        if (user) return { id, name, ...currentUser };
-        return null;
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  secret: process.env.SECRET,
   pages: {
     signIn: "/auth/signin",
   },

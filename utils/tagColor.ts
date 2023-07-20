@@ -1,8 +1,8 @@
 const tagColor = (tag: string) => {
   switch (tag) {
-    case "Stara":
+    case "stara":
       return "bg-yellow-500/50 text-yellow-200";
-    case "Nowa":
+    case "nowa":
       return "bg-fuchsia-500/50 text-fuchsia-200";
     case "Optymalizacja":
       return "bg-lime-500/50 text-lime-200";

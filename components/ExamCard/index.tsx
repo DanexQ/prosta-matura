@@ -1,9 +1,8 @@
 import React from "react";
 import ExamButton from "./ExamButton";
-import { ExamType, ExamTypeLabel, ExamYear } from "@customTypes/examTypes";
 
-const Exam = ({ examYear }: { examYear: ExamYear }) => {
-  const examTypes: { url: ExamType; label: ExamTypeLabel }[] = [
+const Exam = ({ examYear }: { examYear: number }) => {
+  const examTypes: { url: string; label: string }[] = [
     { url: "oficjalna", label: "Oficjalna" },
     { url: "dodatkowa", label: "Dodatkowa" },
     { url: "probna", label: "Próbna" },

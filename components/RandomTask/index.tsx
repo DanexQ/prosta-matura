@@ -13,7 +13,7 @@ const config = {
 const RandomTask = (details: TaskItem) => {
   const router = useRouter();
   const handleClick = () => {
-    router.refresh();
+    return router.refresh();
   };
 
   return (

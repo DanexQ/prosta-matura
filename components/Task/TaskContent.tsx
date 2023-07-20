@@ -1,14 +1,12 @@
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { MathJax } from "better-react-mathjax";
 import React from "react";
 import Image from "next/image";
+import { TaskItem } from "@customTypes/taskTypes";
 
 const TaskContent = ({
   content,
   imageUrl,
-}: {
-  content: string;
-  imageUrl?: string;
-}) => {
+}: Pick<TaskItem, "content" | "imageUrl">) => {
   return (
     <>
       <p className="my-2 font-thin whitespace-pre-line md:my-5">

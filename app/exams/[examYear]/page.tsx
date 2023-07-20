@@ -1,16 +1,14 @@
-import ExamTasksCounter from "@components/ExamTasksCounter";
 import Tasks from "@components/Tasks/Tasks";
-import { ExamType, ExamYear } from "@customTypes/examTypes";
-import { getExamTasks } from "@firebase/getExamTasks";
-import { authOptions } from "@lib/authOptions";
+import { getFilteredTasks } from "@lib/getTasks";
+import { Prisma } from "@prisma/client";
 import { capitalizeWord } from "@utils/capitalizeWord";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { cache } from "react";
 
 type ExamPageProps = {
-  params: { examYear: ExamYear };
-  searchParams: { examType: ExamType };
+  params: { examYear: number };
+  searchParams: { examType: string };
 };
 
 export async function generateMetadata({
@@ -25,13 +23,21 @@ export async function generateMetadata({
   };
 }
 
+const getExamTasks = cache(async (examYear: number, examType: string) => {
+  try {
+    const tasks = await getFilteredTasks({ examType, examYear });
+    return tasks;
+  } catch (err) {
+    const error = err as Prisma.PrismaClientKnownRequestError;
+    throw new Error(error.message);
+  }
+});
+
 export default async function Page({
   params: { examYear },
   searchParams: { examType },
 }: ExamPageProps) {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
-  const tasks = await getExamTasks({ examYear, examType, userId });
+  const tasks = await getExamTasks(+examYear, examType);
 
   return (
     <section className="flex flex-col gap-2 md:text-base">
@@ -46,9 +52,9 @@ export default async function Page({
         <h2 className="text-2xl font-semibold tracking-wider text-center">
           Matura {capitalizeWord(examType)} {examYear}
         </h2>
-        <ExamTasksCounter examYear={examYear} examType={examType} />
+        {/* <ExamTasksCounter examYear={examYear} examType={examType} /> */}
       </div>
-      <Tasks {...tasks} />
+      <Tasks tasks={tasks} />
     </section>
   );
 }

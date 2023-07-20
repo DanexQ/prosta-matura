@@ -5,6 +5,10 @@ export const metadata = {
   title: "Twój profil | Prosta Matura",
 };
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <PageLayout>{children}</PageLayout>;
 }

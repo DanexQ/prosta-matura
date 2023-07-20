@@ -9,16 +9,16 @@ export default function RootLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <html lang="pl">
-      <head>
-        <link rel="shortcut icon" href="#" />
-      </head>
-      <body className="relative h-full bg-neutral-900 text-neutral-200">
-        <NextAuthSessionProvider>
+    <NextAuthSessionProvider>
+      <html lang="pl">
+        <head>
+          <link rel="shortcut icon" href="#" />
+        </head>
+        <body className="relative h-full bg-neutral-900 text-neutral-200">
           {children}
           {modal}
-        </NextAuthSessionProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </NextAuthSessionProvider>
   );
 }

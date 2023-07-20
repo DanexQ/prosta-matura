@@ -8,7 +8,12 @@ import Image from "next/image";
 const NavAccountIcon = () => {
   const { data: session } = useSession();
 
-  return !!session?.user ? (
+  if (session === undefined)
+    return (
+      <div className="w-8 h-8 rounded-full bg-neutral-700 after:bg-neutral-200 animate-pulse" />
+    );
+
+  return !!session ? (
     <Link href="/dashboard">
       <Image src={AccountIcon} width={32} height={32} alt="AccountIcon" />
     </Link>

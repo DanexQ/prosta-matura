@@ -1,31 +1,42 @@
-import ButtonLogOut from "@components/ButtonLogOut";
+import SignOutButton from "@components/SignOutButton";
 import TaskChart from "@components/TaskTypeChart";
-import { getFilters } from "@firebase/getFilters";
-import { getUsersCompletedTasks } from "@firebase/getUsersCompletedTasks";
-import { authOptions } from "@lib/authOptions";
+import { authOptions, prisma } from "@lib/authOptions";
+import { getTaskTypes } from "@lib/getTaskTypes";
+import { Prisma } from "@prisma/client";
 import { createDashboardChartsData } from "@utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
+export const dynamic = "no-cache";
+
+const getDashboardData = async (userId: string) => {
+  try {
+    const completedTasks = await prisma.completedTask.findMany({
+      where: { userId },
+      include: { task: { select: { taskType: true } } },
+    });
+    const taskTypes = await getTaskTypes();
+    const chartsData = createDashboardChartsData(completedTasks, taskTypes);
+    return chartsData;
+  } catch (err) {
+    const error = err as Prisma.PrismaClientKnownRequestError;
+    throw new Error(error.message);
+  }
+};
+
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
-  if (!!!userId) return redirect("/tasks");
+  if (!session) return redirect("/tasks");
 
-  const [completedTasks, types] = await Promise.all([
-    getUsersCompletedTasks(userId),
-    getFilters(),
-  ]);
-  const chartsData = createDashboardChartsData(completedTasks, types);
+  const { id, name } = session.user;
+  const chartsData = await getDashboardData(id);
 
   return (
     <>
-      <section className="flex items-center justify-between w-full p-8">
-        <h2 className="text-xl font-bold tracking-wide">
-          Witaj, {session?.user?.name}!
-        </h2>
-        <ButtonLogOut />
-      </section>
+      <div className="flex items-center justify-between w-full p-8">
+        <h2 className="text-xl font-bold tracking-wide">Witaj, {name}!</h2>
+        <SignOutButton />
+      </div>
       <section className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <span className="col-span-1 text-lg font-semibold tracking-wider uppercase sm:col-span-2 md:col-span-3 lg:col-span-4">
           Twoje dotychczasowe postępy!

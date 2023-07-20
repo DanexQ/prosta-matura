@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import { Filter } from "@customTypes/filterTypes";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TaskType } from "@customTypes/taskTypes";
+import { TaskTypes } from "@customTypes/taskTypes";
+import { TaskType } from "@prisma/client";
 
 type Filters = {
-  [key in TaskType]: boolean;
+  [key in TaskTypes]: boolean;
 };
 
 interface FiltersFormProps {
-  filters: Filter[];
+  filters: TaskType[];
 }
 
 const Filters = ({ filters }: FiltersFormProps) => {
@@ -22,7 +22,7 @@ const Filters = ({ filters }: FiltersFormProps) => {
   const watchAllFields = watch();
   const router = useRouter();
 
-  function createDefaultState(filters: Filter[], clear?: true) {
+  function createDefaultState(filters: TaskType[], clear?: true) {
     const filtersInURL = searchParams.get("filters")?.split(" ") || [];
     let defaultState: { [x: string]: boolean } = {};
     filters.forEach(
@@ -38,7 +38,8 @@ const Filters = ({ filters }: FiltersFormProps) => {
     const filters = Object.entries(data)
       .filter(([_, value]) => value == true)
       .map(([key, _]) => key);
-    const query = filters.length > 0 ? `?filters=${filters.join("%20")}` : "/";
+    const query =
+      filters.length > 0 ? `?taskTypes=${filters.join("%20")}` : "/";
     router.push(query);
     window.innerWidth < 768 && setIsEnabled(false);
   };
@@ -55,25 +56,26 @@ const Filters = ({ filters }: FiltersFormProps) => {
     return reset(createDefaultState(filters, true));
   };
 
-  const createInputFilter = (filter: Filter) => {
+  const createInputFilter = (filter: TaskType) => {
+    const filterId = filter.id as TaskTypes;
     return (
       <div key={filter.id} className="flex items-center lg:pl-3">
         <input
           type="checkbox"
-          {...register(filter.id)}
+          {...register(filterId)}
           id={filter.id}
           className="hidden"
         />
         <label
           htmlFor={filter.id}
           className={`cursor-pointer  ${
-            watchAllFields[filter.id]
+            watchAllFields[filterId]
               ? "text-fuchsia-400 font-semibold tracking-wide"
               : "hover:text-fuchsia-400"
           }`}
         >
           <span className="mr-1">
-            {watchAllFields[filter.id] ? <>&#10006;</> : <>&#x25cf;</>}
+            {watchAllFields[filterId] ? <>&#10006;</> : <>&#x25cf;</>}
           </span>
 
           {filter.label}
