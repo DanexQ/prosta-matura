@@ -1,13 +1,12 @@
 import SignOutButton from "@components/SignOutButton";
-import TaskChart from "@components/TaskTypeChart";
+import TaskTypeChart from "@components/TaskTypeChart";
 import { authOptions, prisma } from "@lib/authOptions";
 import { getTaskTypes } from "@lib/getTaskTypes";
 import { Prisma } from "@prisma/client";
 import { createDashboardChartsData } from "@utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
+import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
-
-export const dynamic = "no-cache";
 
 const getDashboardData = async (userId: string) => {
   try {
@@ -42,7 +41,7 @@ export default async function Page() {
           Twoje dotychczasowe postępy!
         </span>
         {chartsData.map((data) => (
-          <TaskChart key={data.id} {...data} />
+          <TaskTypeChart key={data.id} {...data} />
         ))}
       </section>
     </>

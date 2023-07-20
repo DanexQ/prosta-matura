@@ -35,8 +35,8 @@ export default async function Page({
 }: {
   searchParams: SearchParams;
 }) {
-  const Tasks = cache(
-    dynamic(() => import("../../components/Tasks/Tasks").then((T) => T.default))
+  const Tasks = dynamic(() =>
+    import("../../components/Tasks/Tasks").then((T) => T.default)
   );
   const [tasksDetails, taskTypes] = await Promise.all([
     getTasks(searchParams.taskTypes, searchParams.page),

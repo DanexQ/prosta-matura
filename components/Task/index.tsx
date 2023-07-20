@@ -10,6 +10,7 @@ import TaskTags from "./TaskTags";
 import TaskCompletedButton from "./TaskCompletedButton";
 import { changeTaskCompletition } from "@serverActions/changeTaskCompletition";
 import { Prisma } from "@prisma/client";
+import { MathJax } from "better-react-mathjax";
 
 const Task = (details: TaskItem) => {
   const [isCompleted, setIsCompleted] = useState(details.isCompleted);
@@ -38,13 +39,15 @@ const Task = (details: TaskItem) => {
       className={`flex flex-col p-4 border lg:p-8 ${borderStyling} text-inherit`}
     >
       <TaskTags labels={createTagLabels(details)} />
-      <TaskContent content={details.content} imageUrl={details.imageUrl} />
-      <TaskAnswer answer={details.answer}>
-        <TaskCompletedButton
-          isCompleted={isCompleted}
-          handleClick={handleChangeTaskCompletition}
-        />
-      </TaskAnswer>
+      <MathJax>
+        <TaskContent content={details.content} imageUrl={details.imageUrl} />
+        <TaskAnswer answer={details.answer}>
+          <TaskCompletedButton
+            isCompleted={isCompleted}
+            handleClick={handleChangeTaskCompletition}
+          />
+        </TaskAnswer>
+      </MathJax>
     </div>
   );
 };

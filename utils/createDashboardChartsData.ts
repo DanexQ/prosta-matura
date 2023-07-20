@@ -39,7 +39,10 @@ export const createDashboardChartsData = (
     return {
       id,
       label,
-      chartData: [notCompletedQuantity, completedQuantity],
+      chartData: [
+        notCompletedQuantity < 0 ? 0 : notCompletedQuantity,
+        completedQuantity,
+      ],
     };
   });
   return chartsData;

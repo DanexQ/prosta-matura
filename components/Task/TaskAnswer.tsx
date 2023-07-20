@@ -22,7 +22,7 @@ const TaskAnswer = ({
           showAnswer ? "max-h-96 mb-5" : "max-h-0 "
         }`}
       >
-        <MathJax>Odpowiedź: {answer.replaceAll("/n", "\n")}</MathJax>
+        Odpowiedź: {answer.replaceAll("/n", "\n")}
       </p>
       <div className="flex justify-between w-full">
         <button
