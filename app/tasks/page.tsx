@@ -1,9 +1,11 @@
 import React, { cache } from "react";
 import FiltersForm from "@components/Filters";
-import dynamic from "next/dynamic";
+import dynamicRender from "next/dynamic";
 import { getFilteredTasks } from "@lib/getTasks";
 import { Prisma } from "@prisma/client";
 import { getTaskTypes } from "@lib/getTaskTypes";
+import TasksLoader from "@components/TasksLoader/TasksLoader";
+import { taskTypeData } from "@customTypes/taskTypes";
 
 export const metadata = {
   title: "Zadania | Prosta Matura",
@@ -12,6 +14,28 @@ export const metadata = {
 export type SearchParams = {
   taskTypes?: string | undefined;
   page: number | undefined;
+};
+
+export const generateMetadata = ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
+  const [taskTypes, page] = [
+    searchParams.taskTypes ?? "",
+    searchParams.page ?? "1",
+  ];
+  const title = !!taskTypes
+    ? taskTypes
+        .split(" ")
+        .map(
+          (taskTypes) => taskTypeData[taskTypes as keyof typeof taskTypeData]
+        )
+        .join(" ")
+    : "Zadania";
+  return {
+    title: `${title} | ${page + " | "}Prosta Matura`,
+  };
 };
 
 const getTasks = cache(
@@ -35,16 +59,21 @@ export default async function Page({
 }: {
   searchParams: SearchParams;
 }) {
-  const Tasks = dynamic(() =>
-    import("../../components/Tasks/Tasks").then((T) => T.default)
-  );
-  const [tasksDetails, taskTypes] = await Promise.all([
+  // const Tasks = dynamicRender(
+  //   () => import("../../components/Tasks/Tasks").then((T) => T.default),
+  //   { loading: () => <TasksLoader /> }
+  // );
+  const [tasksDetails, taskTypes, Tasks] = await Promise.all([
     getTasks(searchParams.taskTypes, searchParams.page),
     getTaskTypes(),
+    dynamicRender(
+      () => import("../../components/Tasks/Tasks").then((T) => T.default),
+      { loading: () => <TasksLoader /> }
+    ),
   ]);
 
   return (
-    <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base">
+    <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base animate-fadeIn">
       <Tasks {...tasksDetails} />
       <FiltersForm filters={taskTypes} />
     </section>

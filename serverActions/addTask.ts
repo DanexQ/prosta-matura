@@ -2,7 +2,7 @@
 import { prisma } from "@lib/authOptions";
 import { Task } from "@prisma/client";
 
-export const addTask = async (task: Task) => {
+export const addTask = async (task: Omit<Task, "id">) => {
   const { taskNumber, examYear, points, ...rest } = task;
   await prisma.taskType.update({
     where: { id: task.taskType },

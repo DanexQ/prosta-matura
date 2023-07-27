@@ -14,9 +14,12 @@ export default async function page() {
 
   return (
     <FormPage>
-      <h2 className="text-2xl font-semibold tracking-wide uppercase">
+      <h2 className="text-[40px] font-semibold tracking-wide uppercase">
         LOGOWANIE
       </h2>
+      <h3 className="text-lg text-center">
+        Zaloguj się na swoje konto i miej swoje obliczone zadania wszędzie!
+      </h3>
       <SignInButton />
     </FormPage>
   );

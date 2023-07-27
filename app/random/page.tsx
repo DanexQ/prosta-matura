@@ -1,12 +1,13 @@
 import RandomTask from "@components/RandomTask";
 import { getFilteredTasks } from "@lib/getTasks";
 import { Prisma } from "@prisma/client";
+import { cache } from "react";
 
 export const metadata = {
   title: "Losowe zadanie | Prosta Matura",
 };
 
-const getRandomTask = async () => {
+const getRandomTask = cache(async () => {
   try {
     const tasks = await getFilteredTasks({ OR: undefined });
     const randomNumber = Math.floor(Math.random() * tasks.length);
@@ -15,7 +16,7 @@ const getRandomTask = async () => {
     const error = err as Prisma.PrismaClientKnownRequestError;
     throw new Error(error.message);
   }
-};
+});
 
 export default async function Page() {
   const task = await getRandomTask();

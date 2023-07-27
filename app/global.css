@@ -17,6 +17,9 @@
   .task-button-loader {
     @apply w-1/4 h-8 overflow-hidden bg-neutral-700 after:bg-neutral-200 animate-pulse;
   }
+  .chart-loader {
+    @apply overflow-hidden bg-neutral-700 after:bg-neutral-200 animate-pulse;
+  }
 }
 
 *,

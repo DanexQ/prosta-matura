@@ -40,7 +40,7 @@ export default async function Page({
   const tasks = await getExamTasks(+examYear, examType);
 
   return (
-    <section className="flex flex-col gap-2 md:text-base">
+    <section className="flex flex-col gap-2 md:text-base animate-fadeIn">
       <div className="grid items-center content-center justify-between w-full grid-cols-3 p-5 border border-neutral-600">
         <Link
           href="/exams"

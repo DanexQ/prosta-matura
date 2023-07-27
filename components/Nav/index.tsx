@@ -1,6 +1,7 @@
 import Link from "next/link";
 import NavMobile from "@components/NavMobile";
 import NavAccountIcon from "@components/NavAccountIcon";
+import NavLink from "./NavLink";
 
 const NAV_LINKS = [
   { url: "/exams", label: "Arkusze" },
@@ -9,14 +10,8 @@ const NAV_LINKS = [
 ];
 
 const Nav = () => {
-  const navLinksElements = NAV_LINKS.map(({ url, label }) => (
-    <Link
-      key={url}
-      href={`${url}`}
-      className="px-4 py-2 tracking-wide hover:text-fuchsia-400"
-    >
-      {label}
-    </Link>
+  const navLinksElements = NAV_LINKS.map((navLink) => (
+    <NavLink key={navLink.url} {...navLink} />
   ));
 
   return (

@@ -5,8 +5,9 @@ import { getTaskTypes } from "@lib/getTaskTypes";
 import { Prisma } from "@prisma/client";
 import { createDashboardChartsData } from "@utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
-import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 const getDashboardData = async (userId: string) => {
   try {
@@ -32,11 +33,13 @@ export default async function Page() {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full p-8">
-        <h2 className="text-xl font-bold tracking-wide">Witaj, {name}!</h2>
+      <div className="flex items-center justify-between w-full">
+        <h2 className="my-10 text-xl font-bold tracking-wide">
+          Witaj, {name}!
+        </h2>
         <SignOutButton />
       </div>
-      <section className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <span className="col-span-1 text-lg font-semibold tracking-wider uppercase sm:col-span-2 md:col-span-3 lg:col-span-4">
           Twoje dotychczasowe postępy!
         </span>

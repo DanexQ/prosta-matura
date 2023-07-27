@@ -1,11 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Task from "../Task";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { taskTypeData } from "@customTypes/taskTypes";
 import { Prisma, Task as PrismaTask } from "@prisma/client";
 import { addTask } from "@serverActions/addTask";
 import { MathJaxContext } from "better-react-mathjax";
+import ButtonUploader from "@components/ButtonUploader";
+
+type DefaultTask = Omit<PrismaTask, "id">;
 
 const defaultTask: Omit<PrismaTask, "id"> = {
   content: "",
@@ -14,24 +17,25 @@ const defaultTask: Omit<PrismaTask, "id"> = {
   formula: "nowa",
   examType: "oficjalna",
   examYear: 2023,
-  imageUrl: null,
   points: 0,
+  imageUrl: null,
   taskNumber: 1,
 };
 
 const AddTaskForm = () => {
-  const { register, handleSubmit, watch } = useForm<PrismaTask>({
+  const { register, handleSubmit, watch } = useForm<DefaultTask>({
     defaultValues: defaultTask,
   });
-  const [uploadedImage, setUploadedImage] = useState<File | undefined>(
-    undefined
-  );
-  const watchAllFields = watch();
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [sentTask, setSentTask] = useState<PrismaTask>();
+  const watchAllFields = watch();
 
-  const onSubmit: SubmitHandler<PrismaTask> = async (task) => {
+  const onSubmit = async (task: DefaultTask) => {
     try {
-      const uploadedTask = await addTask(task);
+      const uploadedTask = await addTask({ ...task, imageUrl } as Omit<
+        PrismaTask,
+        "id"
+      >);
 
       setSentTask(uploadedTask);
       alert("Task uploaded successfully");
@@ -47,17 +51,13 @@ const AddTaskForm = () => {
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
         <MathJaxContext>
-          <Task {...watchAllFields} isCompleted={false} />
+          <Task {...(watchAllFields as PrismaTask)} isCompleted={false} />
         </MathJaxContext>
 
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit((data) => onSubmit(data))}
           className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
         >
-          {/* <form
-          // onSubmit={handleSubmit(onSubmit)}
-          className=" w-full flex flex-col gap-3 [&>*:not(button)]:text-neutral-200 border border-neutral-600 p-3"
-        > */}
           <h2 className="col-span-3 py-5 text-3xl font-bold text-center uppercase text-neutral-200">
             Dodaj Zadanie
           </h2>
@@ -79,7 +79,7 @@ const AddTaskForm = () => {
           />
 
           <div className="grid items-center grid-cols-[2fr_1fr_1fr] col-span-3 grid-rows-2 row-span-2 px-2 mb-3 justify-items-center ">
-            <label htmlFor="taskType " className="text-sm">
+            <label htmlFor="taskType" className="text-sm">
               Typ zadania
             </label>
             <select
@@ -92,6 +92,7 @@ const AddTaskForm = () => {
                 </option>
               ))}
             </select>
+
             <label htmlFor="points" className="col-start-2 row-start-1 text-sm">
               Punktacja
             </label>
@@ -100,6 +101,7 @@ const AddTaskForm = () => {
               type="number"
               className="text-center border bg-neutral-800 border-neutral-600 max-w-[50px] p-1"
             />
+
             <label
               htmlFor="taskNumber"
               className="col-start-3 row-start-1 text-sm"
@@ -172,11 +174,8 @@ const AddTaskForm = () => {
               className="w-[100px] text-center border bg-neutral-800 border-neutral-600 p-1"
             />
           </div>
-          <input
-            type="file"
-            onChange={(e) => setUploadedImage(e.target.files![0])}
-          />
           {/* disabled for prod */}
+          <ButtonUploader setImageUrl={setImageUrl} />
           <button type="submit" className="self-center w-1/2 group btn-primary">
             Dodaj
           </button>

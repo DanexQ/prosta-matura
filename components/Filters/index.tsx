@@ -40,7 +40,7 @@ const Filters = ({ filters }: FiltersFormProps) => {
       .map(([key, _]) => key);
     const query =
       filters.length > 0 ? `?taskTypes=${filters.join("%20")}` : "/";
-    router.push(query);
+    router.replace(query);
     window.innerWidth < 768 && setIsEnabled(false);
   };
 

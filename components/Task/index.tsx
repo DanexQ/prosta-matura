@@ -4,7 +4,7 @@ import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createTagLabels } from "./createTagLabels";
 import TaskTags from "./TaskTags";
 import TaskCompletedButton from "./TaskCompletedButton";
@@ -13,21 +13,24 @@ import { Prisma } from "@prisma/client";
 import { MathJax } from "better-react-mathjax";
 
 const Task = (details: TaskItem) => {
-  const [isCompleted, setIsCompleted] = useState(details.isCompleted);
   const { data: session } = useSession();
   const router = useRouter();
-  const borderStyling = isCompleted ? "border-green-600" : "border-neutral-600";
+  const searchParams = useSearchParams();
+
+  const borderStyling = details.isCompleted
+    ? "border-green-600"
+    : "border-neutral-600";
 
   const handleChangeTaskCompletition = async () => {
-    if (!session) return router.replace("/auth/signin");
+    if (!session) return router.push("/auth/signin");
     try {
-      const test = await changeTaskCompletition({
+      await changeTaskCompletition({
         id: details.id,
-        isCompleted,
+        isCompleted: details.isCompleted,
         userId: session.user.id,
+        taskTypes: searchParams.get("taskTypes"),
+        page: searchParams.get("page"),
       });
-      console.log(test);
-      setIsCompleted((prev) => !prev);
     } catch (err) {
       const error = err as Prisma.PrismaClientKnownRequestError;
       throw new Error(error.code);
@@ -43,7 +46,7 @@ const Task = (details: TaskItem) => {
         <TaskContent content={details.content} imageUrl={details.imageUrl} />
         <TaskAnswer answer={details.answer}>
           <TaskCompletedButton
-            isCompleted={isCompleted}
+            isCompleted={details.isCompleted}
             handleClick={handleChangeTaskCompletition}
           />
         </TaskAnswer>

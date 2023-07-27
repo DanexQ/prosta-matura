@@ -8,7 +8,7 @@ export default function Page() {
   const examYears = [2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
 
   return (
-    <section className="flex flex-col w-full gap-5 p-4 my-3 border border-neutral-600 ">
+    <section className="flex flex-col w-full gap-5 p-4 border border-neutral-600 animate-fadeIn">
       <h2 className="self-center text-2xl font-semibold uppercase">
         Arkusze matur z ubiegłych lat
       </h2>

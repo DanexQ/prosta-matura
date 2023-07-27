@@ -17,7 +17,7 @@ const RandomTask = (details: TaskItem) => {
   };
 
   return (
-    <div className="flex flex-col justify-center w-full gap-2">
+    <div className="flex flex-col justify-center w-full gap-2 animate-fadeIn">
       <MathJaxContext config={config}>
         <Task {...details} />
       </MathJaxContext>

@@ -1,5 +1,4 @@
 "use client";
-import { MathJax } from "better-react-mathjax";
 import React, { useState } from "react";
 
 const TaskAnswer = ({

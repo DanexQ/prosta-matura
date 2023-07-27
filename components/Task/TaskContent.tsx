@@ -11,14 +11,13 @@ const TaskContent = ({
       <p className="my-2 font-thin whitespace-pre-line md:my-5">
         {content.replaceAll("/n", "\n")}
       </p>
-
       {!!imageUrl && (
         <Image
           src={imageUrl}
           alt="TaskImage"
           width={250}
           height={250}
-          className="self-center invert"
+          className="self-center my-5 invert"
         />
       )}
     </>

@@ -2,16 +2,21 @@
 import { TaskItem } from "@customTypes/taskTypes";
 import { prisma } from "@lib/authOptions";
 import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export interface ChangeTaskCompletition
   extends Pick<TaskItem, "id" | "isCompleted"> {
   userId: string;
+  page: string | null;
+  taskTypes: string | null;
 }
 
 export const changeTaskCompletition = async ({
   id,
   userId,
   isCompleted,
+  page,
+  taskTypes,
 }: ChangeTaskCompletition) => {
   try {
     const test = isCompleted
@@ -23,5 +28,10 @@ export const changeTaskCompletition = async ({
   } catch (err) {
     const error = err as Prisma.PrismaClientKnownRequestError;
     throw new Error(error.message);
+  } finally {
+    const url = !!taskTypes
+      ? `?${encodeURI(taskTypes)}&page=${page}`
+      : `${!page ? "" : `page=${page}`}`;
+    revalidatePath("http:localhost:3000/tasks" + url);
   }
 };
