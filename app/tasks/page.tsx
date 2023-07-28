@@ -59,17 +59,13 @@ export default async function Page({
 }: {
   searchParams: SearchParams;
 }) {
-  // const Tasks = dynamicRender(
-  //   () => import("../../components/Tasks/Tasks").then((T) => T.default),
-  //   { loading: () => <TasksLoader /> }
-  // );
-  const [tasksDetails, taskTypes, Tasks] = await Promise.all([
+  const Tasks = dynamicRender(
+    () => import("../../components/Tasks/Tasks").then((T) => T.default),
+    { loading: () => <TasksLoader /> }
+  );
+  const [tasksDetails, taskTypes] = await Promise.all([
     getTasks(searchParams.taskTypes, searchParams.page),
     getTaskTypes(),
-    dynamicRender(
-      () => import("../../components/Tasks/Tasks").then((T) => T.default),
-      { loading: () => <TasksLoader /> }
-    ),
   ]);
 
   return (

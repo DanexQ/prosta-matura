@@ -39,7 +39,7 @@ const Filters = ({ filters }: FiltersFormProps) => {
       .filter(([_, value]) => value == true)
       .map(([key, _]) => key);
     const query =
-      filters.length > 0 ? `?taskTypes=${filters.join("%20")}` : "/";
+      filters.length > 0 ? `?taskTypes=${filters.join("%20")}` : "/tasks";
     router.replace(query);
     window.innerWidth < 768 && setIsEnabled(false);
   };
