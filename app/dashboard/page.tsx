@@ -33,12 +33,12 @@ export default async function Page() {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full">
+      <header className="flex items-center justify-between w-full">
         <h2 className="my-10 text-xl font-bold tracking-wide">
           Witaj, {name}!
         </h2>
         <SignOutButton />
-      </div>
+      </header>
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <span className="col-span-1 text-lg font-semibold tracking-wider uppercase sm:col-span-2 md:col-span-3 lg:col-span-4">
           Twoje dotychczasowe postępy!

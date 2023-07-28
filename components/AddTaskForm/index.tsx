@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { taskTypeData } from "@customTypes/taskTypes";
 import { Prisma, Task as PrismaTask } from "@prisma/client";
 import { addTask } from "@serverActions/addTask";
-import { MathJaxContext } from "better-react-mathjax";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import ButtonUploader from "@components/ButtonUploader";
 
 type DefaultTask = Omit<PrismaTask, "id">;
@@ -20,6 +20,10 @@ const defaultTask: Omit<PrismaTask, "id"> = {
   points: 0,
   imageUrl: null,
   taskNumber: 1,
+};
+
+const config = {
+  loader: { load: ["input/asciimath"] },
 };
 
 const AddTaskForm = () => {
@@ -50,8 +54,8 @@ const AddTaskForm = () => {
   return (
     <>
       <div className="grid grid-cols-[3fr_2fr] items-stretch gap-3">
-        <MathJaxContext>
-          <Task {...(watchAllFields as PrismaTask)} isCompleted={false} />
+        <MathJaxContext config={config}>
+          <Task {...watchAllFields} isCompleted={false} id={"test"} />
         </MathJaxContext>
 
         <form

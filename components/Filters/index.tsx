@@ -88,7 +88,7 @@ const Filters = ({ filters }: FiltersFormProps) => {
   };
 
   return (
-    <section
+    <aside
       className={`flex flex-col self-start p-4 text-gray-100 border md:flex-[1_1_0%] border-neutral-600 w-full`}
     >
       <button
@@ -122,7 +122,7 @@ const Filters = ({ filters }: FiltersFormProps) => {
           <button className="btn-primary">Filtruj</button>
         </form>
       </div>
-    </section>
+    </aside>
   );
 };
 

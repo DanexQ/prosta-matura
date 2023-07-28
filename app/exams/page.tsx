@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <section className="flex flex-col w-full gap-5 p-4 border border-neutral-600 animate-fadeIn">
-      <h2 className="self-center text-2xl font-semibold uppercase">
+      <h2 className="text-xl font-semibold text-center uppercase sm:text-2xl">
         Arkusze matur z ubiegłych lat
       </h2>
       <ul className="flex flex-col w-full text-lg gap-7">

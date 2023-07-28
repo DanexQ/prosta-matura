@@ -65,7 +65,7 @@ export default async function Page({
   ]);
 
   return (
-    <section className="flex flex-col-reverse gap-2 sm:gap-5 md:flex-row md:text-base animate-fadeIn">
+    <section className="flex flex-col-reverse gap-2 sm:gap-2 md:gap-5 md:flex-row md:text-base animate-fadeIn">
       <Tasks {...tasksDetails} />
       <FiltersForm filters={taskTypes} />
     </section>

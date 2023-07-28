@@ -7,7 +7,7 @@ import Image from "next/image";
 const SignInButton = () => {
   return (
     <button
-      className="flex gap-3 p-3 btn-primary"
+      className="flex items-center gap-3 p-3 text-sm btn-primary sm:text-base"
       onClick={() => signIn("google")}
     >
       <Image src={GoogleIcon} width={24} height={24} alt="Google Icon" />

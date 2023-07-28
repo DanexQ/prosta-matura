@@ -13,6 +13,7 @@ export const getFilteredTasks = async (
   const session = await getServerSession(authOptions);
   const allTasks = await prisma.task.findMany({
     where: filters,
+    orderBy: [{ taskNumber: "asc" }],
   });
   const completedTasks = !!session
     ? await prisma.completedTask.findMany({

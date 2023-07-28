@@ -5,7 +5,7 @@ import AccountIcon from "@assets/AccountIcon.png";
 import Link from "next/link";
 import Image from "next/image";
 
-const NavAccountIcon = () => {
+const NavAuthorizationIcon = ({ media }: { media: string }) => {
   const { data: session } = useSession();
 
   if (session === undefined)
@@ -14,14 +14,14 @@ const NavAccountIcon = () => {
     );
 
   return !!session ? (
-    <Link href="/dashboard">
+    <Link href="/dashboard" className={`${media}`}>
       <Image src={AccountIcon} width={32} height={32} alt="AccountIcon" />
     </Link>
   ) : (
-    <Link href="/auth/signin">
+    <Link href="/auth/signin?modal=signin" className={`${media}`}>
       <Image src={SignInIcon32} width={32} height={32} alt="SignInIcon" />
     </Link>
   );
 };
 
-export default NavAccountIcon;
+export default NavAuthorizationIcon;

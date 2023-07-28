@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavMobile from "@components/NavMobile";
-import NavAccountIcon from "@components/NavAccountIcon";
+import NavAuthorizationIcon from "./NavAuthorizationIcon";
 import NavLink from "./NavLink";
 
 const NAV_LINKS = [
@@ -23,7 +23,7 @@ const Nav = () => {
           Prosta matura
         </Link>
         <ul className="hidden gap-6 md:flex">{navLinksElements}</ul>
-        <NavAccountIcon />
+        <NavAuthorizationIcon media="hidden md:block" />
         <NavMobile navElements={navLinksElements} />
       </div>
     </nav>

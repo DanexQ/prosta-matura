@@ -19,12 +19,11 @@ export const changeTaskCompletition = async ({
   taskTypes,
 }: ChangeTaskCompletition) => {
   try {
-    const test = isCompleted
+    isCompleted
       ? await prisma.completedTask.delete({ where: { id: userId + id } })
       : await prisma.completedTask.create({
           data: { id: userId + id, userId: userId, taskId: id },
         });
-    return test;
   } catch (err) {
     const error = err as Prisma.PrismaClientKnownRequestError;
     throw new Error(error.message);
@@ -32,6 +31,6 @@ export const changeTaskCompletition = async ({
     const url = !!taskTypes
       ? `?${encodeURI(taskTypes)}&page=${page}`
       : `${!page ? "" : `page=${page}`}`;
-    revalidatePath("http:localhost:3000/tasks" + url);
+    revalidatePath("/tasks" + url);
   }
 };

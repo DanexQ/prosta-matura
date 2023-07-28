@@ -8,16 +8,16 @@ const TaskContent = ({
 }: Pick<TaskItem, "content" | "imageUrl">) => {
   return (
     <>
-      <p className="my-2 font-thin whitespace-pre-line md:my-5">
+      <p className="my-2 overflow-x-auto font-thin text-justify whitespace-pre-line md:my-5">
         {content.replaceAll("/n", "\n")}
       </p>
       {!!imageUrl && (
         <Image
           src={imageUrl}
           alt="TaskImage"
-          width={250}
-          height={250}
-          className="self-center my-5 invert"
+          width={300}
+          height={300}
+          className="self-center mx-auto my-5 invert"
         />
       )}
     </>
