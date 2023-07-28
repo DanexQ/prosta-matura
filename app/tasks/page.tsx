@@ -7,10 +7,6 @@ import { getTaskTypes } from "@lib/getTaskTypes";
 import TasksLoader from "@components/TasksLoader/TasksLoader";
 import { taskTypeData } from "@customTypes/taskTypes";
 
-export const metadata = {
-  title: "Zadania | Prosta Matura",
-};
-
 export type SearchParams = {
   taskTypes?: string | undefined;
   page: number | undefined;
