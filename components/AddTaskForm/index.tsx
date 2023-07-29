@@ -35,6 +35,7 @@ const AddTaskForm = () => {
   const watchAllFields = watch();
 
   const onSubmit = async (task: DefaultTask) => {
+    if (process.env.NODE_ENV === "production") return;
     try {
       const uploadedTask = await addTask({ ...task, imageUrl } as Omit<
         PrismaTask,
@@ -178,9 +179,14 @@ const AddTaskForm = () => {
               className="w-[100px] text-center border bg-neutral-800 border-neutral-600 p-1"
             />
           </div>
-          {/* disabled for prod */}
-          <ButtonUploader setImageUrl={setImageUrl} />
-          <button type="submit" className="self-center w-1/2 group btn-primary">
+          {process.env.NODE_ENV === "development" && (
+            <ButtonUploader setImageUrl={setImageUrl} />
+          )}
+          <button
+            type="submit"
+            className="self-center w-1/2 group btn-primary"
+            disabled={process.env.NODE_ENV === "production"}
+          >
             Dodaj
           </button>
         </form>

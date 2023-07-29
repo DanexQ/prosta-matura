@@ -13,6 +13,7 @@ export const createTagLabels = ({
     (points / 50) * 100
   )}%]`;
   const typeLabel = taskTypeData[taskType as keyof typeof taskTypeData];
+
   return {
     formulaLabel,
     examLabel,

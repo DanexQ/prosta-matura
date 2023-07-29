@@ -1,3 +1,4 @@
+import Button from "@components/Button";
 import Tasks from "@components/Tasks/Tasks";
 import { getFilteredTasks } from "@lib/getTasks";
 import { Prisma } from "@prisma/client";
@@ -41,20 +42,29 @@ export default async function Page({
 
   return (
     <section className="flex flex-col gap-2 md:text-base animate-fadeIn">
-      <div className="grid items-center content-center justify-between w-full grid-cols-3 p-5 border border-neutral-600">
+      <div className="grid items-center content-center justify-between w-full grid-cols-[20px_1fr_20px] sm:grid-cols-[70px_1fr_70px] p-3 sm:p-5 border border-neutral-600">
         <Link
           href="/exams"
           replace
           className="flex items-center justify-start gap-2 text-sm"
         >
-          <span>&#8592; </span> <span>Powrót</span>
+          <Button styling="flex gap-2">
+            <span>&#8592; </span>{" "}
+            <span className="hidden sm:inline-block">Powrót</span>
+          </Button>
         </Link>
-        <h2 className="text-2xl font-semibold tracking-wider text-center">
+        <h2 className="text-lg font-semibold tracking-wider text-center sm:text-2xl">
           Matura {capitalizeWord(examType)} {examYear}
         </h2>
         {/* <ExamTasksCounter examYear={examYear} examType={examType} /> */}
       </div>
-      <Tasks tasks={tasks} />
+      {!!tasks.length ? (
+        <Tasks tasks={tasks} />
+      ) : (
+        <div className="text-2xl text-center">
+          Wkrótce pojawią się zadania z tej matury!
+        </div>
+      )}
     </section>
   );
 }

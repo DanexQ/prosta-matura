@@ -5,8 +5,9 @@ import { Pie } from "react-chartjs-2";
 import type { ChartData } from "chart.js";
 import Link from "next/link";
 import { ChartData as ChartDataProps } from "@utils/createDashboardChartsData";
+import Button from "@components/Button";
 
-const index = ({ label, chartData, id }: ChartDataProps) => {
+const TaskTypeChart = ({ label, chartData, id }: ChartDataProps) => {
   const data: ChartData<"pie"> = {
     datasets: [
       {
@@ -19,15 +20,21 @@ const index = ({ label, chartData, id }: ChartDataProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-1 p-5 text-center border border-neutral-600">
-      <span className="mb-auto font-bold uppercase hyphens-manual">
+    <div className="flex flex-col items-center justify-center gap-2 p-2 text-xs text-center border sm:px-3 sm:py-5 border-neutral-600 md:text-base ">
+      <span className="my-auto uppercase break-normal sm:font-semibold hyphens-auto">
         {label}
       </span>
-      <Pie data={data} updateMode="none" redraw={false} />
-      <p>{`${chartData[1]}/${chartData[0] + chartData[1]}`}</p>
-      <Link href={`/tasks?taskTypes=${id}`}>Sprawdź zadania</Link>
+      <div className="max-w-[100px] md:max-w-[150px]">
+        <Pie data={data} updateMode="none" redraw={false} />
+      </div>
+      <span className="text-xs">{`${chartData[1]}/${
+        chartData[0] + chartData[1]
+      }`}</span>
+      <Link href={`/tasks?taskTypes=${id}`}>
+        <Button>Sprawdź zadania</Button>
+      </Link>
     </div>
   );
 };
 
-export default index;
+export default TaskTypeChart;

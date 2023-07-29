@@ -34,13 +34,13 @@ export default async function Page() {
   return (
     <>
       <header className="flex items-center justify-between w-full">
-        <h2 className="my-10 text-xl font-bold tracking-wide">
+        <h2 className="my-5 text-lg font-semibold tracking-wide sm:my-10 sm:text-xl">
           Witaj, {name}!
         </h2>
         <SignOutButton />
       </header>
-      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <span className="col-span-1 text-lg font-semibold tracking-wider uppercase sm:col-span-2 md:col-span-3 lg:col-span-4">
+      <section className="grid grid-cols-2 gap-1 sm:gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <span className="col-span-2 text-base tracking-wider sm:text-lg sm:col-span-3 md:col-span-4 lg:col-span-5">
           Twoje dotychczasowe postępy!
         </span>
         {chartsData.map((data) => (
