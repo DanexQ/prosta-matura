@@ -1,7 +1,6 @@
 "use server";
 import { TaskItem } from "@customTypes/taskTypes";
 import { prisma } from "@lib/authOptions";
-import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export interface ChangeTaskCompletition
@@ -25,7 +24,7 @@ export const changeTaskCompletition = async ({
           data: { id: userId + id, userId: userId, taskId: id },
         });
   } catch (err) {
-    const error = err as Prisma.PrismaClientKnownRequestError;
+    const error = err as Error;
     throw new Error(error.message);
   } finally {
     const url = !!taskTypes

@@ -1,23 +1,30 @@
 "use client";
+import { taskStatusStyling } from "@utils/taskStatusStyling";
 import React from "react";
 
 const TaskCompletedButton = ({
-  isCompleted,
+  taskStatus,
   handleClick,
 }: {
-  isCompleted: boolean;
+  taskStatus: { loading: boolean; isCompleted: boolean };
   handleClick: () => Promise<void>;
 }) => {
-  const buttonStyling = isCompleted
-    ? ""
-    : "bg-green-500/60 hover:bg-green-600 after:bg-green-700";
+  const { loading, isCompleted } = taskStatus;
 
+  const buttonStyling = taskStatusStyling(taskStatus, {
+    pending: "bg-orange-500/60 hover:bg-orange-500/60 after:hidden",
+    completed: "bg-green-500/60 hover:bg-green-600 after:bg-green-700",
+    neutral: "",
+  });
   return (
     <button
-      className={`flex self-end btn-primary  ${buttonStyling}`}
+      className={`flex self-end btn-primary ${buttonStyling}`}
       onClick={handleClick}
+      disabled={loading && true}
     >
-      {isCompleted ? "Nieobliczone" : "Obliczone"}
+      {isCompleted && !loading && "Obliczone"}
+      {!isCompleted && !loading && "Nieobliczone"}
+      {loading && "Ładowanie..."}
     </button>
   );
 };

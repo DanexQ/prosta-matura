@@ -2,7 +2,7 @@
 import { TaskItem } from "@customTypes/taskTypes";
 import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createTagLabels } from "./createTagLabels";
@@ -11,18 +11,28 @@ import TaskCompletedButton from "./TaskCompletedButton";
 import { changeTaskCompletition } from "@serverActions/changeTaskCompletition";
 import { Prisma } from "@prisma/client";
 import { MathJax } from "better-react-mathjax";
+import { taskStatusStyling } from "@utils/taskStatusStyling";
 
 const Task = (details: TaskItem) => {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [taskStatus, setTaskStatus] = useState({
+    loading: false,
+    isCompleted: details.isCompleted,
+  });
 
-  const borderStyling = details.isCompleted
-    ? "border-green-600"
-    : "border-neutral-600";
+  const borderStyling = useMemo(() => {
+    return taskStatusStyling(taskStatus, {
+      pending: "border-orange-500",
+      completed: "border-green-600",
+      neutral: "border-neutral-600",
+    });
+  }, [taskStatus]);
 
   const handleChangeTaskCompletition = async () => {
     if (!session) return router.push("/auth/signin");
+    setTaskStatus((prevState) => ({ ...prevState, loading: true }));
     try {
       await changeTaskCompletition({
         id: details.id,
@@ -31,9 +41,18 @@ const Task = (details: TaskItem) => {
         taskTypes: searchParams.get("taskTypes"),
         page: searchParams.get("page"),
       });
+      setTaskStatus((prevState) => ({
+        ...prevState,
+        isCompleted: !prevState.isCompleted,
+      }));
     } catch (err) {
       const error = err as Prisma.PrismaClientKnownRequestError;
       throw new Error(error.code);
+    } finally {
+      setTaskStatus((prevState) => ({
+        ...prevState,
+        loading: false,
+      }));
     }
   };
 
@@ -46,7 +65,7 @@ const Task = (details: TaskItem) => {
         <TaskContent content={details.content} imageUrl={details.imageUrl} />
         <TaskAnswer answer={details.answer}>
           <TaskCompletedButton
-            isCompleted={details.isCompleted}
+            taskStatus={taskStatus}
             handleClick={handleChangeTaskCompletition}
           />
         </TaskAnswer>
