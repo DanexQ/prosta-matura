@@ -11,3 +11,7 @@ Little overview for everyone that doesn't know polish:
 - There is also another page, but this one you have to type in by yourself - /tasks/add-task - I created this form and used this to easily add another tasks, because there is no any database that I've could fetch data. I used here React Hook Form to see how form validation works. Someday I will implement credetials for signing up an signing in with this package.
 
 As I said, every feedback is welcome. Contact me: danexq@gmail.com. Discord: danexq.
+
+**Prosta Matura is built with:**
+|NextJS | React | Tailwind | NextAuth |Prisma| PlanetScale |
+|----|----|----|----|----|
