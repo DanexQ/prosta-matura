@@ -2,7 +2,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const PageNav = ({ quantity }: { quantity: number }) => {
+const TasksPagination = ({ quantity }: { quantity: number }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -39,7 +39,7 @@ const PageNav = ({ quantity }: { quantity: number }) => {
       for (let i = startIndex; i <= endIndex; i++) {
         navElements.push(
           <button
-            className={`px-2 py-1 border cursor-pointer border-neutral-600 ${
+            className={`w-11 h-11 border cursor-pointer border-neutral-600 ${
               currentPage === i ? "bg-neutral-600" : ""
             }`}
             onClick={() => handleRoute(i)}
@@ -71,14 +71,14 @@ const PageNav = ({ quantity }: { quantity: number }) => {
   return (
     <div className="flex items-center justify-center gap-1 [&>div:hover]:bg-neutral-600">
       <button
-        className="px-2 py-1 border cursor-pointer border-neutral-600"
+        className="border cursor-pointer w-11 h-11 border-neutral-600"
         onClick={() => handleRoute(1)}
       >
         {"<<"}
       </button>
       {elements}
       <button
-        className="px-2 py-1 border cursor-pointer border-neutral-600"
+        className="border cursor-pointer w-11 h-11 lg: border-neutral-600"
         onClick={() => handleRoute(quantity)}
       >
         {">>"}
@@ -87,4 +87,4 @@ const PageNav = ({ quantity }: { quantity: number }) => {
   );
 };
 
-export default PageNav;
+export default TasksPagination;

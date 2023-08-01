@@ -1,6 +1,10 @@
 import NextAuthSessionProvider from "@components/NextAuthSessionProvider";
 import "./global.css";
 
+export const metadata = {
+  description: "Zbiór zadań maturalnych z matematyki rozszerzonej.",
+};
+
 export default function RootLayout({
   children,
   modal,

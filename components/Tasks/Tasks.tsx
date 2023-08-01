@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import PageNav from "../TasksPageNav";
+import TasksPagination from "../TasksPagination";
 import { TaskItem } from "@customTypes/taskTypes";
 import { MathJaxContext } from "better-react-mathjax";
 import Task from "@components/Task";
@@ -23,7 +23,9 @@ const Tasks = ({ tasks, tasksQuantity }: ITasks) => {
         ))}
       </MathJaxContext>
 
-      {!!tasksQuantity && <PageNav quantity={Math.ceil(tasksQuantity / 5)} />}
+      {!!tasksQuantity && (
+        <TasksPagination quantity={Math.ceil(tasksQuantity / 5)} />
+      )}
     </section>
   );
 };
