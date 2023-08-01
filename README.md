@@ -13,5 +13,5 @@ Little overview for everyone that doesn't know polish:
 As I said, every feedback is welcome. Contact me: danexq@gmail.com. Discord: danexq.
 
 **Prosta Matura is built with:**
-|NextJS | React | Tailwind | NextAuth |Prisma| PlanetScale |
-|----|----|----|----|----|
+|NextJS | React | Tailwind | NextAuth | Prisma | PlanetScale |
+| ----- | ----- | -------- | -------- | ------ | ----------- |
