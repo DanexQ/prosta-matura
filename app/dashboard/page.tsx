@@ -1,9 +1,9 @@
-import SignOutButton from "@components/SignOutButton";
-import TaskTypeChart from "@components/TaskTypeChart";
-import { authOptions, prisma } from "@lib/authOptions";
-import { getTaskTypes } from "@lib/getTaskTypes";
+import SignOutButton from "@/components/SignOutButton";
+import TaskTypeChart from "@/components/TaskTypeChart";
+import { authOptions, prisma } from "@/lib/authOptions";
+import { getTaskTypes } from "@/lib/getTaskTypes";
 import { Prisma } from "@prisma/client";
-import { createDashboardChartsData } from "@utils/createDashboardChartsData";
+import { createDashboardChartsData } from "@/utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

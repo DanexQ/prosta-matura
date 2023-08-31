@@ -1,5 +1,5 @@
 "use server";
-import { prisma } from "@lib/authOptions";
+import { prisma } from "@/lib/authOptions";
 import { Task } from "@prisma/client";
 
 export const addTask = async (task: Omit<Task, "id">) => {

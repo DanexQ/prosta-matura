@@ -1,11 +1,11 @@
 import React, { cache } from "react";
-import FiltersForm from "@components/Filters";
+import FiltersForm from "@/components/Filters";
 import dynamicRender from "next/dynamic";
-import { getFilteredTasks } from "@lib/getTasks";
+import { getFilteredTasks } from "@/lib/getFilteredTasks";
 import { Prisma } from "@prisma/client";
-import { getTaskTypes } from "@lib/getTaskTypes";
-import TasksLoader from "@components/TasksLoader/TasksLoader";
-import { taskTypeData } from "@customTypes/taskTypes";
+import { getTaskTypes } from "@/lib/getTaskTypes";
+import TasksLoader from "@/components/TasksLoader/TasksLoader";
+import { taskTypeData } from "@/customTypes/taskTypes";
 
 export type SearchParams = {
   taskTypes?: string | undefined;
@@ -55,8 +55,9 @@ export default async function Page({
 }: {
   searchParams: SearchParams;
 }) {
+  // eslint-disable-next-line testing-library/render-result-naming-convention
   const Tasks = dynamicRender(
-    () => import("../../components/Tasks/Tasks").then((T) => T.default),
+    () => import("../../components/Tasks").then((T) => T.default),
     { loading: () => <TasksLoader /> }
   );
   const [tasksDetails, taskTypes] = await Promise.all([

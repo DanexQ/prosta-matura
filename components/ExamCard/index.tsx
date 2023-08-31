@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ExamButton from "./ExamButton";
-import Button from "@components/Button";
+import Button from "@/components/Button";
 
 const Exam = ({ examYear }: { examYear: number }) => {
   const [showExamTypes, setShowExamTypes] = useState(false);

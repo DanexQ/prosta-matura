@@ -1,7 +1,7 @@
 import React from "react";
 import TaskTag from "./TaskTag";
-import tagColor from "@utils/tagColor";
-import { capitalizeWord } from "@utils/capitalizeWord";
+import tagColor from "@/utils/tagColor";
+import { capitalizeWord } from "@/utils/capitalizeWord";
 
 interface TaskTags {
   labels: { [x: string]: string };

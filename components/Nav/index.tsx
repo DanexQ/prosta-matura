@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavMobile from "@components/NavMobile";
+import NavMobile from "@/components/NavMobile";
 import NavAuthorizationIcon from "./NavAuthorizationIcon";
 import NavLink from "./NavLink";
 

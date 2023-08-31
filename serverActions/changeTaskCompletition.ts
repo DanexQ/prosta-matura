@@ -1,6 +1,6 @@
 "use server";
-import { TaskItem } from "@customTypes/taskTypes";
-import { prisma } from "@lib/authOptions";
+import { TaskItem } from "@/customTypes/taskTypes";
+import { prisma } from "@/lib/authOptions";
 import { revalidatePath } from "next/cache";
 
 export interface ChangeTaskCompletition

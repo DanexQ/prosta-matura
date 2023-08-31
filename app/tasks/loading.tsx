@@ -1,5 +1,5 @@
-import FiltersLoader from "@components/FiltersLoader";
-import LoadingTasks from "@components/TasksLoader/TasksLoader";
+import FiltersLoader from "@/components/FiltersLoader";
+import LoadingTasks from "@/components/TasksLoader/TasksLoader";
 
 export default function loading() {
   return (

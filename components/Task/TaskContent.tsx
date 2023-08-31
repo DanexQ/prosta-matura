@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { TaskItem } from "@customTypes/taskTypes";
+import { TaskItem } from "@/customTypes/taskTypes";
 
 const TaskContent = ({
   content,

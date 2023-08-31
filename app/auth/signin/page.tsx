@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@lib/authOptions";
+import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
-import SignInButton from "@components/SignInButton";
+import SignInButton from "@/components/SignInButton";
 
 export const metadata = {
   title: "Logowanie | Prosta Matura",

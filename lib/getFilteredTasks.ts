@@ -1,5 +1,5 @@
-import { TaskItem } from "@customTypes/taskTypes";
-import { authOptions, prisma } from "@lib/authOptions";
+import { TaskItem } from "@/customTypes/taskTypes";
+import { authOptions, prisma } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { checkTasksCompletition } from "./checkTasksCompletition";
 

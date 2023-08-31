@@ -1,6 +1,6 @@
 "use client";
 // TRYING TO FIX THIS
-import Exam from "@components/ExamCard";
+import Exam from "@/components/ExamCard";
 // import { useExamTasksCounter } from "@hooks/useExamTasksCounter";
 import React, { useEffect } from "react";
 
