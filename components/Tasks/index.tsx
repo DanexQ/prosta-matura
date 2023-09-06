@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import TasksPagination from "../TasksPagination";
-import { TaskItem } from "@/customTypes/taskTypes";
+import { TaskItem } from "@CustomTypes/taskTypes";
 import { MathJaxContext } from "better-react-mathjax";
-import Task from "@/components/Task";
+import Task from "@Components/Task";
 
 const config = {
   loader: { load: ["input/asciimath"] },

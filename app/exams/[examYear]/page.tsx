@@ -1,8 +1,8 @@
-import Button from "@/components/Button";
-import Tasks from "@/components/Tasks";
-import { getFilteredTasks } from "@/lib/getFilteredTasks";
+import Button from "@Components/Button";
+import Tasks from "@Components/Tasks";
+import { getFilteredTasks } from "@Lib/getFilteredTasks";
+import { capitalizeWord } from "@Utils/capitalizeWord";
 import { Prisma } from "@prisma/client";
-import { capitalizeWord } from "@/utils/capitalizeWord";
 import { Metadata } from "next";
 import Link from "next/link";
 import { cache } from "react";

@@ -1,5 +1,5 @@
 "use client";
-import { TaskItem } from "@/customTypes/taskTypes";
+import { TaskItem } from "@CustomTypes/taskTypes";
 import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
 import { useMemo, useState } from "react";
@@ -8,10 +8,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { createTagLabels } from "./createTagLabels";
 import TaskTags from "./TaskTags";
 import TaskCompletedButton from "./TaskCompletedButton";
-import { changeTaskCompletition } from "@/serverActions/changeTaskCompletition";
+import { changeTaskCompletition } from "@ServerActions/changeTaskCompletition";
 import { Prisma } from "@prisma/client";
 import { MathJax } from "better-react-mathjax";
-import { taskStatusStyling } from "@/utils/taskStatusStyling";
+import { taskStatusStyling } from "@Utils/taskStatusStyling";
 
 const Task = (details: TaskItem) => {
   const { data: session } = useSession();
@@ -59,6 +59,7 @@ const Task = (details: TaskItem) => {
   return (
     <div
       className={`flex flex-col p-4 border lg:p-8 ${borderStyling} text-inherit`}
+      data-testid="test-task"
     >
       <TaskTags labels={createTagLabels(details)} />
       <MathJax>

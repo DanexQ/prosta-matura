@@ -1,5 +1,5 @@
 "use client";
-import { taskStatusStyling } from "@/utils/taskStatusStyling";
+import { taskStatusStyling } from "@Utils/taskStatusStyling";
 import React from "react";
 
 const TaskCompletedButton = ({

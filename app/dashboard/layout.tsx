@@ -1,4 +1,4 @@
-import PageLayout from "@/components/PageLayout";
+import PageLayout from "@Components/PageLayout";
 import React from "react";
 
 export const metadata = {

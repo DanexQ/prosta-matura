@@ -1,7 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import React from "react";
-import GoogleIcon from "@/assets/GoogleIcon.png";
+import GoogleIcon from "assets/GoogleIcon.png";
 import Image from "next/image";
 
 const SignInButton = () => {

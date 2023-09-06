@@ -39,11 +39,11 @@ const TasksPagination = ({ quantity }: { quantity: number }) => {
       for (let i = startIndex; i <= endIndex; i++) {
         navElements.push(
           <button
+            key={i}
             className={`w-11 h-11 border cursor-pointer border-neutral-600 ${
               currentPage === i ? "bg-neutral-600" : ""
             }`}
             onClick={() => handleRoute(i)}
-            key={i}
           >
             {i}
           </button>

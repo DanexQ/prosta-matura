@@ -4,8 +4,8 @@ import "chart.js/auto";
 import { Pie } from "react-chartjs-2";
 import type { ChartData } from "chart.js";
 import Link from "next/link";
-import { ChartData as ChartDataProps } from "@/utils/createDashboardChartsData";
-import Button from "@/components/Button";
+import { ChartData as ChartDataProps } from "@Utils/createDashboardChartsData";
+import Button from "@Components/Button";
 
 const TaskTypeChart = ({ label, chartData, id }: ChartDataProps) => {
   const data: ChartData<"pie"> = {

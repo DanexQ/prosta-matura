@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import BurgerMenu from "./BurgerMenu";
 import MobileMenu from "./MobileMenu";
-import NavAuthorizationIcon from "@/components/Nav/NavAuthorizationIcon";
+import NavAuthorizationIcon from "@Components/Nav/NavAuthorizationIcon";
 
 const NavMobile = ({ navElements }: { navElements: React.ReactNode[] }) => {
   const [isActive, setIsActive] = useState<boolean>(false);

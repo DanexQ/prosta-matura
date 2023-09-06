@@ -1,11 +1,11 @@
 import React, { cache } from "react";
-import FiltersForm from "@/components/Filters";
+import FiltersForm from "@Components/Filters";
 import dynamicRender from "next/dynamic";
-import { getFilteredTasks } from "@/lib/getFilteredTasks";
+import { getFilteredTasks } from "@Lib/getFilteredTasks";
 import { Prisma } from "@prisma/client";
-import { getTaskTypes } from "@/lib/getTaskTypes";
-import TasksLoader from "@/components/TasksLoader/TasksLoader";
-import { taskTypeData } from "@/customTypes/taskTypes";
+import { getTaskTypes } from "@Lib/getTaskTypes";
+import TasksLoader from "@Components/TasksLoader/TasksLoader";
+import { taskTypeData } from "@CustomTypes/taskTypes";
 
 export type SearchParams = {
   taskTypes?: string | undefined;

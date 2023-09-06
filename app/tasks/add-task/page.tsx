@@ -1,4 +1,4 @@
-import AddTaskForm from "@/components/AddTaskForm";
+import AddTaskForm from "@Components/AddTaskForm";
 
 export default async function Page() {
   return (

@@ -1,4 +1,4 @@
-import TaskLoader from "@/components/TaskLoader";
+import TaskLoader from "@Components/TaskLoader";
 import React from "react";
 
 const LoadingTasks = () => {

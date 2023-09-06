@@ -1,4 +1,4 @@
-import { SearchParams } from "@/app/tasks/page";
+import { SearchParams } from "../app/tasks/page";
 
 export const createSearchQuery = (searchParams: SearchParams) => {
   const page = searchParams.page ?? 1;

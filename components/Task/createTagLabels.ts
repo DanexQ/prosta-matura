@@ -1,4 +1,4 @@
-import { TaskItem, taskTypeData } from "@/customTypes/taskTypes";
+import { TaskItem, taskTypeData } from "@CustomTypes/taskTypes";
 
 export const createTagLabels = ({
   formula,

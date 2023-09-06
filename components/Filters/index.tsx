@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TaskTypes } from "@/customTypes/taskTypes";
+import { TaskTypes } from "@CustomTypes/taskTypes";
 import { TaskType } from "@prisma/client";
 
 type Filters = {

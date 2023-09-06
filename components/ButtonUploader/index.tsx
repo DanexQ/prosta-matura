@@ -1,7 +1,7 @@
 "use client";
 import { UploadButton } from "@uploadthing/react";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
 import "@uploadthing/react/styles.css";
+import { OurFileRouter } from "app/api/uploadthing/core";
 
 const ButtonUploader = ({
   setImageUrl,

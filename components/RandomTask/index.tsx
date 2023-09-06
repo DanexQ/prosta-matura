@@ -1,7 +1,7 @@
 "use client";
-import Button from "@/components/Button";
-import Task from "@/components/Task";
-import { TaskItem } from "@/customTypes/taskTypes";
+import Button from "@Components/Button";
+import Task from "@Components/Task";
+import { TaskItem } from "@CustomTypes/taskTypes";
 import { MathJaxContext } from "better-react-mathjax";
 import { useRouter } from "next/navigation";
 import React from "react";

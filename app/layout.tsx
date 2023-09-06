@@ -1,4 +1,4 @@
-import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
+import NextAuthSessionProvider from "@Components/NextAuthSessionProvider";
 import "./global.css";
 
 export const metadata = {

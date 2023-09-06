@@ -19,18 +19,15 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@Components/*": ["./components/*"],
+      "@Lib/*": ["./lib/*"],
+      "@Utils/*": ["./utils/*"],
+      "@CustomTypes/*": ["./customTypes/*"],
+      "@ServerActions/*": ["./serverActions/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "jest.setup.js",
-    "jest.config.js",
-    "jest.config.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

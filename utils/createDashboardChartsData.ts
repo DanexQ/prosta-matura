@@ -1,5 +1,5 @@
 import { CompletedTask, TaskType } from "@prisma/client";
-import { TaskTypes, taskTypeData } from "@/customTypes/taskTypes";
+import { TaskTypes, taskTypeData } from "../customTypes/taskTypes";
 
 export type ChartData = {
   id: string;

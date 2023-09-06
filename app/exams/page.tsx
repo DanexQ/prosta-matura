@@ -1,4 +1,4 @@
-import ExamCard from "@/components/ExamCard";
+import ExamCard from "@Components/ExamCard";
 
 export const metadata = {
   title: "Arkusze | Prosta Matura",

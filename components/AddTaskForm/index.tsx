@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import Task from "../Task";
 import { useForm } from "react-hook-form";
-import { taskTypeData } from "@/customTypes/taskTypes";
+import { taskTypeData } from "@CustomTypes/taskTypes";
 import { Prisma, Task as PrismaTask } from "@prisma/client";
-import { addTask } from "@/serverActions/addTask";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
-import ButtonUploader from "@/components/ButtonUploader";
+import { addTask } from "@ServerActions/addTask";
+import { MathJaxContext } from "better-react-mathjax";
+import ButtonUploader from "@Components/ButtonUploader";
 
 type DefaultTask = Omit<PrismaTask, "id">;
 

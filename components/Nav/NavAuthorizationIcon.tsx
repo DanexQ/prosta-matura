@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
-import SignInIcon32 from "@/assets/SignInIcon32.png";
-import AccountIcon from "@/assets/AccountIcon.png";
+import SignInIcon32 from "assets/SignInIcon32.png";
+import AccountIcon from "assets/AccountIcon.png";
 import Link from "next/link";
 import Image from "next/image";
 

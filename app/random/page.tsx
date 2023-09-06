@@ -1,5 +1,5 @@
-import RandomTask from "@/components/RandomTask";
-import { getFilteredTasks } from "@/lib/getFilteredTasks";
+import RandomTask from "@Components/RandomTask";
+import { getFilteredTasks } from "@Lib/getFilteredTasks";
 import { Prisma } from "@prisma/client";
 import { cache } from "react";
 

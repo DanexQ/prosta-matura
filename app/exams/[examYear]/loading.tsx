@@ -1,4 +1,4 @@
-import LoadingTasks from "@/components/TasksLoader/TasksLoader";
+import LoadingTasks from "@Components/TasksLoader/TasksLoader";
 
 export default function loading() {
   return (
