@@ -1,5 +1,5 @@
-import CloseModalButton from "@Components/CloseModalButton/Button";
-import SignInButton from "@Components/SignInButton";
+import CloseModalButton from "../../../../components/CloseModalButton";
+import SignInButton from "../../../../components/SignInButton";
 
 export default function Page({
   searchParams,

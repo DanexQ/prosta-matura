@@ -4,7 +4,7 @@ import dynamicRender from "next/dynamic";
 import { getFilteredTasks } from "@Lib/getFilteredTasks";
 import { Prisma } from "@prisma/client";
 import { getTaskTypes } from "@Lib/getTaskTypes";
-import TasksLoader from "@Components/TasksLoader/TasksLoader";
+import TasksLoader from "@Components/TasksLoader";
 import { taskTypeData } from "@CustomTypes/taskTypes";
 
 export type SearchParams = {
