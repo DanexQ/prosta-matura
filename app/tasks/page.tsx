@@ -1,15 +1,20 @@
-import React, { cache } from "react";
+import React from "react";
 import FiltersForm from "@Components/Filters";
 import dynamicRender from "next/dynamic";
-import { getFilteredTasks } from "@Lib/getFilteredTasks";
-import { Prisma } from "@prisma/client";
-import { getTaskTypes } from "@Lib/getTaskTypes";
 import TasksLoader from "@Components/TasksLoader";
 import { taskTypeData } from "@CustomTypes/taskTypes";
+import { TasksProps } from "../../components/Tasks";
+import { createApiUrl } from "@Lib/createApiUrl";
+import { authOptions } from "@Lib/authOptions";
+import { getServerSession } from "next-auth";
 
 export type SearchParams = {
   taskTypes?: string | undefined;
   page: number | undefined;
+};
+
+type TasksPageProps = {
+  searchParams: SearchParams;
 };
 
 export const generateMetadata = ({
@@ -34,35 +39,32 @@ export const generateMetadata = ({
   };
 };
 
-const getTasks = cache(
-  async (taskTypes: string | undefined, page: number = 1) => {
-    try {
-      const filters = taskTypes?.split(" ").map((taskType) => ({ taskType }));
-      const tasks = await getFilteredTasks({ OR: filters });
-      return {
-        tasks: tasks.slice((page - 1) * 5, page * 5),
-        tasksQuantity: tasks.length,
-      };
-    } catch (e) {
-      const err = e as Prisma.PrismaClientKnownRequestError;
-      throw new Error(err.message);
+const getTasks = async (searchParams: SearchParams): Promise<TasksProps> => {
+  const session = await getServerSession(authOptions);
+  const testResponse = await fetch(
+    await createApiUrl("tasks", { searchParams, userId: session?.user.id }),
+    {
+      method: "GET",
     }
-  }
-);
+  );
+  const data = (await testResponse.json()) as TasksProps;
+  return data;
+};
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  // eslint-disable-next-line testing-library/render-result-naming-convention
+const getTaskTypes = async () => {
+  const res = await fetch(await createApiUrl("taskTypes"), { method: "GET" });
+  const { taskTypes } = await res.json();
+  return taskTypes;
+};
+
+export default async function Page({ searchParams }: TasksPageProps) {
   const Tasks = dynamicRender(
     () => import("../../components/Tasks").then((T) => T.default),
     { loading: () => <TasksLoader /> }
   );
   const [tasksDetails, taskTypes] = await Promise.all([
-    getTasks(searchParams.taskTypes, searchParams.page),
-    getTaskTypes(),
+    await getTasks(searchParams),
+    await getTaskTypes(),
   ]);
 
   return (

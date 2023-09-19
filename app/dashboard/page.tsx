@@ -1,23 +1,19 @@
 import SignOutButton from "@Components/SignOutButton";
 import TaskTypeChart from "@Components/TaskTypeChart";
-import { authOptions, prisma } from "@Lib/authOptions";
-import { getTaskTypes } from "@Lib/getTaskTypes";
+import { authOptions } from "@Lib/authOptions";
+import { createApiUrl } from "@Lib/createApiUrl";
 import { Prisma } from "@prisma/client";
-import { createDashboardChartsData } from "@Utils/createDashboardChartsData";
+import { ChartData } from "@Utils/createDashboardChartsData";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
 const getDashboardData = async (userId: string) => {
   try {
-    const completedTasks = await prisma.completedTask.findMany({
-      where: { userId },
-      include: { task: { select: { taskType: true } } },
+    const res = await fetch(await createApiUrl("dashboard", { userId }), {
+      method: "GET",
     });
-    const taskTypes = await getTaskTypes();
-    const chartsData = createDashboardChartsData(completedTasks, taskTypes);
-    return chartsData;
+    const { chartData } = (await res.json()) as { chartData: ChartData[] };
+    return chartData;
   } catch (err) {
     const error = err as Prisma.PrismaClientKnownRequestError;
     throw new Error(error.message);

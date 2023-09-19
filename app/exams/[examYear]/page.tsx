@@ -1,15 +1,20 @@
 import Button from "@Components/Button";
 import Tasks from "@Components/Tasks";
-import { getFilteredTasks } from "@Lib/getFilteredTasks";
+import { TaskItem } from "@CustomTypes/taskTypes";
+import { createApiUrl } from "@Lib/createApiUrl";
 import { capitalizeWord } from "@Utils/capitalizeWord";
 import { Prisma } from "@prisma/client";
 import { Metadata } from "next";
 import Link from "next/link";
-import { cache } from "react";
 
 type ExamPageProps = {
-  params: { examYear: number };
+  params: { examYear: string };
   searchParams: { examType: string };
+};
+
+type ExamTasksSearchParams = {
+  examType: string;
+  examYear: string;
 };
 
 export async function generateMetadata({
@@ -24,21 +29,24 @@ export async function generateMetadata({
   };
 }
 
-const getExamTasks = cache(async (examYear: number, examType: string) => {
+const getExamTasks = async (searchParams: ExamTasksSearchParams) => {
   try {
-    const tasks = await getFilteredTasks({ examType, examYear });
-    return tasks;
+    const res = await fetch(await createApiUrl("examTasks", { searchParams }), {
+      method: "GET",
+    });
+    const { tasks } = await res.json();
+    return tasks as TaskItem[];
   } catch (err) {
     const error = err as Prisma.PrismaClientKnownRequestError;
     throw new Error(error.message);
   }
-});
+};
 
 export default async function Page({
   params: { examYear },
   searchParams: { examType },
 }: ExamPageProps) {
-  const tasks = await getExamTasks(+examYear, examType);
+  const tasks = await getExamTasks({ examYear, examType });
 
   return (
     <section className="flex flex-col gap-2 md:text-base animate-fadeIn">
@@ -58,8 +66,9 @@ export default async function Page({
         </h2>
         {/* <ExamTasksCounter examYear={examYear} examType={examType} /> */}
       </div>
+
       {!!tasks.length ? (
-        <Tasks tasks={tasks} />
+        <Tasks tasks={...tasks} />
       ) : (
         <div className="text-2xl text-center">
           Wkrótce pojawią się zadania z tej matury!

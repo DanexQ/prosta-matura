@@ -9,12 +9,12 @@ const config = {
   loader: { load: ["input/asciimath"] },
 };
 
-interface ITasks {
+export type TasksProps = {
   tasks: TaskItem[];
   tasksQuantity?: number;
-}
+};
 
-const Tasks = ({ tasks, tasksQuantity }: ITasks) => {
+const Tasks = ({ tasks, tasksQuantity }: TasksProps) => {
   return (
     <section className="flex flex-col gap-3 md:gap-5 text-gray-200 flex-[3_2_0%]">
       <MathJaxContext config={config}>

@@ -2,21 +2,21 @@
 import { TaskItem } from "@CustomTypes/taskTypes";
 import TaskAnswer from "./TaskAnswer";
 import TaskContent from "./TaskContent";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { createTagLabels } from "./createTagLabels";
 import TaskTags from "./TaskTags";
 import TaskCompletedButton from "./TaskCompletedButton";
-import { changeTaskCompletition } from "@ServerActions/changeTaskCompletition";
 import { Prisma } from "@prisma/client";
 import { MathJax } from "better-react-mathjax";
 import { taskStatusStyling } from "@Utils/taskStatusStyling";
+import { createApiUrl } from "@Lib/createApiUrl";
+import { revPath } from "@Lib/revPath";
 
 const Task = (details: TaskItem) => {
   const { data: session } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [taskStatus, setTaskStatus] = useState({
     loading: false,
     isCompleted: details.isCompleted,
@@ -30,16 +30,19 @@ const Task = (details: TaskItem) => {
     });
   }, [taskStatus]);
 
-  const handleChangeTaskCompletition = async () => {
+  const handleChangeTaskCompletition = useCallback(async () => {
     if (!session) return router.push("/auth/signin");
     setTaskStatus((prevState) => ({ ...prevState, loading: true }));
     try {
-      await changeTaskCompletition({
-        id: details.id,
-        isCompleted: details.isCompleted,
-        userId: session.user.id,
-        taskTypes: searchParams.get("taskTypes"),
-        page: searchParams.get("page"),
+      const response = await fetch(await createApiUrl("completedTasks"), {
+        method: taskStatus.isCompleted ? "DELETE" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: details.id,
+          userId: session.user.id,
+        }),
       });
       setTaskStatus((prevState) => ({
         ...prevState,
@@ -47,19 +50,19 @@ const Task = (details: TaskItem) => {
       }));
     } catch (err) {
       const error = err as Prisma.PrismaClientKnownRequestError;
-      throw new Error(error.code);
+      throw new Error(error.message);
     } finally {
+      revPath("/tasks");
       setTaskStatus((prevState) => ({
         ...prevState,
         loading: false,
       }));
     }
-  };
+  }, [taskStatus.isCompleted, session, details.id, router]);
 
   return (
     <div
       className={`flex flex-col p-4 border lg:p-8 ${borderStyling} text-inherit`}
-      data-testid="test-task"
     >
       <TaskTags labels={createTagLabels(details)} />
       <MathJax>

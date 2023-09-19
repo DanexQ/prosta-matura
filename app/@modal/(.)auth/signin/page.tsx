@@ -1,5 +1,5 @@
-import CloseModalButton from "../../../../components/CloseModalButton";
-import SignInButton from "../../../../components/SignInButton";
+import CloseModalButton from "@Components/CloseModalButton";
+import SignInButton from "@Components/SignInButton";
 
 export default function Page({
   searchParams,
@@ -11,7 +11,7 @@ export default function Page({
   const modalContent =
     modal === "signin"
       ? "Zaloguj się na swoje konto i miej swoje obliczone zadania wszędzie!"
-      : "Chyba chcesz mieć wszystkie obliczone zadania na każdym urządzeniu,prawda?";
+      : "Chyba chcesz mieć wszystkie obliczone zadania na każdym urządzeniu, prawda?";
 
   return (
     <div className="fixed top-0 left-0 w-full min-h-[100vh] z-50 bg-neutral-900/90 flex items-center">

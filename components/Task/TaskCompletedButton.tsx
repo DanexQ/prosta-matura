@@ -1,4 +1,3 @@
-"use client";
 import { taskStatusStyling } from "@Utils/taskStatusStyling";
 import React from "react";
 
@@ -16,6 +15,7 @@ const TaskCompletedButton = ({
     completed: "bg-green-500/60 hover:bg-green-600 after:bg-green-700",
     neutral: "",
   });
+
   return (
     <button
       className={`flex self-end btn-primary ${buttonStyling}`}
